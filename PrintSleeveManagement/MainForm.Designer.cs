@@ -31,7 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusMain = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusUser = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -58,17 +62,51 @@
             this.toolStripButton1.Size = new System.Drawing.Size(85, 45);
             this.toolStripButton1.Text = "&Receipt";
             // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusMain,
+            this.toolStripStatusUser});
+            this.statusStrip.Location = new System.Drawing.Point(0, 987);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1664, 24);
+            this.statusStrip.TabIndex = 3;
+            this.statusStrip.Text = "StatusBar";
+            // 
+            // toolStripStatusMain
+            // 
+            this.toolStripStatusMain.AutoSize = false;
+            this.toolStripStatusMain.Name = "toolStripStatusMain";
+            this.toolStripStatusMain.Size = new System.Drawing.Size(1200, 19);
+            this.toolStripStatusMain.Text = "Welcome to Print Sleeve Management";
+            this.toolStripStatusMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStripStatusUser
+            // 
+            this.toolStripStatusUser.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.toolStripStatusUser.Name = "toolStripStatusUser";
+            this.toolStripStatusUser.Size = new System.Drawing.Size(59, 19);
+            this.toolStripStatusUser.Text = "User By : ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1664, 1011);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip1);
             this.IsMdiContainer = true;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Print Sleeve Management";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -78,6 +116,9 @@
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusMain;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusUser;
     }
 }
 

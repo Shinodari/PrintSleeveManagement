@@ -65,8 +65,10 @@
             // 
             this.textBoxPassword.Location = new System.Drawing.Point(82, 38);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(250, 20);
             this.textBoxPassword.TabIndex = 2;
+            this.textBoxPassword.UseSystemPasswordChar = true;
             // 
             // buttonLogin
             // 
@@ -76,6 +78,7 @@
             this.buttonLogin.TabIndex = 3;
             this.buttonLogin.Text = "&Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // buttonExit
             // 
@@ -89,6 +92,7 @@
             // 
             // LoginForm
             // 
+            this.AcceptButton = this.buttonLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(347, 152);
@@ -99,6 +103,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
