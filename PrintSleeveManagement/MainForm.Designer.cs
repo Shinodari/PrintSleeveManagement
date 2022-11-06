@@ -61,13 +61,14 @@
             this.toolStripButton1.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButton1.Size = new System.Drawing.Size(85, 45);
             this.toolStripButton1.Text = "&Receipt";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusMain,
             this.toolStripStatusUser});
-            this.statusStrip.Location = new System.Drawing.Point(0, 987);
+            this.statusStrip.Location = new System.Drawing.Point(0, 917);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(1664, 24);
             this.statusStrip.TabIndex = 3;
@@ -92,7 +93,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1664, 1011);
+            this.ClientSize = new System.Drawing.Size(1664, 941);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip1);
             this.IsMdiContainer = true;

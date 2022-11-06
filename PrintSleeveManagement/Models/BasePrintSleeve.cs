@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace PrintSleeveManagement.Models
 {
-    class BasePrintSleeve
+    class BasePrintSleeve : Item
     {
-        public int ItemNo { get; set; }
-        public string PartNo { get; set; }
         public int Quantity { get; set; }
     }
 }
