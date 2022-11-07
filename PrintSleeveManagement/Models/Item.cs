@@ -10,7 +10,7 @@ namespace PrintSleeveManagement.Models
 {
     class Item : Database
     {
-        public int ItemNo { get; set; }
+        public string ItemNo { get; set; }
         public string PartNo { get; set; }
 
         public Item()
@@ -18,14 +18,42 @@ namespace PrintSleeveManagement.Models
 
         }
 
-        public Item(int itemNo, string partNo)
+        public Item(string itemNo, string partNo)
         {
             this.ItemNo = itemNo;
             this.PartNo = partNo;
         }
         public bool setItem(string partNo)
         {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                return false;
+            }
 
+            SqlCommand command;
+            SqlDataReader dataReader;
+            string sql = "SELECT ItemNo FROM Item WHERE PartNo = '" + partNo + "'";
+            command = new SqlCommand(sql, cnn);
+            dataReader = command.ExecuteReader();
+            int count = 0;
+            string itemNo = null;
+            while (dataReader.Read())
+            {
+                count++;
+                itemNo = dataReader.GetValue(0).ToString();
+            }
+            if (count == 1)
+            {
+                this.ItemNo = itemNo;
+                this.PartNo = partNo;
+                return true;
+            }
+            else
+            {
+                errorString = "Error: Count ItemNo find = " + count + "./nPlease contact Administrator!!!";
+                return false;
+            }
         }
         public List<Item> getAll()
         {
@@ -45,7 +73,7 @@ namespace PrintSleeveManagement.Models
             dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                itemList.Add(new Item(Convert.ToInt32(dataReader.GetValue(0)), dataReader.GetValue(1).ToString()));
+                itemList.Add(new Item(dataReader.GetValue(0).ToString(), dataReader.GetValue(1).ToString()));
             }
             close();
             return itemList;

@@ -118,9 +118,17 @@ namespace PrintSleeveManagement
         private void addPrintSleeve()
         {
             BasePrintSleeve basePrintSleeve = new BasePrintSleeve();
-            basePrintSleeve.PartNo = listBoxPartNo.GetItemText(listBoxPartNo.SelectedIndex);
-            basePrintSleeve.Quantity = Int32.Parse(textBoxQuantity.Text);
-            basePrintSleeveList.Add(basePrintSleeve);
+            if (basePrintSleeve.setItem(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem)))
+            {
+                basePrintSleeve.Quantity = Int32.Parse(textBoxQuantity.Text);
+                basePrintSleeveList.Add(basePrintSleeve);
+                dataGridViewPrintSleeve.DataSource = basePrintSleeveList;////////-----------------
+
+            }
+            else
+            {
+                MessageBox.Show(basePrintSleeve.getErrorString());
+            }
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)

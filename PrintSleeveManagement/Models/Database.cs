@@ -11,7 +11,7 @@ namespace PrintSleeveManagement.Models
     {
         protected SqlConnection cnn;
         private string connectionString;
-        private string errorString;
+        protected string errorString;
         
         public enum CONNECT_RESULT
         {
