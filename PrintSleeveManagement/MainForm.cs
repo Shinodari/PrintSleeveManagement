@@ -55,5 +55,12 @@ namespace PrintSleeveManagement
                 toolStripStatusUser.Text = "User by : " + Authentication.Username;
             }
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            ReceiptForm receiptForm = new ReceiptForm();
+            receiptForm.MdiParent = this;
+            receiptForm.Show();
+        }
     }
 }
