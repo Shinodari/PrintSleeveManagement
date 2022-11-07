@@ -18,6 +18,8 @@ namespace PrintSleeveManagement
         {
             InitializeComponent();
 
+            setDisplay(true);
+
             Item item = new Item();
             List<Item> partNoList = item.getAll();
             if (partNoList == null)
@@ -36,21 +38,94 @@ namespace PrintSleeveManagement
         {
             if (textBoxPartNo.Text != "")
             {
-                int index = listBoxPartNo.FindString(textBoxPartNo.Text);
+                int index = listBoxPartNo.FindString(textBoxPartNo.Text.ToUpper());
                 if (index != -1)
                     listBoxPartNo.SetSelected(index, true);
             }
-            /*
-            if (textBoxPartNo.Text != "")
+        }
+        private void textBoxPONo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
-                for (int i = 0; i < listBoxPartNo.Items.Count; i++)
-                {
-                    if (listBoxPartNo.Items[i].ToString().ToLower().Contains(textBoxPartNo.Text.ToLower()))
-                    {
+                e.Handled = true;
+            }
+            
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                newPO();
+            }
+        }
+        private void newPO()
+        {
+            setDisplay(false);
+            textBoxPartNo.Focus();
+        }
+        private void setDisplay(bool lockStatus)
+        {
+            if (lockStatus)
+            {
+                textBoxPONo.Enabled = true;
+                buttonNew.Enabled = true;
+                buttonClear.Enabled = false;
 
-                    }
-                }
-            }/**/
+                textBoxPartNo.Enabled = false;
+                listBoxPartNo.Enabled = false;
+                textBoxQuantity.Enabled = false;
+                buttonAdd.Enabled = false;
+                buttonEdit.Enabled = false;
+                buttonDelete.Enabled = false;
+
+                dataGridViewPrintSleeve.Enabled = false;
+            }
+            else
+            {
+                textBoxPONo.Enabled = false;
+                buttonNew.Enabled = false;
+                buttonClear.Enabled = true;
+
+                textBoxPartNo.Enabled = true;
+                listBoxPartNo.Enabled = true;
+                textBoxQuantity.Enabled = true;
+                buttonAdd.Enabled = true;
+                buttonEdit.Enabled = true;
+                buttonDelete.Enabled = true;
+
+                dataGridViewPrintSleeve.Enabled = true;
+            }
+        }
+
+        private void buttonNew_Click(object sender, EventArgs e)
+        {
+            newPO();
+        }
+
+        private void textBoxPartNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                textBoxQuantity.Focus();
+            }
+        }
+
+        private void textBoxQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                addPrintSleeve();
+            }
+        }
+
+        private void addPrintSleeve()
+        {
+            BasePrintSleeve basePrintSleeve = new BasePrintSleeve();
+            basePrintSleeve.PartNo = listBoxPartNo.GetItemText(listBoxPartNo.SelectedIndex);
+            basePrintSleeve.Quantity = Int32.Parse(textBoxQuantity.Text);
+            basePrintSleeveList.Add(basePrintSleeve);
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            addPrintSleeve();
         }
     }
 }

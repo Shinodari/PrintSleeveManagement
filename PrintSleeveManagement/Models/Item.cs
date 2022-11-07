@@ -23,7 +23,10 @@ namespace PrintSleeveManagement.Models
             this.ItemNo = itemNo;
             this.PartNo = partNo;
         }
+        public bool setItem(string partNo)
+        {
 
+        }
         public List<Item> getAll()
         {
             List<Item> itemList = new List<Item>();
@@ -37,7 +40,7 @@ namespace PrintSleeveManagement.Models
 
             SqlCommand command;
             SqlDataReader dataReader;
-            string sql = "SELECT * FROM Item";
+            string sql = "SELECT * FROM Item ORDER BY PartNo";
             command = new SqlCommand(sql, cnn);
             dataReader = command.ExecuteReader();
             while (dataReader.Read())

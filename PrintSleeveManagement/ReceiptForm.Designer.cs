@@ -31,13 +31,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxPONo = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonNew = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.listBoxPartNo = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxQuantity = new System.Windows.Forms.TextBox();
             this.textBoxPartNo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewPrintSleeve = new System.Windows.Forms.DataGridView();
@@ -61,17 +63,40 @@
             this.textBoxPONo.Name = "textBoxPONo";
             this.textBoxPONo.Size = new System.Drawing.Size(100, 20);
             this.textBoxPONo.TabIndex = 1;
+            this.textBoxPONo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPONo_KeyPress);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonClear);
+            this.groupBox1.Controls.Add(this.buttonNew);
             this.groupBox1.Controls.Add(this.textBoxPONo);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(300, 53);
+            this.groupBox1.Size = new System.Drawing.Size(300, 82);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Receipt Header";
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Enabled = false;
+            this.buttonClear.Location = new System.Drawing.Point(184, 46);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonClear.TabIndex = 2;
+            this.buttonClear.Text = "&Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            // 
+            // buttonNew
+            // 
+            this.buttonNew.Location = new System.Drawing.Point(184, 17);
+            this.buttonNew.Name = "buttonNew";
+            this.buttonNew.Size = new System.Drawing.Size(75, 23);
+            this.buttonNew.TabIndex = 2;
+            this.buttonNew.Text = "&New";
+            this.buttonNew.UseVisualStyleBackColor = true;
+            this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
             // 
             // groupBox2
             // 
@@ -80,18 +105,19 @@
             this.groupBox2.Controls.Add(this.buttonAdd);
             this.groupBox2.Controls.Add(this.listBoxPartNo);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.textBoxQuantity);
             this.groupBox2.Controls.Add(this.textBoxPartNo);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(13, 73);
+            this.groupBox2.Location = new System.Drawing.Point(13, 101);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(300, 544);
+            this.groupBox2.Size = new System.Drawing.Size(300, 408);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Receipt Detail";
             // 
             // buttonDelete
             // 
+            this.buttonDelete.Enabled = false;
             this.buttonDelete.Location = new System.Drawing.Point(184, 255);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 23);
@@ -101,6 +127,7 @@
             // 
             // buttonEdit
             // 
+            this.buttonEdit.Enabled = false;
             this.buttonEdit.Location = new System.Drawing.Point(184, 226);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(75, 23);
@@ -110,15 +137,18 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.Enabled = false;
             this.buttonAdd.Location = new System.Drawing.Point(184, 197);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 4;
             this.buttonAdd.Text = "&Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // listBoxPartNo
             // 
+            this.listBoxPartNo.Enabled = false;
             this.listBoxPartNo.FormattingEnabled = true;
             this.listBoxPartNo.Location = new System.Drawing.Point(64, 46);
             this.listBoxPartNo.Name = "listBoxPartNo";
@@ -134,21 +164,25 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Quantity :";
             // 
-            // textBox1
+            // textBoxQuantity
             // 
-            this.textBox1.Location = new System.Drawing.Point(64, 199);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "200";
+            this.textBoxQuantity.Enabled = false;
+            this.textBoxQuantity.Location = new System.Drawing.Point(64, 199);
+            this.textBoxQuantity.Name = "textBoxQuantity";
+            this.textBoxQuantity.Size = new System.Drawing.Size(100, 20);
+            this.textBoxQuantity.TabIndex = 3;
+            this.textBoxQuantity.Text = "200";
+            this.textBoxQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxQuantity_KeyPress);
             // 
             // textBoxPartNo
             // 
+            this.textBoxPartNo.Enabled = false;
             this.textBoxPartNo.Location = new System.Drawing.Point(64, 20);
             this.textBoxPartNo.Name = "textBoxPartNo";
             this.textBoxPartNo.Size = new System.Drawing.Size(230, 20);
             this.textBoxPartNo.TabIndex = 2;
             this.textBoxPartNo.TextChanged += new System.EventHandler(this.textBoxPartNo_TextChanged);
+            this.textBoxPartNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPartNo_KeyPress);
             // 
             // label2
             // 
@@ -163,6 +197,7 @@
             // 
             this.dataGridViewPrintSleeve.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewPrintSleeve.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPrintSleeve.Enabled = false;
             this.dataGridViewPrintSleeve.Location = new System.Drawing.Point(319, 13);
             this.dataGridViewPrintSleeve.Name = "dataGridViewPrintSleeve";
             this.dataGridViewPrintSleeve.Size = new System.Drawing.Size(500, 468);
@@ -194,7 +229,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxQuantity;
         private System.Windows.Forms.TextBox textBoxPartNo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBoxPartNo;
@@ -202,5 +237,7 @@
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonEdit;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonNew;
     }
 }
