@@ -13,7 +13,8 @@ namespace PrintSleeveManagement
 {
     public partial class ReceiptForm : Form
     {
-        List<BasePrintSleeve> basePrintSleeveList;
+        private List<BasePrintSleeve> basePrintSleeveList;
+        private BindingSource bindignSource;
         public ReceiptForm()
         {
             InitializeComponent();
@@ -30,7 +31,9 @@ namespace PrintSleeveManagement
             listBoxPartNo.DisplayMember = "PartNo";
 
             basePrintSleeveList = new List<BasePrintSleeve>();
-            dataGridViewPrintSleeve.DataSource = basePrintSleeveList;
+            bindignSource = new BindingSource();
+            bindignSource.DataSource = basePrintSleeveList;
+            dataGridViewPrintSleeve.DataSource = bindignSource;
             dataGridViewPrintSleeve.Columns["Quantity"].DisplayIndex = 2;
         }
 
@@ -103,7 +106,7 @@ namespace PrintSleeveManagement
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                textBoxQuantity.Focus();
+                listBoxPartNo.Focus();
             }
         }
 
@@ -120,10 +123,13 @@ namespace PrintSleeveManagement
             BasePrintSleeve basePrintSleeve = new BasePrintSleeve();
             if (basePrintSleeve.setItem(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem)))
             {
-                basePrintSleeve.Quantity = Int32.Parse(textBoxQuantity.Text);
-                basePrintSleeveList.Add(basePrintSleeve);
-                dataGridViewPrintSleeve.DataSource = basePrintSleeveList;////////-----------------
-
+                BasePrintSleeve printSleeve = new BasePrintSleeve();
+                printSleeve.setItem(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem));
+                printSleeve.Quantity = Int32.Parse(textBoxQuantity.Text);
+                bindignSource.Add(printSleeve);
+                dataGridViewPrintSleeve.Rows[dataGridViewPrintSleeve.RowCount - 1].Selected = true;///---Not Work, I
+                textBoxPartNo.Text = "";
+                textBoxPartNo.Focus();
             }
             else
             {
@@ -134,6 +140,15 @@ namespace PrintSleeveManagement
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             addPrintSleeve();
+        }
+
+        private void listBoxPartNo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                textBoxQuantity.Text = "200";
+                textBoxQuantity.Focus();
+            }
         }
     }
 }

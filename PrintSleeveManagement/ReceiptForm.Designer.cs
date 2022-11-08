@@ -154,6 +154,7 @@
             this.listBoxPartNo.Name = "listBoxPartNo";
             this.listBoxPartNo.Size = new System.Drawing.Size(230, 147);
             this.listBoxPartNo.TabIndex = 4;
+            this.listBoxPartNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBoxPartNo_KeyPress);
             // 
             // label3
             // 
@@ -195,11 +196,16 @@
             // 
             // dataGridViewPrintSleeve
             // 
+            this.dataGridViewPrintSleeve.AllowUserToAddRows = false;
+            this.dataGridViewPrintSleeve.AllowUserToDeleteRows = false;
             this.dataGridViewPrintSleeve.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewPrintSleeve.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPrintSleeve.Enabled = false;
             this.dataGridViewPrintSleeve.Location = new System.Drawing.Point(319, 13);
+            this.dataGridViewPrintSleeve.MultiSelect = false;
             this.dataGridViewPrintSleeve.Name = "dataGridViewPrintSleeve";
+            this.dataGridViewPrintSleeve.ReadOnly = true;
+            this.dataGridViewPrintSleeve.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewPrintSleeve.Size = new System.Drawing.Size(500, 468);
             this.dataGridViewPrintSleeve.TabIndex = 10;
             // 

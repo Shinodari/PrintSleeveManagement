@@ -8,6 +8,10 @@ namespace PrintSleeveManagement.Models
 {
     class BasePrintSleeve : Item
     {
+        public BasePrintSleeve()
+        {
+
+        }
         public int Quantity { get; set; }
     }
 }
