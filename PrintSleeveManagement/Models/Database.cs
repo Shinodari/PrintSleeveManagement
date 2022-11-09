@@ -24,7 +24,7 @@ namespace PrintSleeveManagement.Models
             connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\PSMDatabase.mdf;Integrated Security=True";
         }
 
-        public CONNECT_RESULT connect()
+        protected CONNECT_RESULT connect()
         {
             cnn = new SqlConnection(connectionString);
             try
@@ -38,7 +38,7 @@ namespace PrintSleeveManagement.Models
             }
         }
 
-        public void close()
+        protected void close()
         {
             cnn.Close(); 
         }

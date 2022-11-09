@@ -12,6 +12,10 @@ namespace PrintSleeveManagement.Models
         {
 
         }
+        public BasePrintSleeve(string itemNo, string partNo, int quantity) : base(itemNo, partNo)
+        {
+            this.Quantity = quantity;
+        }
         public int Quantity { get; set; }
     }
 }

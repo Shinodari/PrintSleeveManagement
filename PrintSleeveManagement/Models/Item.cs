@@ -47,11 +47,17 @@ namespace PrintSleeveManagement.Models
             {
                 this.ItemNo = itemNo;
                 this.PartNo = partNo;
+                dataReader.Close();
+                command.Dispose();
+                close();
                 return true;
             }
             else
             {
                 errorString = "Error: Count ItemNo find = " + count + "./nPlease contact Administrator!!!";
+                dataReader.Close();
+                command.Dispose();
+                close();
                 return false;
             }
         }
@@ -75,6 +81,8 @@ namespace PrintSleeveManagement.Models
             {
                 itemList.Add(new Item(dataReader.GetValue(0).ToString(), dataReader.GetValue(1).ToString()));
             }
+            dataReader.Close();
+            command.Dispose();
             close();
             return itemList;
         }

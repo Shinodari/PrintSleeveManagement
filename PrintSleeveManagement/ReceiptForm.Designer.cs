@@ -34,6 +34,8 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonNew = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonDone = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
@@ -43,6 +45,7 @@
             this.textBoxPartNo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewPrintSleeve = new System.Windows.Forms.DataGridView();
+            this.buttonReceiptAll = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrintSleeve)).BeginInit();
@@ -87,6 +90,7 @@
             this.buttonClear.TabIndex = 2;
             this.buttonClear.Text = "&Clear";
             this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // buttonNew
             // 
@@ -100,6 +104,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.buttonCancel);
+            this.groupBox2.Controls.Add(this.buttonDone);
             this.groupBox2.Controls.Add(this.buttonDelete);
             this.groupBox2.Controls.Add(this.buttonEdit);
             this.groupBox2.Controls.Add(this.buttonAdd);
@@ -110,10 +116,32 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(13, 101);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(300, 408);
+            this.groupBox2.Size = new System.Drawing.Size(300, 289);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Receipt Detail";
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(89, 255);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 7;
+            this.buttonCancel.Text = "Cance&l";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Visible = false;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonDone
+            // 
+            this.buttonDone.Location = new System.Drawing.Point(89, 226);
+            this.buttonDone.Name = "buttonDone";
+            this.buttonDone.Size = new System.Drawing.Size(75, 23);
+            this.buttonDone.TabIndex = 7;
+            this.buttonDone.Text = "&Done";
+            this.buttonDone.UseVisualStyleBackColor = true;
+            this.buttonDone.Visible = false;
+            this.buttonDone.Click += new System.EventHandler(this.buttonDone_Click);
             // 
             // buttonDelete
             // 
@@ -124,6 +152,7 @@
             this.buttonDelete.TabIndex = 6;
             this.buttonDelete.Text = "&Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonEdit
             // 
@@ -134,6 +163,7 @@
             this.buttonEdit.TabIndex = 5;
             this.buttonEdit.Text = "&Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // buttonAdd
             // 
@@ -153,7 +183,7 @@
             this.listBoxPartNo.Location = new System.Drawing.Point(64, 46);
             this.listBoxPartNo.Name = "listBoxPartNo";
             this.listBoxPartNo.Size = new System.Drawing.Size(230, 147);
-            this.listBoxPartNo.TabIndex = 4;
+            this.listBoxPartNo.TabIndex = 3;
             this.listBoxPartNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBoxPartNo_KeyPress);
             // 
             // label3
@@ -171,7 +201,7 @@
             this.textBoxQuantity.Location = new System.Drawing.Point(64, 199);
             this.textBoxQuantity.Name = "textBoxQuantity";
             this.textBoxQuantity.Size = new System.Drawing.Size(100, 20);
-            this.textBoxQuantity.TabIndex = 3;
+            this.textBoxQuantity.TabIndex = 4;
             this.textBoxQuantity.Text = "200";
             this.textBoxQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxQuantity_KeyPress);
             // 
@@ -183,6 +213,7 @@
             this.textBoxPartNo.Size = new System.Drawing.Size(230, 20);
             this.textBoxPartNo.TabIndex = 2;
             this.textBoxPartNo.TextChanged += new System.EventHandler(this.textBoxPartNo_TextChanged);
+            this.textBoxPartNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxPartNo_KeyDown);
             this.textBoxPartNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPartNo_KeyPress);
             // 
             // label2
@@ -200,20 +231,31 @@
             this.dataGridViewPrintSleeve.AllowUserToDeleteRows = false;
             this.dataGridViewPrintSleeve.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewPrintSleeve.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPrintSleeve.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewPrintSleeve.Enabled = false;
             this.dataGridViewPrintSleeve.Location = new System.Drawing.Point(319, 13);
             this.dataGridViewPrintSleeve.MultiSelect = false;
             this.dataGridViewPrintSleeve.Name = "dataGridViewPrintSleeve";
-            this.dataGridViewPrintSleeve.ReadOnly = true;
             this.dataGridViewPrintSleeve.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPrintSleeve.Size = new System.Drawing.Size(500, 468);
+            this.dataGridViewPrintSleeve.Size = new System.Drawing.Size(450, 468);
             this.dataGridViewPrintSleeve.TabIndex = 10;
+            // 
+            // buttonReceiptAll
+            // 
+            this.buttonReceiptAll.Location = new System.Drawing.Point(177, 406);
+            this.buttonReceiptAll.Name = "buttonReceiptAll";
+            this.buttonReceiptAll.Size = new System.Drawing.Size(110, 62);
+            this.buttonReceiptAll.TabIndex = 11;
+            this.buttonReceiptAll.Text = "&Receive All";
+            this.buttonReceiptAll.UseVisualStyleBackColor = true;
+            this.buttonReceiptAll.Click += new System.EventHandler(this.buttonReceiptAll_Click);
             // 
             // ReceiptForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1584, 761);
+            this.ClientSize = new System.Drawing.Size(789, 493);
+            this.Controls.Add(this.buttonReceiptAll);
             this.Controls.Add(this.dataGridViewPrintSleeve);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -245,5 +287,8 @@
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonNew;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonDone;
+        private System.Windows.Forms.Button buttonReceiptAll;
     }
 }
