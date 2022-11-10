@@ -26,23 +26,30 @@ namespace PrintSleeveManagement.Models
             SqlDataAdapter adapter = new SqlDataAdapter();
 
             bool flagFirstValue = true;
-            string sql = "INSERT INTO Receipt(PONo, ItemNo, Quantity, Receiver) VALUES";
-            foreach (BasePrintSleeve printSleeve in PrintSleeve)
-            {
-                if (flagFirstValue)
-                {
-                    flagFirstValue = false;
-                } else
-                {
-                    sql += ",";
-                }
-                sql += "(" + this.PONo + ",'" + printSleeve.ItemNo + "'," + printSleeve.Quantity + ",'" + Authentication.Username + "')";
-            }
-
+            int row = -2;
+            string sql = "INSERT INTO Receipt(PONo, Receiver) VALUES(" + this.PONo + ", '" + Authentication.Username + "')";
             command = new SqlCommand(sql, cnn);
             adapter.InsertCommand = command;
-            int row = adapter.InsertCommand.ExecuteNonQuery();
+            if (adapter.InsertCommand.ExecuteNonQuery() > 0)
+            {
+                sql = "INSERT INTO Receipt_Item VALUES";
+                foreach (BasePrintSleeve printSleeve in PrintSleeve)
+                {
+                    if (flagFirstValue)
+                    {
+                        flagFirstValue = false;
+                    }
+                    else
+                    {
+                        sql += ",";
+                    }
+                    sql += "(" + this.PONo + ",'" + printSleeve.ItemNo + "'," + printSleeve.Quantity + ")";
+                }
 
+                command = new SqlCommand(sql, cnn);
+                adapter.InsertCommand = command;
+                row = adapter.InsertCommand.ExecuteNonQuery();
+            }
             command.Dispose();
             close();
             return row;
