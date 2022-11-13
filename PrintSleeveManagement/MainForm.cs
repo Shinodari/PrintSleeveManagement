@@ -62,5 +62,12 @@ namespace PrintSleeveManagement
             receiptForm.MdiParent = this;
             receiptForm.Show();
         }
+
+        private void toolStripPutAway_Click(object sender, EventArgs e)
+        {
+            PutAwayForm putAwayForm = new PutAwayForm();
+            putAwayForm.MdiParent = this;
+            putAwayForm.Show();
+        }
     }
 }

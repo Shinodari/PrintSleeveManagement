@@ -34,6 +34,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusMain = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusUser = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripPutAway = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -41,7 +42,8 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripPutAway});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 5, 1, 5);
@@ -89,6 +91,20 @@
             this.toolStripStatusUser.Size = new System.Drawing.Size(59, 19);
             this.toolStripStatusUser.Text = "User By : ";
             // 
+            // toolStripPutAway
+            // 
+            this.toolStripPutAway.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.toolStripPutAway.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripPutAway.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.toolStripPutAway.Image = ((System.Drawing.Image)(resources.GetObject("toolStripPutAway.Image")));
+            this.toolStripPutAway.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripPutAway.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolStripPutAway.Name = "toolStripPutAway";
+            this.toolStripPutAway.Padding = new System.Windows.Forms.Padding(10);
+            this.toolStripPutAway.Size = new System.Drawing.Size(95, 45);
+            this.toolStripPutAway.Text = "&PutAway";
+            this.toolStripPutAway.Click += new System.EventHandler(this.toolStripPutAway_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -120,6 +136,7 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusMain;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusUser;
+        private System.Windows.Forms.ToolStripButton toolStripPutAway;
     }
 }
 

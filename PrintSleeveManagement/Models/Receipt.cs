@@ -14,6 +14,28 @@ namespace PrintSleeveManagement.Models
             this.PONo = poNo;
             PrintSleeve = new List<BasePrintSleeve>();
         }
+
+        public void getReceipt()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return;
+            }
+            SqlCommand command;
+            SqlDataReader dataReader;
+            String sql = "SELECT * FROM Receipt_Item WHERE PONo = '" + this.PONo + "'";
+            command = new SqlCommand(sql, cnn);
+            dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                PrintSleeve.Add(new BasePrintSleeve(dataReader.GetValue(1).ToString(), dataReader.GetInt32(2)));
+            }
+
+            dataReader.Close();
+            command.Dispose();
+        }
         
         public int receiveAll()
         {

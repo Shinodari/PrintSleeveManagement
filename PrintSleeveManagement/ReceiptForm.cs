@@ -147,7 +147,7 @@ namespace PrintSleeveManagement
                 return;
             }
 
-            if (basePrintSleeve.setItem(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem)))
+            if (basePrintSleeve.setItemNo(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem)))
             {
                 if (receipt.PrintSleeve.Exists(x => x.ItemNo == basePrintSleeve.ItemNo))
                 {
