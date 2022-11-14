@@ -33,7 +33,6 @@ namespace PrintSleeveManagement
             if (alreadyPO)
             {
                 groupBoxPrintSleeve.Enabled = true;
-                groupBoxBluetooth.Enabled = true;
 
                 textBoxPONo.Enabled = false;
                 dataGridViewReceipt.Enabled = true;
@@ -41,7 +40,6 @@ namespace PrintSleeveManagement
             else
             {
                 groupBoxPrintSleeve.Enabled = false;
-                groupBoxBluetooth.Enabled = false;
 
                 textBoxPONo.Enabled = true;
                 dataGridViewReceipt.Enabled = false;
@@ -50,6 +48,8 @@ namespace PrintSleeveManagement
 
         private void commitPO()
         {
+            setDiplayReceipt(true);
+
             int pONo = Int32.Parse(textBoxPONo.Text);
             receipt = new Receipt(pONo);
             receipt.getReceipt();
@@ -57,7 +57,16 @@ namespace PrintSleeveManagement
             bindingSource.DataSource = receipt.PrintSleeve;
             dataGridViewReceipt.DataSource = bindingSource;
             dataGridViewReceipt.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewReceipt.Columns["Available"].DisplayIndex = 3;
             dataGridViewReceipt.Columns["Quantity"].DisplayIndex = 2;
+            bindingSource.PositionChanged += new EventHandler(rowChanged);
+
+            labelPartNo.Text = dataGridViewReceipt.Rows[0].Cells[3].Value.ToString();
+        }
+
+        private void rowChanged(object sender, System.EventArgs e)
+        {
+            labelPartNo.Text = dataGridViewReceipt.Rows[bindingSource.Position].Cells[3].Value.ToString();
         }
 
         private void textBoxPONo_KeyPress(object sender, KeyPressEventArgs e)

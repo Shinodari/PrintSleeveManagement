@@ -106,6 +106,7 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\PrintSleeve.cs" />
     <Compile Include="Models\Receipt.cs" />
+    <Compile Include="Models\ReceiptBasePrintSleeve.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

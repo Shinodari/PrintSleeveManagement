@@ -8,6 +8,10 @@ namespace PrintSleeveManagement.Models
 {
     class PrintSleeve : BasePrintSleeve
     {
+        public PrintSleeve(int pONo)
+        {
+
+        }
         public void create(Receipt receipt, string itemNo, string rollNo, DateTime expiredDate)
         {
 
@@ -18,10 +22,10 @@ namespace PrintSleeveManagement.Models
 
         }
 
-        string RollNo { get; set; }
-        Receipt Receipt { get; set; }
+        int RollNo { get; set; }
+        int PONo { get; }
         string LotNo { get; set; }
-        string RollNoSecondary { get; set; }
+        int RollNoSecondary { get; set; }
         DateTime ExpiredDate { get; set; }
         
         

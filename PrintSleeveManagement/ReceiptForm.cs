@@ -62,7 +62,8 @@ namespace PrintSleeveManagement
             bindignSource.DataSource = receipt.PrintSleeve;
             dataGridViewPrintSleeve.DataSource = bindignSource;
             dataGridViewPrintSleeve.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewPrintSleeve.Columns["Quantity"].DisplayIndex = 2;/**/
+            dataGridViewPrintSleeve.Columns["Quantity"].DisplayIndex = 3;
+            dataGridViewPrintSleeve.Columns["Available"].Visible = false;
 
             setDisplay(false);
             textBoxPartNo.Focus();
@@ -140,7 +141,7 @@ namespace PrintSleeveManagement
 
         private void addPrintSleeve()
         {
-            BasePrintSleeve basePrintSleeve = new BasePrintSleeve();
+            ReceiptBasePrintSleeve basePrintSleeve = new ReceiptBasePrintSleeve();
             if (textBoxQuantity.Text == "")
             {
                 MessageBox.Show("Please enter the Quantity!");
@@ -286,6 +287,11 @@ namespace PrintSleeveManagement
 
         private void buttonReceiptAll_Click(object sender, EventArgs e)
         {
+            if (dataGridViewPrintSleeve.RowCount < 1)
+            {
+                MessageBox.Show("Please add PrintSleeve into this PO!");
+                return;
+            }
             int result =receipt.receiveAll();
             if (result >= 0)
             {

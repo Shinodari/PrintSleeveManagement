@@ -12,7 +12,7 @@ namespace PrintSleeveManagement.Models
         public Receipt(int poNo)
         {
             this.PONo = poNo;
-            PrintSleeve = new List<BasePrintSleeve>();
+            PrintSleeve = new List<ReceiptBasePrintSleeve>();
         }
 
         public void getReceipt()
@@ -25,13 +25,26 @@ namespace PrintSleeveManagement.Models
             }
             SqlCommand command;
             SqlDataReader dataReader;
-            String sql = "SELECT * FROM Receipt_Item WHERE PONo = '" + this.PONo + "'";
+            String sql = "SELECT Receipt_Item.*, Item.PartNo, SUM(PrintSleeve.Quantity) AS Available FROM Item, Receipt_Item LEFT JOIN PrintSleeve\n";
+            sql += "ON Receipt_Item.ItemNo = PrintSleeve.ItemNo\n";
+            sql += "WHERE Receipt_Item.ItemNo = Item.ItemNo AND Receipt_Item.PONo = '" + this.PONo + "'\n";
+            sql += "GROUP BY Receipt_Item.ItemNo, Receipt_Item.PONo, Receipt_Item.Quantity, Item.PartNo\n";
+            sql += "ORDER BY PartNo";
             command = new SqlCommand(sql, cnn);
             dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                PrintSleeve.Add(new BasePrintSleeve(dataReader.GetValue(1).ToString(), dataReader.GetInt32(2)));
-            }
+                int available;
+                if (string.IsNullOrEmpty(dataReader.GetValue(4).ToString()))
+                {
+                    available = 0;
+                }
+                else
+                {
+                    available = dataReader.GetInt32(4);
+                }
+                PrintSleeve.Add(new ReceiptBasePrintSleeve(dataReader.GetValue(1).ToString(), dataReader.GetString(3), dataReader.GetInt32(2), available));
+            }                 
 
             dataReader.Close();
             command.Dispose();
@@ -78,7 +91,7 @@ namespace PrintSleeveManagement.Models
         }
 
         public int PONo { get; set; }
-        public List<BasePrintSleeve> PrintSleeve { get; }
+        public List<ReceiptBasePrintSleeve> PrintSleeve { get; }
         public DateTime ReceiptTime { get; set; }
         public string Receiver { get; set; }
     }
