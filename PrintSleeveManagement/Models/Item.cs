@@ -18,12 +18,56 @@ namespace PrintSleeveManagement.Models
 
         }
 
+        public Item(string itemNo)
+        {
+            setPartNo(itemNo);
+        }
+
         public Item(string itemNo, string partNo)
         {
             this.ItemNo = itemNo;
             this.PartNo = partNo;
         }
-        public bool setItem(string partNo)
+
+        public bool  setPartNo(string itemNo)
+        {
+            bool result;
+
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                return false;
+            }
+            SqlCommand command;
+            SqlDataReader dataReader;
+            string sql = "SELECT PartNo FROM Item WHERE ItemNo = '" + itemNo + "'";
+            command = new SqlCommand(sql, cnn);
+            dataReader = command.ExecuteReader();
+            int count = 0;
+            string partNo = null;
+            while (dataReader.Read())
+            {
+                count++;
+                partNo = dataReader.GetValue(0).ToString();
+            }
+            if (count == 1)
+            {
+                this.ItemNo = itemNo;
+                this.PartNo = partNo;
+                result = true;
+            }
+            else
+            {
+                errorString = "Error: Count PartNo find = " + count + "./nPlease contact Administrator!!!";
+                result = false;
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+            return result;
+        }
+
+        public bool setItemNo(string partNo)
         {
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
@@ -61,6 +105,7 @@ namespace PrintSleeveManagement.Models
                 return false;
             }
         }
+
         public List<Item> getAll()
         {
             List<Item> itemList = new List<Item>();
