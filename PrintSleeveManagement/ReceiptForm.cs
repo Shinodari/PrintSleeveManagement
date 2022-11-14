@@ -59,7 +59,7 @@ namespace PrintSleeveManagement
 
             receipt = new Receipt(Int32.Parse(textBoxPONo.Text));
             bindignSource = new BindingSource();
-            bindignSource.DataSource = receipt.PrintSleeve;
+            bindignSource.DataSource = receipt.ReceiptBasePrintSleeve;
             dataGridViewPrintSleeve.DataSource = bindignSource;
             dataGridViewPrintSleeve.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewPrintSleeve.Columns["Quantity"].DisplayIndex = 3;
@@ -150,7 +150,7 @@ namespace PrintSleeveManagement
 
             if (basePrintSleeve.setItemNo(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem)))
             {
-                if (receipt.PrintSleeve.Exists(x => x.ItemNo == basePrintSleeve.ItemNo))
+                if (receipt.ReceiptBasePrintSleeve.Exists(x => x.ItemNo == basePrintSleeve.ItemNo))
                 {
                     MessageBox.Show(basePrintSleeve.PartNo + " is Already!\nPlease another part or use edit mode");
                 }

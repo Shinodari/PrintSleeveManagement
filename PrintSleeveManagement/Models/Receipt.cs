@@ -9,10 +9,45 @@ namespace PrintSleeveManagement.Models
 {
     class Receipt : Database
     {
+
+        public Receipt()
+        {
+
+        }
         public Receipt(int poNo)
         {
             this.PONo = poNo;
-            PrintSleeve = new List<ReceiptBasePrintSleeve>();
+            ReceiptBasePrintSleeve = new List<ReceiptBasePrintSleeve>();
+        }
+
+        public Receipt(int poNo, DateTime receiptTime, string receiver)
+        {
+            this.PONo = poNo;
+            this.ReceiptTime = receiptTime;
+            this.Receiver = receiver;
+        }
+
+        public List<Receipt> GetAllPO()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return null;
+            }
+
+            List<Receipt> allPO = new List<Receipt>();
+            string sql = "SELECT TOP 25 * FROM Receipt";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                allPO.Add(new Receipt(dataReader.GetInt32(0), dataReader.GetDateTime(1), dataReader.GetString(2)));
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+            return allPO;
         }
 
         public void getReceipt()
@@ -43,7 +78,7 @@ namespace PrintSleeveManagement.Models
                 {
                     available = dataReader.GetInt32(4);
                 }
-                PrintSleeve.Add(new ReceiptBasePrintSleeve(dataReader.GetValue(1).ToString(), dataReader.GetString(3), dataReader.GetInt32(2), available));
+                ReceiptBasePrintSleeve.Add(new ReceiptBasePrintSleeve(dataReader.GetValue(1).ToString(), dataReader.GetString(3), dataReader.GetInt32(2), available));
             }                 
 
             dataReader.Close();
@@ -68,7 +103,7 @@ namespace PrintSleeveManagement.Models
             if (adapter.InsertCommand.ExecuteNonQuery() > 0)
             {
                 sql = "INSERT INTO Receipt_Item VALUES";
-                foreach (BasePrintSleeve printSleeve in PrintSleeve)
+                foreach (BasePrintSleeve printSleeve in ReceiptBasePrintSleeve)
                 {
                     if (flagFirstValue)
                     {
@@ -91,8 +126,13 @@ namespace PrintSleeveManagement.Models
         }
 
         public int PONo { get; set; }
-        public List<ReceiptBasePrintSleeve> PrintSleeve { get; }
+
+        public List<ReceiptBasePrintSleeve> ReceiptBasePrintSleeve { get; }
+
+        public List<PrintSleeve> PrintSleeve { get; set; }
+
         public DateTime ReceiptTime { get; set; }
+
         public string Receiver { get; set; }
     }
 }

@@ -108,6 +108,12 @@
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\ReceiptBasePrintSleeve.cs" />
     <Compile Include="Models\Transaction.cs" />
+    <Compile Include="PODialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PODialog.Designer.cs">
+      <DependentUpon>PODialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PutAwayForm.cs">
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PODialog.resx">
+      <DependentUpon>PODialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

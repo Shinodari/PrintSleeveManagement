@@ -14,8 +14,10 @@ namespace PrintSleeveManagement
     public partial class PutAwayForm : Form
     {
         Receipt receipt;
+        PrintSleeve printSleeve;
 
-        BindingSource bindingSource;
+        BindingSource bindingSourceReceipt;
+        BindingSource bindingSourceAvailable;
 
         public PutAwayForm()
         {
@@ -25,6 +27,7 @@ namespace PrintSleeveManagement
         private void PutAwayForm_Load(object sender, EventArgs e)
         {
             setDiplayReceipt(false);
+            dateTimePickerExpiredDate.Value = DateTime.Now;
             textBoxPONo.Focus();
         }
 
@@ -32,16 +35,28 @@ namespace PrintSleeveManagement
         {
             if (alreadyPO)
             {
+                groupBoxAvailable.Enabled = true;
                 groupBoxPrintSleeve.Enabled = true;
+                groupBoxLocation.Enabled = true;
+                groupBoxStatus.Enabled = true;
 
                 textBoxPONo.Enabled = false;
+                buttonPOBrowse.Enabled = false;
+                buttonCommit.Enabled = false;
+                buttonClear.Enabled = true;
                 dataGridViewReceipt.Enabled = true;
             }
             else
             {
+                groupBoxAvailable.Enabled = false;
                 groupBoxPrintSleeve.Enabled = false;
+                groupBoxLocation.Enabled = false;
+                groupBoxStatus.Enabled = false;
 
                 textBoxPONo.Enabled = true;
+                buttonPOBrowse.Enabled = true;
+                buttonCommit.Enabled = true;
+                buttonClear.Enabled = false;
                 dataGridViewReceipt.Enabled = false;
             }
         }
@@ -53,20 +68,43 @@ namespace PrintSleeveManagement
             int pONo = Int32.Parse(textBoxPONo.Text);
             receipt = new Receipt(pONo);
             receipt.getReceipt();
-            bindingSource = new BindingSource();
-            bindingSource.DataSource = receipt.PrintSleeve;
-            dataGridViewReceipt.DataSource = bindingSource;
+            bindingSourceReceipt = new BindingSource();
+            bindingSourceReceipt.DataSource = receipt.ReceiptBasePrintSleeve;
+            dataGridViewReceipt.DataSource = bindingSourceReceipt;
             dataGridViewReceipt.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewReceipt.Columns["Available"].DisplayIndex = 3;
             dataGridViewReceipt.Columns["Quantity"].DisplayIndex = 2;
-            bindingSource.PositionChanged += new EventHandler(rowChanged);
+            bindingSourceReceipt.PositionChanged += new EventHandler(rowChanged);
 
-            labelPartNo.Text = dataGridViewReceipt.Rows[0].Cells[3].Value.ToString();
+            setPrintSleeveDisplay(0);
+            dataGridViewReceipt.Focus();
         }
 
         private void rowChanged(object sender, System.EventArgs e)
         {
-            labelPartNo.Text = dataGridViewReceipt.Rows[bindingSource.Position].Cells[3].Value.ToString();
+            if (bindingSourceReceipt.Position >=0)
+            {
+                setPrintSleeveDisplay(bindingSourceReceipt.Position);
+            }
+            else
+            {
+                labelPartNo.Text = "";
+            }
+        }
+
+        private void setPrintSleeveDisplay(int row)
+        {
+            labelPartNo.Text = dataGridViewReceipt.Rows[row].Cells[3].Value.ToString();
+            labelReceived.Text = dataGridViewReceipt.Rows[row].Cells[1].Value.ToString();
+            labelAvailable.Text = dataGridViewReceipt.Rows[row].Cells[0].Value.ToString();
+
+            List<PrintSleeve> listPrintSleeve = new List<PrintSleeve>();
+            printSleeve = new PrintSleeve();
+            listPrintSleeve = printSleeve.find(receipt.PONo, Int32.Parse(dataGridViewReceipt.Rows[row].Cells[2].Value.ToString()));
+            bindingSourceAvailable = new BindingSource();
+            bindingSourceAvailable.DataSource = listPrintSleeve;
+            dataGridViewAvailable.DataSource = bindingSourceAvailable;
+            
         }
 
         private void textBoxPONo_KeyPress(object sender, KeyPressEventArgs e)
@@ -80,6 +118,31 @@ namespace PrintSleeveManagement
         private void buttonCommit_Click(object sender, EventArgs e)
         {
             commitPO();
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure is Clear this PO, but you can put away this PO later.!", "Clear confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                textBoxPONo.Text = "";
+                bindingSourceReceipt.Clear();
+                labelPartNo.Text = "";
+                labelReceived.Text = "0";
+                labelAvailable.Text = "0";
+                labelLocation.Text = "";
+                labelStatus.Text = "";
+                setDiplayReceipt(false);
+            }
+        }
+
+        private void buttonPOBrowse_Click(object sender, EventArgs e)
+        {
+            PODialog pODialog = new PODialog();
+            if (pODialog.Show() == DialogResult.OK)
+            {
+                textBoxPONo.Text = pODialog.PONo.ToString();
+                commitPO();
+            }
         }
     }
 }
