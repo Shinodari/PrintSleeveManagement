@@ -95,16 +95,45 @@ namespace PrintSleeveManagement
         private void setPrintSleeveDisplay(int row)
         {
             labelPartNo.Text = dataGridViewReceipt.Rows[row].Cells[3].Value.ToString();
-            labelReceived.Text = dataGridViewReceipt.Rows[row].Cells[1].Value.ToString();
-            labelAvailable.Text = dataGridViewReceipt.Rows[row].Cells[0].Value.ToString();
+            int iReceived = Int32.Parse(dataGridViewReceipt.Rows[row].Cells[1].Value.ToString());
+            int iAvailable = Int32.Parse(dataGridViewReceipt.Rows[row].Cells[0].Value.ToString());
 
-            List<PrintSleeve> listPrintSleeve = new List<PrintSleeve>();
+            labelReceived.Text = iReceived.ToString();
+            labelAvailable.Text = iAvailable.ToString();
+
+            List <PrintSleeve> listPrintSleeve = new List<PrintSleeve>();
             printSleeve = new PrintSleeve();
-            listPrintSleeve = printSleeve.find(receipt.PONo, Int32.Parse(dataGridViewReceipt.Rows[row].Cells[2].Value.ToString()));
+            listPrintSleeve = printSleeve.findPONoAndItemNo(receipt.PONo, Int32.Parse(dataGridViewReceipt.Rows[row].Cells[2].Value.ToString()));
             bindingSourceAvailable = new BindingSource();
             bindingSourceAvailable.DataSource = listPrintSleeve;
             dataGridViewAvailable.DataSource = bindingSourceAvailable;
-            
+            dataGridViewAvailable.Columns["PONo"].Visible = false;
+            dataGridViewAvailable.Columns["RollNoSecondary"].Visible = false;
+            dataGridViewAvailable.Columns["ItemNo"].Visible = false;
+            dataGridViewAvailable.Columns["PartNo"].Visible = false;
+
+            int iDiff = iReceived - iAvailable;
+            if (iDiff == 0)
+            {
+                labelReceived.BackColor = Color.Lime;
+                labelAvailable.BackColor = Color.Lime;
+
+                labelStatus.Text = "This part's OK";
+            }
+            else if(iDiff < 0)
+            {
+                labelReceived.BackColor = Color.Red;
+                labelAvailable.BackColor = Color.Red;
+
+                labelStatus.Text = "This part's Over!";
+            }
+            else
+            {
+                labelReceived.BackColor = SystemColors.Control;
+                labelAvailable.BackColor = SystemColors.Control;
+
+                labelStatus.Text = "";
+            }
         }
 
         private void textBoxPONo_KeyPress(object sender, KeyPressEventArgs e)
@@ -142,6 +171,19 @@ namespace PrintSleeveManagement
             {
                 textBoxPONo.Text = pODialog.PONo.ToString();
                 commitPO();
+            }
+        }
+
+        private void buttonAddPrintSleeve_Click(object sender, EventArgs e)
+        {
+            string rollNo = "";
+            string locationID = "";
+            if (InputDialog.InputBox("RollNo", "Please enter RollNo.", ref rollNo) == DialogResult.OK)
+            {
+                if (InputDialog.InputBox("Location", "Please enter Location", ref locationID) == DialogResult.OK)
+                {
+
+                }
             }
         }
     }

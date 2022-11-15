@@ -53,6 +53,7 @@
             this.labelStatus = new System.Windows.Forms.Label();
             this.groupBoxAvailable = new System.Windows.Forms.GroupBox();
             this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
+            this.buttonAddPrintSleeve = new System.Windows.Forms.Button();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
@@ -139,6 +140,7 @@
             // 
             // groupBoxPrintSleeve
             // 
+            this.groupBoxPrintSleeve.Controls.Add(this.buttonAddPrintSleeve);
             this.groupBoxPrintSleeve.Controls.Add(this.labelAvailable);
             this.groupBoxPrintSleeve.Controls.Add(this.labelReceived);
             this.groupBoxPrintSleeve.Controls.Add(this.label6);
@@ -319,6 +321,16 @@
             this.dataGridViewAvailable.Size = new System.Drawing.Size(449, 326);
             this.dataGridViewAvailable.TabIndex = 0;
             // 
+            // buttonAddPrintSleeve
+            // 
+            this.buttonAddPrintSleeve.Location = new System.Drawing.Point(9, 192);
+            this.buttonAddPrintSleeve.Name = "buttonAddPrintSleeve";
+            this.buttonAddPrintSleeve.Size = new System.Drawing.Size(196, 60);
+            this.buttonAddPrintSleeve.TabIndex = 5;
+            this.buttonAddPrintSleeve.Text = "&Add PrintSleeve Manuanlly";
+            this.buttonAddPrintSleeve.UseVisualStyleBackColor = true;
+            this.buttonAddPrintSleeve.Click += new System.EventHandler(this.buttonAddPrintSleeve_Click);
+            // 
             // PutAwayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -372,5 +384,6 @@
         private System.Windows.Forms.GroupBox groupBoxAvailable;
         private System.Windows.Forms.DataGridView dataGridViewAvailable;
         private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonAddPrintSleeve;
     }
 }
