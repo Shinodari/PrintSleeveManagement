@@ -186,5 +186,14 @@ namespace PrintSleeveManagement
                 }
             }
         }
+
+        private void buttonSelectLocation_Click(object sender, EventArgs e)
+        {
+            LocationDialog locationDialog = new LocationDialog();
+            if (locationDialog.Show() == DialogResult.OK)
+            {
+                labelLocation.Text = locationDialog.LocationID;
+            }
+        }
     }
 }

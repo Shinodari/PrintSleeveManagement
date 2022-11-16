@@ -47,6 +47,7 @@
             this.dataGridViewPO.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewPO.Size = new System.Drawing.Size(344, 336);
             this.dataGridViewPO.TabIndex = 0;
+            this.dataGridViewPO.TabStop = false;
             // 
             // buttonConfirm
             // 
@@ -60,6 +61,7 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(363, 67);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
@@ -73,13 +75,14 @@
             this.AcceptButton = this.buttonConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 361);
+            this.CancelButton = this.buttonCancel;
+            this.ClientSize = new System.Drawing.Size(444, 361);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonConfirm);
             this.Controls.Add(this.dataGridViewPO);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "PODialog";
-            this.Text = "PODialog";
+            this.Text = "PO";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPO)).EndInit();
             this.ResumeLayout(false);
 

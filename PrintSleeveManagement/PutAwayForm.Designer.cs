@@ -36,6 +36,7 @@
             this.textBoxPONo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxPrintSleeve = new System.Windows.Forms.GroupBox();
+            this.buttonAddPrintSleeve = new System.Windows.Forms.Button();
             this.labelAvailable = new System.Windows.Forms.Label();
             this.labelReceived = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,7 +54,8 @@
             this.labelStatus = new System.Windows.Forms.Label();
             this.groupBoxAvailable = new System.Windows.Forms.GroupBox();
             this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
-            this.buttonAddPrintSleeve = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.buttonSelectLocation = new System.Windows.Forms.Button();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
@@ -154,16 +156,26 @@
             this.groupBoxPrintSleeve.Controls.Add(this.dateTimePickerExpiredDate);
             this.groupBoxPrintSleeve.Location = new System.Drawing.Point(482, 12);
             this.groupBoxPrintSleeve.Name = "groupBoxPrintSleeve";
-            this.groupBoxPrintSleeve.Size = new System.Drawing.Size(1170, 277);
+            this.groupBoxPrintSleeve.Size = new System.Drawing.Size(1170, 313);
             this.groupBoxPrintSleeve.TabIndex = 1;
             this.groupBoxPrintSleeve.TabStop = false;
             this.groupBoxPrintSleeve.Text = "PrintSleeve";
+            // 
+            // buttonAddPrintSleeve
+            // 
+            this.buttonAddPrintSleeve.Location = new System.Drawing.Point(9, 227);
+            this.buttonAddPrintSleeve.Name = "buttonAddPrintSleeve";
+            this.buttonAddPrintSleeve.Size = new System.Drawing.Size(196, 60);
+            this.buttonAddPrintSleeve.TabIndex = 5;
+            this.buttonAddPrintSleeve.Text = "&Add PrintSleeve Manuanlly";
+            this.buttonAddPrintSleeve.UseVisualStyleBackColor = true;
+            this.buttonAddPrintSleeve.Click += new System.EventHandler(this.buttonAddPrintSleeve_Click);
             // 
             // labelAvailable
             // 
             this.labelAvailable.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelAvailable.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.labelAvailable.Location = new System.Drawing.Point(607, 192);
+            this.labelAvailable.Location = new System.Drawing.Point(607, 227);
             this.labelAvailable.Name = "labelAvailable";
             this.labelAvailable.Size = new System.Drawing.Size(205, 72);
             this.labelAvailable.TabIndex = 4;
@@ -174,7 +186,7 @@
             // 
             this.labelReceived.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.labelReceived.Location = new System.Drawing.Point(606, 107);
+            this.labelReceived.Location = new System.Drawing.Point(606, 142);
             this.labelReceived.Name = "labelReceived";
             this.labelReceived.Size = new System.Drawing.Size(205, 72);
             this.labelReceived.TabIndex = 4;
@@ -185,7 +197,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label6.Location = new System.Drawing.Point(262, 192);
+            this.label6.Location = new System.Drawing.Point(262, 227);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(339, 73);
             this.label6.TabIndex = 4;
@@ -195,7 +207,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(255, 107);
+            this.label4.Location = new System.Drawing.Point(255, 142);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(345, 73);
             this.label4.TabIndex = 4;
@@ -207,12 +219,12 @@
             this.labelPartNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.labelPartNo.Location = new System.Drawing.Point(9, 20);
             this.labelPartNo.Name = "labelPartNo";
-            this.labelPartNo.Size = new System.Drawing.Size(1155, 75);
+            this.labelPartNo.Size = new System.Drawing.Size(1155, 99);
             this.labelPartNo.TabIndex = 4;
             // 
             // textBoxQuantity
             // 
-            this.textBoxQuantity.Location = new System.Drawing.Point(105, 161);
+            this.textBoxQuantity.Location = new System.Drawing.Point(105, 196);
             this.textBoxQuantity.Name = "textBoxQuantity";
             this.textBoxQuantity.Size = new System.Drawing.Size(100, 20);
             this.textBoxQuantity.TabIndex = 3;
@@ -220,7 +232,7 @@
             // 
             // textBoxLotNo
             // 
-            this.textBoxLotNo.Location = new System.Drawing.Point(105, 135);
+            this.textBoxLotNo.Location = new System.Drawing.Point(105, 170);
             this.textBoxLotNo.Name = "textBoxLotNo";
             this.textBoxLotNo.Size = new System.Drawing.Size(100, 20);
             this.textBoxLotNo.TabIndex = 3;
@@ -228,7 +240,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 164);
+            this.label5.Location = new System.Drawing.Point(6, 199);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(93, 13);
             this.label5.TabIndex = 2;
@@ -237,7 +249,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 138);
+            this.label3.Location = new System.Drawing.Point(57, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 2;
@@ -246,7 +258,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 115);
+            this.label2.Location = new System.Drawing.Point(25, 150);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 13);
             this.label2.TabIndex = 1;
@@ -255,7 +267,7 @@
             // dateTimePickerExpiredDate
             // 
             this.dateTimePickerExpiredDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerExpiredDate.Location = new System.Drawing.Point(105, 109);
+            this.dateTimePickerExpiredDate.Location = new System.Drawing.Point(105, 144);
             this.dateTimePickerExpiredDate.Name = "dateTimePickerExpiredDate";
             this.dateTimePickerExpiredDate.Size = new System.Drawing.Size(100, 20);
             this.dateTimePickerExpiredDate.TabIndex = 0;
@@ -263,10 +275,12 @@
             // 
             // groupBoxLocation
             // 
+            this.groupBoxLocation.Controls.Add(this.buttonSelectLocation);
+            this.groupBoxLocation.Controls.Add(this.listBox1);
             this.groupBoxLocation.Controls.Add(this.labelLocation);
-            this.groupBoxLocation.Location = new System.Drawing.Point(482, 295);
+            this.groupBoxLocation.Location = new System.Drawing.Point(482, 331);
             this.groupBoxLocation.Name = "groupBoxLocation";
-            this.groupBoxLocation.Size = new System.Drawing.Size(1170, 101);
+            this.groupBoxLocation.Size = new System.Drawing.Size(1170, 329);
             this.groupBoxLocation.TabIndex = 2;
             this.groupBoxLocation.TabStop = false;
             this.groupBoxLocation.Text = "Location";
@@ -277,13 +291,13 @@
             this.labelLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.labelLocation.Location = new System.Drawing.Point(6, 16);
             this.labelLocation.Name = "labelLocation";
-            this.labelLocation.Size = new System.Drawing.Size(1155, 75);
+            this.labelLocation.Size = new System.Drawing.Size(953, 75);
             this.labelLocation.TabIndex = 4;
             // 
             // groupBoxStatus
             // 
             this.groupBoxStatus.Controls.Add(this.labelStatus);
-            this.groupBoxStatus.Location = new System.Drawing.Point(482, 402);
+            this.groupBoxStatus.Location = new System.Drawing.Point(482, 666);
             this.groupBoxStatus.Name = "groupBoxStatus";
             this.groupBoxStatus.Size = new System.Drawing.Size(1170, 183);
             this.groupBoxStatus.TabIndex = 3;
@@ -321,15 +335,23 @@
             this.dataGridViewAvailable.Size = new System.Drawing.Size(449, 326);
             this.dataGridViewAvailable.TabIndex = 0;
             // 
-            // buttonAddPrintSleeve
+            // listBox1
             // 
-            this.buttonAddPrintSleeve.Location = new System.Drawing.Point(9, 192);
-            this.buttonAddPrintSleeve.Name = "buttonAddPrintSleeve";
-            this.buttonAddPrintSleeve.Size = new System.Drawing.Size(196, 60);
-            this.buttonAddPrintSleeve.TabIndex = 5;
-            this.buttonAddPrintSleeve.Text = "&Add PrintSleeve Manuanlly";
-            this.buttonAddPrintSleeve.UseVisualStyleBackColor = true;
-            this.buttonAddPrintSleeve.Click += new System.EventHandler(this.buttonAddPrintSleeve_Click);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(6, 94);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(953, 225);
+            this.listBox1.TabIndex = 5;
+            // 
+            // buttonSelectLocation
+            // 
+            this.buttonSelectLocation.Location = new System.Drawing.Point(965, 23);
+            this.buttonSelectLocation.Name = "buttonSelectLocation";
+            this.buttonSelectLocation.Size = new System.Drawing.Size(196, 60);
+            this.buttonSelectLocation.TabIndex = 5;
+            this.buttonSelectLocation.Text = "&Select Location Manuanlly";
+            this.buttonSelectLocation.UseVisualStyleBackColor = true;
+            this.buttonSelectLocation.Click += new System.EventHandler(this.buttonSelectLocation_Click);
             // 
             // PutAwayForm
             // 
@@ -385,5 +407,7 @@
         private System.Windows.Forms.DataGridView dataGridViewAvailable;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonAddPrintSleeve;
+        private System.Windows.Forms.Button buttonSelectLocation;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
