@@ -21,6 +21,11 @@ namespace PrintSleeveManagement.Models
 
         }
 
+        public Location(string locationID)
+        {
+            this.LocationID = locationID;
+        }
+
         public Location(string locationID, int status)
         {
             this.LocationID = locationID;

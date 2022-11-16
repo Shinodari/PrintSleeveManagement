@@ -15,6 +15,7 @@ namespace PrintSleeveManagement
     {
         Receipt receipt;
         PrintSleeve printSleeve;
+        Location location;
 
         BindingSource bindingSourceReceipt;
         BindingSource bindingSourceAvailable;
@@ -111,6 +112,8 @@ namespace PrintSleeveManagement
             dataGridViewAvailable.Columns["RollNoSecondary"].Visible = false;
             dataGridViewAvailable.Columns["ItemNo"].Visible = false;
             dataGridViewAvailable.Columns["PartNo"].Visible = false;
+            dataGridViewAvailable.Columns["Creator"].Visible = false;
+            dataGridViewAvailable.Columns["CreateTime"].Visible = false;
 
             int iDiff = iReceived - iAvailable;
             if (iDiff == 0)
@@ -177,10 +180,13 @@ namespace PrintSleeveManagement
         private void buttonAddPrintSleeve_Click(object sender, EventArgs e)
         {
             string rollNo = "";
-            string locationID = "";
             if (InputDialog.InputBox("RollNo", "Please enter RollNo.", ref rollNo) == DialogResult.OK)
             {
-                if (InputDialog.InputBox("Location", "Please enter Location", ref locationID) == DialogResult.OK)
+                if (location.LocationID != null)
+                {
+                    /////////////////////////////////////////
+                }
+                else
                 {
 
                 }
@@ -189,10 +195,16 @@ namespace PrintSleeveManagement
 
         private void buttonSelectLocation_Click(object sender, EventArgs e)
         {
+            getLocation();
+        }
+
+        private void getLocation()
+        {
             LocationDialog locationDialog = new LocationDialog();
             if (locationDialog.Show() == DialogResult.OK)
             {
-                labelLocation.Text = locationDialog.LocationID;
+                location = new Location(locationDialog.LocationID);
+                labelLocation.Text = location.LocationID;
             }
         }
     }

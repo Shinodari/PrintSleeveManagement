@@ -120,7 +120,7 @@ namespace PrintSleeveManagement.Models
 
         public DateTime ExpiredDate { get; set; }
                 
-        public string Creater { get; set; }
+        public string Creator { get; set; }
 
         public DateTime CreateTime { get; set; }
     }
