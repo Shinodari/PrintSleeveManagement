@@ -55,9 +55,34 @@ namespace PrintSleeveManagement.Models
             return listLocation;
         }
 
-        public void putAway()
+        public bool PutAway(PrintSleeve printSleeve)
         {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return false;
+            }
 
+            bool result = false;
+
+            string sql = "INSERT INTO [Transaction](LocationID, RollNo)\n";
+            sql += $"VALUES('{this.LocationID}', {printSleeve.RollNo})";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataAdapter dataAdapter = new SqlDataAdapter();
+            dataAdapter.InsertCommand = command;
+            if (dataAdapter.InsertCommand.ExecuteNonQuery() > 0)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            dataAdapter.Dispose();
+            command.Dispose();
+            close();
+            return result;
         }
 
         public string LocationID { get; set; }

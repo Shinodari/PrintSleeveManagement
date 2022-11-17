@@ -31,8 +31,20 @@ namespace PrintSleeveManagement.Models
             this.ExpiredDate = expiredDate;
         }
 
-        public bool create(int rollNo, int pONo, string itemNo, string lotNo, int quantity, DateTime expiredDate)
+        public bool Create(int rollNo, int pONo, string itemNo, string lotNo, int quantity, DateTime expiredDate, Location location)
         {
+            this.RollNo = rollNo;
+            this.ItemNo = itemNo;
+            this.LotNo = lotNo;
+            this.Quantity = quantity;
+            this.ExpiredDate = expiredDate;
+
+            if (find(rollNo, PRINTSLEEVE_FIND_TYPE.RollNo).Count > 0)
+            {
+                errorString = "";
+                return false;
+            }
+
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
             {
@@ -41,17 +53,34 @@ namespace PrintSleeveManagement.Models
             }
 
             //This SQL support RollNoSecondary if future remove RollNosecondary in PrintSleeveDatabase must modify this sql value------------/
-            string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {pONo}, '{itemNo}', '{lotNo}', {quantity}, '{expiredDate}', NULL, '{Authentication.Username}, getDate())";
+            string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {pONo}, '{itemNo}', '{lotNo}', {quantity}, '{expiredDate}', NULL, '{Authentication.Username}', getDate())";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             dataAdapter.InsertCommand = command;
             bool result;
-            if (dataAdapter.InsertCommand.ExecuteNonQuery() > 0)
+            if (dataAdapter.InsertCommand.ExecuteNonQuery() == 1)
             {
-                result = true;
+                if (location.PutAway(this))
+                {
+                    result = true;
+                }
+                else
+                {
+                    dataAdapter.Dispose();
+                    command.Dispose();
+                    sql = $"DELETE FROM PrintSleeve WHERE RollNo = {rollNo}";
+                    command = new SqlCommand(sql, cnn);
+                    dataAdapter.DeleteCommand = command;
+                    if (dataAdapter.DeleteCommand.ExecuteNonQuery() != 1)
+                    {
+                        errorString = "Database is accident, please contact Adimistrator";
+                    }
+                    result = false;
+                }
             }
             else
             {
+                errorString = "Database is accident, please contact Adimistrator";
                 result = false;
             }
             
@@ -102,7 +131,7 @@ namespace PrintSleeveManagement.Models
             return find(sql);
         }
 
-        public List<PrintSleeve> findPONoAndItemNo(int pONo, int itemNo)
+        public List<PrintSleeve> findPONoAndItemNo(int pONo, string itemNo)
         {
             string sql = "SELECT PrintSleeve.*, Item.PartNo FROM PrintSleeve LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo ";
             sql += "WHERE PrintSleeve.PONo = '" + pONo + "' AND PrintSleeve.ItemNo = '" + itemNo + "'";

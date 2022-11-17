@@ -39,6 +39,9 @@ namespace PrintSleeveManagement
             form.AcceptButton = buttonOK;
             form.CancelButton = buttonCancel;
 
+            buttonOK.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
             DialogResult dialogResult = form.ShowDialog();
             value = textBox.Text;
             return dialogResult;

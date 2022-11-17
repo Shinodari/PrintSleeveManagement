@@ -104,7 +104,8 @@ namespace PrintSleeveManagement
 
             List <PrintSleeve> listPrintSleeve = new List<PrintSleeve>();
             printSleeve = new PrintSleeve();
-            listPrintSleeve = printSleeve.findPONoAndItemNo(receipt.PONo, Int32.Parse(dataGridViewReceipt.Rows[row].Cells[2].Value.ToString()));
+            printSleeve.ItemNo = dataGridViewReceipt.Rows[row].Cells[2].Value.ToString();
+            listPrintSleeve = printSleeve.findPONoAndItemNo(receipt.PONo, printSleeve.ItemNo);
             bindingSourceAvailable = new BindingSource();
             bindingSourceAvailable.DataSource = listPrintSleeve;
             dataGridViewAvailable.DataSource = bindingSourceAvailable;
@@ -179,16 +180,56 @@ namespace PrintSleeveManagement
 
         private void buttonAddPrintSleeve_Click(object sender, EventArgs e)
         {
+            if (DateTime.Compare(dateTimePickerExpiredDate.Value, DateTime.Now) <= 0)
+            {
+                if (MessageBox.Show("PrintSleeve is Expied!\nAre you sure to put away?", "Expired!", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    dateTimePickerExpiredDate.Focus();
+                    return;
+                }
+            }
+            else if (DateTime.Compare(dateTimePickerExpiredDate.Value, DateTime.Now.AddMonths(1)) <= 0)
+            {
+                if (MessageBox.Show("PrintSleeve will Expired in 1 Month!\nAre you sure to put away?", "Expired!", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    dateTimePickerExpiredDate.Focus();
+                    return;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxLotNo.Text))
+            {
+                MessageBox.Show("Please enter LotNo!");
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(textBoxQuantity.Text))
+            {
+                MessageBox.Show("Please enter Quantity!");
+                return;
+            }
+
             string rollNo = "";
             if (InputDialog.InputBox("RollNo", "Please enter RollNo.", ref rollNo) == DialogResult.OK)
             {
-                if (location.LocationID != null)
+                if (location != null)
                 {
-                    /////////////////////////////////////////
+                    if (location.LocationID != null)
+                    {
+                        PrintSleeve printSleeve = new PrintSleeve();
+                        if (!printSleeve.Create(Int32.Parse(rollNo), receipt.PONo,
+                            this.printSleeve.ItemNo, textBoxLotNo.Text,
+                            Int32.Parse(textBoxQuantity.Text),
+                            dateTimePickerExpiredDate.Value,
+                            location))
+                        {
+                            MessageBox.Show(printSleeve.getErrorString());
+                        }
+                        ////////////Add ได้แแล้ว เหลือทำ Display
+                    }
                 }
                 else
                 {
-
+                    MessageBox.Show("Please specify Location!");
                 }
             }
         }
