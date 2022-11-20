@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Models\Authentication.cs" />
     <Compile Include="Models\BasePrintSleeve.cs" />
+    <Compile Include="Models\Bluetooth.cs" />
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Location.cs" />

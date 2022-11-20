@@ -49,13 +49,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerExpiredDate = new System.Windows.Forms.DateTimePicker();
             this.groupBoxLocation = new System.Windows.Forms.GroupBox();
+            this.buttonSelectLocation = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.labelLocation = new System.Windows.Forms.Label();
             this.groupBoxStatus = new System.Windows.Forms.GroupBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.groupBoxAvailable = new System.Windows.Forms.GroupBox();
             this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.buttonSelectLocation = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
@@ -285,6 +286,24 @@
             this.groupBoxLocation.TabStop = false;
             this.groupBoxLocation.Text = "Location";
             // 
+            // buttonSelectLocation
+            // 
+            this.buttonSelectLocation.Location = new System.Drawing.Point(965, 23);
+            this.buttonSelectLocation.Name = "buttonSelectLocation";
+            this.buttonSelectLocation.Size = new System.Drawing.Size(196, 60);
+            this.buttonSelectLocation.TabIndex = 5;
+            this.buttonSelectLocation.Text = "&Select Location Manuanlly";
+            this.buttonSelectLocation.UseVisualStyleBackColor = true;
+            this.buttonSelectLocation.Click += new System.EventHandler(this.buttonSelectLocation_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(6, 94);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(953, 225);
+            this.listBox1.TabIndex = 5;
+            // 
             // labelLocation
             // 
             this.labelLocation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -316,6 +335,7 @@
             // 
             // groupBoxAvailable
             // 
+            this.groupBoxAvailable.Controls.Add(this.buttonDelete);
             this.groupBoxAvailable.Controls.Add(this.dataGridViewAvailable);
             this.groupBoxAvailable.Location = new System.Drawing.Point(12, 497);
             this.groupBoxAvailable.Name = "groupBoxAvailable";
@@ -332,26 +352,19 @@
             this.dataGridViewAvailable.Location = new System.Drawing.Point(7, 20);
             this.dataGridViewAvailable.Name = "dataGridViewAvailable";
             this.dataGridViewAvailable.ReadOnly = true;
-            this.dataGridViewAvailable.Size = new System.Drawing.Size(449, 326);
+            this.dataGridViewAvailable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAvailable.Size = new System.Drawing.Size(449, 297);
             this.dataGridViewAvailable.TabIndex = 0;
             // 
-            // listBox1
+            // buttonDelete
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 94);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(953, 225);
-            this.listBox1.TabIndex = 5;
-            // 
-            // buttonSelectLocation
-            // 
-            this.buttonSelectLocation.Location = new System.Drawing.Point(965, 23);
-            this.buttonSelectLocation.Name = "buttonSelectLocation";
-            this.buttonSelectLocation.Size = new System.Drawing.Size(196, 60);
-            this.buttonSelectLocation.TabIndex = 5;
-            this.buttonSelectLocation.Text = "&Select Location Manuanlly";
-            this.buttonSelectLocation.UseVisualStyleBackColor = true;
-            this.buttonSelectLocation.Click += new System.EventHandler(this.buttonSelectLocation_Click);
+            this.buttonDelete.Location = new System.Drawing.Point(383, 323);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 1;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // PutAwayForm
             // 
@@ -409,5 +422,6 @@
         private System.Windows.Forms.Button buttonAddPrintSleeve;
         private System.Windows.Forms.Button buttonSelectLocation;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

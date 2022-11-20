@@ -41,7 +41,7 @@ namespace PrintSleeveManagement.Models
 
             if (find(rollNo, PRINTSLEEVE_FIND_TYPE.RollNo).Count > 0)
             {
-                errorString = "";
+                errorString = "This RollNo already, please use another RollNo.";
                 return false;
             }
 
@@ -88,6 +88,37 @@ namespace PrintSleeveManagement.Models
             command.Dispose();
             close();
             return result;
+        }
+
+        public bool Remove(int rollNo)
+        {
+            bool result;
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return false;
+            }
+            string sql = $"DELETE FROM [Transaction] WHERE RollNo = '{rollNo}'\n";
+            sql += $"DELETE FROM PrintSleeve WHERE RollNo = '{rollNo}'";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.DeleteCommand = command;
+            int i = adapter.DeleteCommand.ExecuteNonQuery();
+            if (i > 0)
+            {
+                result = true;
+            }
+            else
+            {
+                errorString = "This action Error!\nPlease contact Adimistrator";
+                result = false;
+            }
+            adapter.Dispose();
+            command.Dispose();
+            close();
+            return result;
+
         }
 
         private List<PrintSleeve> find(string sql)

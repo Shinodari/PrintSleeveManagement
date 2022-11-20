@@ -85,6 +85,18 @@ namespace PrintSleeveManagement.Models
             return result;
         }
 
+        private void getPrintSleeve()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                return;
+            }
+            string sql = "SELECT ";
+
+            close();
+        }
+
         public string LocationID { get; set; }
         public string Status { get; set; }
         public List<PrintSleeve> printSleeve { get; set; }

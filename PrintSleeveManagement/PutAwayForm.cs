@@ -13,6 +13,8 @@ namespace PrintSleeveManagement
 {
     public partial class PutAwayForm : Form
     {
+        Bluetooth bluetooth;
+
         Receipt receipt;
         PrintSleeve printSleeve;
         Location location;
@@ -27,6 +29,8 @@ namespace PrintSleeveManagement
 
         private void PutAwayForm_Load(object sender, EventArgs e)
         {
+            bluetooth = new Bluetooth();
+            bluetooth.Open();
             setDiplayReceipt(false);
             dateTimePickerExpiredDate.Value = DateTime.Now;
             textBoxPONo.Focus();
@@ -66,6 +70,11 @@ namespace PrintSleeveManagement
         {
             setDiplayReceipt(true);
 
+            if (string.IsNullOrWhiteSpace(textBoxPONo.Text) || string.IsNullOrEmpty(textBoxPONo.Text))
+            {
+                return;
+            }
+
             int pONo = Int32.Parse(textBoxPONo.Text);
             receipt = new Receipt(pONo);
             receipt.getReceipt();
@@ -76,7 +85,7 @@ namespace PrintSleeveManagement
             dataGridViewReceipt.Columns["Available"].DisplayIndex = 3;
             dataGridViewReceipt.Columns["Quantity"].DisplayIndex = 2;
             bindingSourceReceipt.PositionChanged += new EventHandler(rowChanged);
-
+                        
             setPrintSleeveDisplay(0);
             dataGridViewReceipt.Focus();
         }
@@ -93,8 +102,40 @@ namespace PrintSleeveManagement
             }
         }
 
+        private void updatePrintSleeveDisplay()
+        {
+            int iReceived = Int32.Parse(labelReceived.Text);
+            int iAvailable = Int32.Parse(labelAvailable.Text);
+            int iDiff = iReceived - iAvailable;
+            if (iDiff == 0)
+            {
+                labelReceived.BackColor = Color.Lime;
+                labelAvailable.BackColor = Color.Lime;
+
+                labelStatus.Text = "This part's OK";
+            }
+            else if (iDiff < 0)
+            {
+                labelReceived.BackColor = Color.Red;
+                labelAvailable.BackColor = Color.Red;
+
+                labelStatus.Text = "This part's Over!";
+            }
+            else
+            {
+                labelReceived.BackColor = SystemColors.Control;
+                labelAvailable.BackColor = SystemColors.Control;
+
+                labelStatus.Text = "";
+            }
+        }
+
         private void setPrintSleeveDisplay(int row)
         {
+            if (dataGridViewReceipt.RowCount < 1)
+            {
+                return;
+            }
             labelPartNo.Text = dataGridViewReceipt.Rows[row].Cells[3].Value.ToString();
             int iReceived = Int32.Parse(dataGridViewReceipt.Rows[row].Cells[1].Value.ToString());
             int iAvailable = Int32.Parse(dataGridViewReceipt.Rows[row].Cells[0].Value.ToString());
@@ -116,28 +157,8 @@ namespace PrintSleeveManagement
             dataGridViewAvailable.Columns["Creator"].Visible = false;
             dataGridViewAvailable.Columns["CreateTime"].Visible = false;
 
-            int iDiff = iReceived - iAvailable;
-            if (iDiff == 0)
-            {
-                labelReceived.BackColor = Color.Lime;
-                labelAvailable.BackColor = Color.Lime;
-
-                labelStatus.Text = "This part's OK";
-            }
-            else if(iDiff < 0)
-            {
-                labelReceived.BackColor = Color.Red;
-                labelAvailable.BackColor = Color.Red;
-
-                labelStatus.Text = "This part's Over!";
-            }
-            else
-            {
-                labelReceived.BackColor = SystemColors.Control;
-                labelAvailable.BackColor = SystemColors.Control;
-
-                labelStatus.Text = "";
-            }
+            updatePrintSleeveDisplay();
+            checkResult();
         }
 
         private void textBoxPONo_KeyPress(object sender, KeyPressEventArgs e)
@@ -224,7 +245,19 @@ namespace PrintSleeveManagement
                         {
                             MessageBox.Show(printSleeve.getErrorString());
                         }
-                        ////////////Add ได้แแล้ว เหลือทำ Display
+                        int cRow = bindingSourceReceipt.Position;
+                        bindingSourceReceipt.Clear();
+                        receipt.getReceipt();
+                        bindingSourceReceipt.ResetBindings(false);
+                        if (cRow == 0)
+                        {
+                            setPrintSleeveDisplay(0);
+                        }
+                        else
+                        {
+                            bindingSourceReceipt.Position = cRow;
+                        }                        
+                        checkResult();
                     }
                 }
                 else
@@ -246,6 +279,56 @@ namespace PrintSleeveManagement
             {
                 location = new Location(locationDialog.LocationID);
                 labelLocation.Text = location.LocationID;
+            }
+        }
+
+        private void checkResult()
+        {
+            int count = 0;
+            foreach (DataGridViewRow row in dataGridViewReceipt.Rows)
+            {
+                int iReceived = Int32.Parse(row.Cells[1].Value.ToString());
+                int iAvailable = Int32.Parse(row.Cells[0].Value.ToString());
+                if (iReceived == iAvailable){
+                    row.DefaultCellStyle.BackColor = Color.Lime;
+                    count++;
+                }
+                else if (iReceived < iAvailable)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Red;
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.Empty;
+                }
+            }
+            if (dataGridViewReceipt.RowCount == count)
+            {
+                labelStatus.Text = "Complete";
+                labelStatus.BackColor = Color.Lime;
+            }/*
+            else
+            {
+                labelStatus.Text = "";
+                labelStatus.BackColor = SystemColors.Control;
+            }/***/
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            PrintSleeve printSleeve = new PrintSleeve();
+
+            int rollNo = (Int32) dataGridViewAvailable.CurrentRow.Cells[0].Value;
+            if (MessageBox.Show("Ara you Sure to Delete RollNo " + rollNo.ToString(), "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (printSleeve.Remove(rollNo))
+                {
+                    setPrintSleeveDisplay(bindingSourceReceipt.Position);
+                }
+                else
+                {
+                    MessageBox.Show(printSleeve.getErrorString());
+                }
             }
         }
     }
