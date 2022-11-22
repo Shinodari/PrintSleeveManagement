@@ -55,8 +55,8 @@
             this.groupBoxStatus = new System.Windows.Forms.GroupBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.groupBoxAvailable = new System.Windows.Forms.GroupBox();
-            this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
             this.buttonDelete = new System.Windows.Forms.Button();
+            this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
@@ -344,6 +344,16 @@
             this.groupBoxAvailable.TabStop = false;
             this.groupBoxAvailable.Text = "Available";
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(383, 323);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 1;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // dataGridViewAvailable
             // 
             this.dataGridViewAvailable.AllowUserToAddRows = false;
@@ -355,16 +365,6 @@
             this.dataGridViewAvailable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAvailable.Size = new System.Drawing.Size(449, 297);
             this.dataGridViewAvailable.TabIndex = 0;
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Location = new System.Drawing.Point(383, 323);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete.TabIndex = 1;
-            this.buttonDelete.Text = "Delete";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // PutAwayForm
             // 
@@ -378,6 +378,7 @@
             this.Controls.Add(this.groupBoxReceipt);
             this.Name = "PutAwayForm";
             this.Text = "Put Away";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PutAwayForm_FormClosing);
             this.Load += new System.EventHandler(this.PutAwayForm_Load);
             this.groupBoxReceipt.ResumeLayout(false);
             this.groupBoxReceipt.PerformLayout();

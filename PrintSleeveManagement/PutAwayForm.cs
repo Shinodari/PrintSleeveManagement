@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,7 +15,8 @@ namespace PrintSleeveManagement
 {
     public partial class PutAwayForm : Form
     {
-        Bluetooth bluetooth;
+        static Bluetooth bluetooth;
+        static SerialPort serialPort;
 
         Receipt receipt;
         PrintSleeve printSleeve;
@@ -22,6 +25,8 @@ namespace PrintSleeveManagement
         BindingSource bindingSourceReceipt;
         BindingSource bindingSourceAvailable;
 
+        static Thread bluetoothThread;
+
         public PutAwayForm()
         {
             InitializeComponent();
@@ -29,11 +34,41 @@ namespace PrintSleeveManagement
 
         private void PutAwayForm_Load(object sender, EventArgs e)
         {
-            bluetooth = new Bluetooth();
-            bluetooth.Open();
+            serialPort = new SerialPort();
+            //bluetoothThread = new Thread(ReadBluetooth);
+            SerialPortDialog serialPortDialog = new SerialPortDialog();
+            if (!serialPort.IsOpen)
+            {
+                if (serialPortDialog.Show() == DialogResult.OK)
+                {
+                    try
+                    {
+                        serialPort.PortName = serialPortDialog.PortName;
+                        serialPort.DataReceived += new SerialDataReceivedEventHandler(DataRecieved);
+                        serialPort.Open();
+                        //bluetoothThread.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+
             setDiplayReceipt(false);
             dateTimePickerExpiredDate.Value = DateTime.Now;
             textBoxPONo.Focus();
+        }
+
+        private void DataRecieved(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadExisting();
+            MessageBox.Show(indata);
+        }
+
+        private static void ReadBluetooth()
+        {
         }
 
         private void setDiplayReceipt(bool alreadyPO)
@@ -330,6 +365,12 @@ namespace PrintSleeveManagement
                     MessageBox.Show(printSleeve.getErrorString());
                 }
             }
+        }
+
+        private void PutAwayForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            serialPort.Close();
+            //bluetoothThread.Abort();
         }
     }
 }
