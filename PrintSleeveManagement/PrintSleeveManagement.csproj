@@ -87,6 +87,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeviceForm.Designer.cs">
+      <DependentUpon>DeviceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InputDialog.cs" />
     <Compile Include="LocationDialog.cs">
       <SubType>Form</SubType>
@@ -108,8 +114,8 @@
     </Compile>
     <Compile Include="Models\Authentication.cs" />
     <Compile Include="Models\BasePrintSleeve.cs" />
-    <Compile Include="Models\Bluetooth.cs" />
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\Device.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\PrintSleeve.cs" />
@@ -142,6 +148,9 @@
     <Compile Include="SerialPortDialog.Designer.cs">
       <DependentUpon>SerialPortDialog.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DeviceForm.resx">
+      <DependentUpon>DeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LocationDialog.resx">
       <DependentUpon>LocationDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -162,6 +171,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="PutAwayForm.resx">
       <DependentUpon>PutAwayForm.cs</DependentUpon>

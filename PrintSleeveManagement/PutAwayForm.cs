@@ -15,7 +15,7 @@ namespace PrintSleeveManagement
 {
     public partial class PutAwayForm : Form
     {
-        static Bluetooth bluetooth;
+        static DeviceForm bluetooth;
         static SerialPort serialPort;
 
         Receipt receipt;

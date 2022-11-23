@@ -69,5 +69,12 @@ namespace PrintSleeveManagement
             putAwayForm.MdiParent = this;
             putAwayForm.Show();
         }
+
+        private void toolStripDevice_Click(object sender, EventArgs e)
+        {
+            DeviceForm deviceForm = new DeviceForm();
+            deviceForm.MdiParent = this;
+            deviceForm.Show();
+        }
     }
 }
