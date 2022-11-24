@@ -57,32 +57,15 @@ namespace PrintSleeveManagement.Models
 
         public bool PutAway(PrintSleeve printSleeve)
         {
-            Database.CONNECT_RESULT connect_result = connect();
-            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            Transaction transaction = new Transaction();
+            if (transaction.Record(this.LocationID, printSleeve.RollNo))
             {
-                errorString = "Can't connect database. Please contact Administrator";
-                return false;
-            }
-
-            bool result = false;
-
-            string sql = "INSERT INTO [Transaction](LocationID, RollNo)\n";
-            sql += $"VALUES('{this.LocationID}', {printSleeve.RollNo})";
-            SqlCommand command = new SqlCommand(sql, cnn);
-            SqlDataAdapter dataAdapter = new SqlDataAdapter();
-            dataAdapter.InsertCommand = command;
-            if (dataAdapter.InsertCommand.ExecuteNonQuery() > 0)
-            {
-                result = true;
+                return true;
             }
             else
             {
-                result = false;
+                return false;
             }
-            dataAdapter.Dispose();
-            command.Dispose();
-            close();
-            return result;
         }
 
         private void getPrintSleeve()
@@ -92,7 +75,7 @@ namespace PrintSleeveManagement.Models
             {
                 return;
             }
-            string sql = "SELECT ";
+            string sql = "SELECT * FROM ";
 
             close();
         }

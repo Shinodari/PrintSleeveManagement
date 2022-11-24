@@ -99,8 +99,7 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return false;
             }
-            string sql = $"DELETE FROM [Transaction] WHERE RollNo = '{rollNo}'\n";
-            sql += $"DELETE FROM PrintSleeve WHERE RollNo = '{rollNo}'";
+            string sql = $"DELETE FROM PrintSleeve WHERE RollNo = '{rollNo}'";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.DeleteCommand = command;
@@ -111,7 +110,7 @@ namespace PrintSleeveManagement.Models
             }
             else
             {
-                errorString = "This action Error!\nPlease contact Adimistrator";
+                errorString = "This PrintSleeve can't Remove!\nPlease contact Adimistrator";
                 result = false;
             }
             adapter.Dispose();

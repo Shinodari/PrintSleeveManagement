@@ -50,13 +50,13 @@
             this.dateTimePickerExpiredDate = new System.Windows.Forms.DateTimePicker();
             this.groupBoxLocation = new System.Windows.Forms.GroupBox();
             this.buttonSelectLocation = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.labelLocation = new System.Windows.Forms.Label();
             this.groupBoxStatus = new System.Windows.Forms.GroupBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.groupBoxAvailable = new System.Windows.Forms.GroupBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
+            this.dataGridViewLocation = new System.Windows.Forms.DataGridView();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
@@ -64,6 +64,7 @@
             this.groupBoxStatus.SuspendLayout();
             this.groupBoxAvailable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAvailable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLocation)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxReceipt
@@ -96,7 +97,7 @@
             this.buttonCommit.Location = new System.Drawing.Point(241, 19);
             this.buttonCommit.Name = "buttonCommit";
             this.buttonCommit.Size = new System.Drawing.Size(75, 23);
-            this.buttonCommit.TabIndex = 4;
+            this.buttonCommit.TabIndex = 3;
             this.buttonCommit.Text = "&Commit";
             this.buttonCommit.UseVisualStyleBackColor = true;
             this.buttonCommit.Click += new System.EventHandler(this.buttonCommit_Click);
@@ -112,7 +113,7 @@
             this.dataGridViewReceipt.ReadOnly = true;
             this.dataGridViewReceipt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewReceipt.Size = new System.Drawing.Size(450, 413);
-            this.dataGridViewReceipt.TabIndex = 3;
+            this.dataGridViewReceipt.TabIndex = 5;
             // 
             // buttonPOBrowse
             // 
@@ -167,7 +168,7 @@
             this.buttonAddPrintSleeve.Location = new System.Drawing.Point(9, 227);
             this.buttonAddPrintSleeve.Name = "buttonAddPrintSleeve";
             this.buttonAddPrintSleeve.Size = new System.Drawing.Size(196, 60);
-            this.buttonAddPrintSleeve.TabIndex = 5;
+            this.buttonAddPrintSleeve.TabIndex = 4;
             this.buttonAddPrintSleeve.Text = "&Add PrintSleeve Manuanlly";
             this.buttonAddPrintSleeve.UseVisualStyleBackColor = true;
             this.buttonAddPrintSleeve.Click += new System.EventHandler(this.buttonAddPrintSleeve_Click);
@@ -236,7 +237,7 @@
             this.textBoxLotNo.Location = new System.Drawing.Point(105, 170);
             this.textBoxLotNo.Name = "textBoxLotNo";
             this.textBoxLotNo.Size = new System.Drawing.Size(100, 20);
-            this.textBoxLotNo.TabIndex = 3;
+            this.textBoxLotNo.TabIndex = 1;
             // 
             // label5
             // 
@@ -271,13 +272,13 @@
             this.dateTimePickerExpiredDate.Location = new System.Drawing.Point(105, 144);
             this.dateTimePickerExpiredDate.Name = "dateTimePickerExpiredDate";
             this.dateTimePickerExpiredDate.Size = new System.Drawing.Size(100, 20);
-            this.dateTimePickerExpiredDate.TabIndex = 0;
+            this.dateTimePickerExpiredDate.TabIndex = 2;
             this.dateTimePickerExpiredDate.Value = new System.DateTime(2022, 11, 12, 0, 0, 0, 0);
             // 
             // groupBoxLocation
             // 
+            this.groupBoxLocation.Controls.Add(this.dataGridViewLocation);
             this.groupBoxLocation.Controls.Add(this.buttonSelectLocation);
-            this.groupBoxLocation.Controls.Add(this.listBox1);
             this.groupBoxLocation.Controls.Add(this.labelLocation);
             this.groupBoxLocation.Location = new System.Drawing.Point(482, 331);
             this.groupBoxLocation.Name = "groupBoxLocation";
@@ -295,14 +296,6 @@
             this.buttonSelectLocation.Text = "&Select Location Manuanlly";
             this.buttonSelectLocation.UseVisualStyleBackColor = true;
             this.buttonSelectLocation.Click += new System.EventHandler(this.buttonSelectLocation_Click);
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 94);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(953, 225);
-            this.listBox1.TabIndex = 5;
             // 
             // labelLocation
             // 
@@ -366,6 +359,18 @@
             this.dataGridViewAvailable.Size = new System.Drawing.Size(449, 297);
             this.dataGridViewAvailable.TabIndex = 0;
             // 
+            // dataGridViewLocation
+            // 
+            this.dataGridViewLocation.AllowUserToAddRows = false;
+            this.dataGridViewLocation.AllowUserToDeleteRows = false;
+            this.dataGridViewLocation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLocation.Enabled = false;
+            this.dataGridViewLocation.Location = new System.Drawing.Point(7, 95);
+            this.dataGridViewLocation.Name = "dataGridViewLocation";
+            this.dataGridViewLocation.ReadOnly = true;
+            this.dataGridViewLocation.Size = new System.Drawing.Size(952, 228);
+            this.dataGridViewLocation.TabIndex = 6;
+            // 
             // PutAwayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -378,7 +383,6 @@
             this.Controls.Add(this.groupBoxReceipt);
             this.Name = "PutAwayForm";
             this.Text = "Put Away";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PutAwayForm_FormClosing);
             this.Load += new System.EventHandler(this.PutAwayForm_Load);
             this.groupBoxReceipt.ResumeLayout(false);
             this.groupBoxReceipt.PerformLayout();
@@ -389,6 +393,7 @@
             this.groupBoxStatus.ResumeLayout(false);
             this.groupBoxAvailable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAvailable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLocation)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -422,7 +427,7 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonAddPrintSleeve;
         private System.Windows.Forms.Button buttonSelectLocation;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.DataGridView dataGridViewLocation;
     }
 }

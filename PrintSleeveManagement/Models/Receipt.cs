@@ -125,6 +125,26 @@ namespace PrintSleeveManagement.Models
             return row;
         }
 
+        public bool RemovePrintSleeve(int rollNo)
+        {
+            PrintSleeve printSleeve = new PrintSleeve();
+            Transaction transaction = new Transaction();
+
+            if (transaction.Remove(rollNo))
+            {
+                if (!printSleeve.Remove(rollNo))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public int PONo { get; set; }
 
         public List<ReceiptBasePrintSleeve> ReceiptBasePrintSleeve { get; }

@@ -15,9 +15,6 @@ namespace PrintSleeveManagement
 {
     public partial class PutAwayForm : Form
     {
-        static DeviceForm bluetooth;
-        static SerialPort serialPort;
-
         Receipt receipt;
         PrintSleeve printSleeve;
         Location location;
@@ -25,50 +22,16 @@ namespace PrintSleeveManagement
         BindingSource bindingSourceReceipt;
         BindingSource bindingSourceAvailable;
 
-        static Thread bluetoothThread;
-
         public PutAwayForm()
         {
             InitializeComponent();
         }
 
         private void PutAwayForm_Load(object sender, EventArgs e)
-        {
-            serialPort = new SerialPort();
-            //bluetoothThread = new Thread(ReadBluetooth);
-            SerialPortDialog serialPortDialog = new SerialPortDialog();
-            if (!serialPort.IsOpen)
-            {
-                if (serialPortDialog.Show() == DialogResult.OK)
-                {
-                    try
-                    {
-                        serialPort.PortName = serialPortDialog.PortName;
-                        serialPort.DataReceived += new SerialDataReceivedEventHandler(DataRecieved);
-                        serialPort.Open();
-                        //bluetoothThread.Start();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-            }
-
+        {            
             setDiplayReceipt(false);
             dateTimePickerExpiredDate.Value = DateTime.Now;
             textBoxPONo.Focus();
-        }
-
-        private void DataRecieved(object sender, SerialDataReceivedEventArgs e)
-        {
-            SerialPort sp = (SerialPort)sender;
-            string indata = sp.ReadExisting();
-            MessageBox.Show(indata);
-        }
-
-        private static void ReadBluetooth()
-        {
         }
 
         private void setDiplayReceipt(bool alreadyPO)
@@ -99,6 +62,23 @@ namespace PrintSleeveManagement
                 buttonClear.Enabled = false;
                 dataGridViewReceipt.Enabled = false;
             }
+        }
+
+        private void updateReceipt()
+        {
+            int cRow = bindingSourceReceipt.Position;
+            bindingSourceReceipt.Clear();
+            receipt.getReceipt();
+            bindingSourceReceipt.ResetBindings(false);
+            if (cRow == 0)
+            {
+                setPrintSleeveDisplay(0);
+            }
+            else
+            {
+                bindingSourceReceipt.Position = cRow;
+            }
+            checkResult();
         }
 
         private void commitPO()
@@ -280,19 +260,7 @@ namespace PrintSleeveManagement
                         {
                             MessageBox.Show(printSleeve.getErrorString());
                         }
-                        int cRow = bindingSourceReceipt.Position;
-                        bindingSourceReceipt.Clear();
-                        receipt.getReceipt();
-                        bindingSourceReceipt.ResetBindings(false);
-                        if (cRow == 0)
-                        {
-                            setPrintSleeveDisplay(0);
-                        }
-                        else
-                        {
-                            bindingSourceReceipt.Position = cRow;
-                        }                        
-                        checkResult();
+                        updateReceipt();
                     }
                 }
                 else
@@ -341,7 +309,7 @@ namespace PrintSleeveManagement
             {
                 labelStatus.Text = "Complete";
                 labelStatus.BackColor = Color.Lime;
-            }/*
+            }
             else
             {
                 labelStatus.Text = "";
@@ -352,25 +320,20 @@ namespace PrintSleeveManagement
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             PrintSleeve printSleeve = new PrintSleeve();
+            Transaction transaction = new Transaction();
 
             int rollNo = (Int32) dataGridViewAvailable.CurrentRow.Cells[0].Value;
             if (MessageBox.Show("Ara you Sure to Delete RollNo " + rollNo.ToString(), "Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (printSleeve.Remove(rollNo))
+                if (receipt.RemovePrintSleeve(rollNo))
                 {
-                    setPrintSleeveDisplay(bindingSourceReceipt.Position);
+                    updateReceipt();
                 }
                 else
                 {
                     MessageBox.Show(printSleeve.getErrorString());
                 }
             }
-        }
-
-        private void PutAwayForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            serialPort.Close();
-            //bluetoothThread.Abort();
         }
     }
 }
