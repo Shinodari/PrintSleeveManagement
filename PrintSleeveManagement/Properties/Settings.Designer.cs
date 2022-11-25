@@ -36,13 +36,37 @@ namespace PrintSleeveManagement.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SerialPort {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public short InputMode {
             get {
-                return ((string)(this["SerialPort"]));
+                return ((short)(this["InputMode"]));
             }
             set {
-                this["SerialPort"] = value;
+                this["InputMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM3")]
+        public string SerialPortIncoming {
+            get {
+                return ((string)(this["SerialPortIncoming"]));
+            }
+            set {
+                this["SerialPortIncoming"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM4")]
+        public string SerialPortOutgoing {
+            get {
+                return ((string)(this["SerialPortOutgoing"]));
+            }
+            set {
+                this["SerialPortOutgoing"] = value;
             }
         }
     }
