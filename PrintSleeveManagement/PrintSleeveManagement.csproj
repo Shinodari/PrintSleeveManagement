@@ -148,6 +148,12 @@
     <Compile Include="SerialPortDialog.Designer.cs">
       <DependentUpon>SerialPortDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="WaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitForm.Designer.cs">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DeviceForm.resx">
       <DependentUpon>DeviceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SerialPortDialog.resx">
       <DependentUpon>SerialPortDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitForm.resx">
+      <DependentUpon>WaitForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
