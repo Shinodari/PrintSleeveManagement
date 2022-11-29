@@ -48,7 +48,7 @@ namespace PrintSleeveManagement.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM4")]
         public string SerialPortIncoming {
             get {
                 return ((string)(this["SerialPortIncoming"]));
@@ -60,7 +60,7 @@ namespace PrintSleeveManagement.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COM4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM3")]
         public string SerialPortOutgoing {
             get {
                 return ((string)(this["SerialPortOutgoing"]));

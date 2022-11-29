@@ -14,11 +14,13 @@ namespace PrintSleeveManagement
     public partial class MainForm : Form
     {
         private Authentication auth;
+        Device device;
         public MainForm()
         {
             InitializeComponent();
 
             auth = new Authentication();
+            device = new Device();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -33,6 +35,24 @@ namespace PrintSleeveManagement
             LoginForm loginForm = new LoginForm();
             this.Enabled = false;
             loginForm.Show();/**/
+
+        }
+
+        void CheckInput()
+        {
+            if (device.CheckInput())
+            {
+                toolStripStatusDevice.Text = $"Device Input Mode: {Device.InputMode}";
+                if (Device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT)
+                {
+                    toolStripStatusDevice.Text += $", ComPort: {Device.SerialPortIncoming}";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Can't use Input Device!\nDetail:" + device.ErrorString + "\nIf you need to use Input Device, please setting Device!");
+                
+            }
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -40,6 +60,8 @@ namespace PrintSleeveManagement
             LoginForm loginForm = new LoginForm();
             this.Enabled = false;
             loginForm.Show();*/
+
+
         }
 
         private void MainForm_Activated(object sender, EventArgs e)
@@ -53,6 +75,7 @@ namespace PrintSleeveManagement
             {
                 this.Enabled = true;
                 toolStripStatusUser.Text = "User by : " + Authentication.Username;
+                
             }
         }
 
@@ -75,6 +98,19 @@ namespace PrintSleeveManagement
             DeviceForm deviceForm = new DeviceForm();
             deviceForm.MdiParent = this;
             deviceForm.Show();
+        }
+
+        private void toolStripConnectDevice_Click(object sender, EventArgs e)
+        {
+            using (WaitForm waitForm = new WaitForm(CheckInput))
+            {
+                waitForm.ShowDialog(this);
+            }/**/
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            device.Close();
         }
     }
 }

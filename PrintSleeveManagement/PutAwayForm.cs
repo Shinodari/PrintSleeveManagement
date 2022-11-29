@@ -18,6 +18,7 @@ namespace PrintSleeveManagement
         Receipt receipt;
         PrintSleeve printSleeve;
         Location location;
+        Device device;
 
         BindingSource bindingSourceReceipt;
         BindingSource bindingSourceAvailable;
@@ -25,6 +26,13 @@ namespace PrintSleeveManagement
         public PutAwayForm()
         {
             InitializeComponent();
+
+            device = new Device();
+        }
+
+        public PutAwayForm(Device device)
+        {
+            this.device = device;
         }
 
         private void PutAwayForm_Load(object sender, EventArgs e)
@@ -32,6 +40,16 @@ namespace PrintSleeveManagement
             setDiplayReceipt(false);
             dateTimePickerExpiredDate.Value = DateTime.Now;
             textBoxPONo.Focus();
+
+            //if (Device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT) { }
+            device.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+        }
+
+        private static void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadExisting();
+            MessageBox.Show(indata);
         }
 
         private void setDiplayReceipt(bool alreadyPO)

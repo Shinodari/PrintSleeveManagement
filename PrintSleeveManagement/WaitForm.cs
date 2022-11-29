@@ -17,8 +17,8 @@ namespace PrintSleeveManagement
         public WaitForm(Action worker)
         {
             InitializeComponent();
-            if (Worker == null)
-                throw new ArgumentNullException();
+            /*if (Worker == null)
+                throw new ArgumentNullException();/**/
             Worker = worker;
         }
 

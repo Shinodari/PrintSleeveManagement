@@ -15,25 +15,43 @@ namespace PrintSleeveManagement
     public partial class DeviceForm : Form
     {
         Device device;
+
+        string outgoingPort;
+        string incomingPort;
+
         public DeviceForm()
         {
             InitializeComponent();
 
             device = new Device();
 
+            labelActiveSerialPort.Text = Device.SerialPortIncoming;
             string[] listSerialPort = SerialPort.GetPortNames();
-            listBoxSerialPort.Items.AddRange(listSerialPort);
+            comboBoxOutgoingPort.Items.AddRange(listSerialPort);
+            comboBoxIncomingPort.Items.AddRange(listSerialPort);
         }
 
         private void buttonActivate_Click(object sender, EventArgs e)
         {
-            List<string> listPortName = new List<string>();
-            foreach (string portName in listBoxSerialPort.SelectedItems)
-            {
-                listPortName.Add(portName);
-            }
+            outgoingPort = comboBoxOutgoingPort.SelectedItem.ToString();
+            incomingPort = comboBoxIncomingPort.SelectedItem.ToString();
 
-            device.Activate(listPortName);
+            using (WaitForm waitForm = new WaitForm(ActivateDevice))
+            {
+                waitForm.ShowDialog(this);
+            }
+        }
+
+        void ActivateDevice()
+        {
+            if (device.Activate(outgoingPort, incomingPort))
+            {
+                MessageBox.Show("Input Device Activate is Successfuly");
+            }
+            else
+            {
+                MessageBox.Show("Input Device Activate is Unsuccessfuly!\nPlease check setting and try agian.\nDetaial:\n" + device.ErrorString);
+            }
         }
     }
 }
