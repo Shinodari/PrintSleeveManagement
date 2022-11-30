@@ -49,6 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerExpiredDate = new System.Windows.Forms.DateTimePicker();
             this.groupBoxLocation = new System.Windows.Forms.GroupBox();
+            this.dataGridViewLocation = new System.Windows.Forms.DataGridView();
             this.buttonSelectLocation = new System.Windows.Forms.Button();
             this.labelLocation = new System.Windows.Forms.Label();
             this.groupBoxStatus = new System.Windows.Forms.GroupBox();
@@ -56,15 +57,14 @@
             this.groupBoxAvailable = new System.Windows.Forms.GroupBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
-            this.dataGridViewLocation = new System.Windows.Forms.DataGridView();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
             this.groupBoxLocation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLocation)).BeginInit();
             this.groupBoxStatus.SuspendLayout();
             this.groupBoxAvailable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAvailable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLocation)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxReceipt
@@ -287,6 +287,18 @@
             this.groupBoxLocation.TabStop = false;
             this.groupBoxLocation.Text = "Location";
             // 
+            // dataGridViewLocation
+            // 
+            this.dataGridViewLocation.AllowUserToAddRows = false;
+            this.dataGridViewLocation.AllowUserToDeleteRows = false;
+            this.dataGridViewLocation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewLocation.Enabled = false;
+            this.dataGridViewLocation.Location = new System.Drawing.Point(7, 95);
+            this.dataGridViewLocation.Name = "dataGridViewLocation";
+            this.dataGridViewLocation.ReadOnly = true;
+            this.dataGridViewLocation.Size = new System.Drawing.Size(952, 228);
+            this.dataGridViewLocation.TabIndex = 6;
+            // 
             // buttonSelectLocation
             // 
             this.buttonSelectLocation.Location = new System.Drawing.Point(965, 23);
@@ -359,18 +371,6 @@
             this.dataGridViewAvailable.Size = new System.Drawing.Size(449, 297);
             this.dataGridViewAvailable.TabIndex = 0;
             // 
-            // dataGridViewLocation
-            // 
-            this.dataGridViewLocation.AllowUserToAddRows = false;
-            this.dataGridViewLocation.AllowUserToDeleteRows = false;
-            this.dataGridViewLocation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewLocation.Enabled = false;
-            this.dataGridViewLocation.Location = new System.Drawing.Point(7, 95);
-            this.dataGridViewLocation.Name = "dataGridViewLocation";
-            this.dataGridViewLocation.ReadOnly = true;
-            this.dataGridViewLocation.Size = new System.Drawing.Size(952, 228);
-            this.dataGridViewLocation.TabIndex = 6;
-            // 
             // PutAwayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,6 +383,7 @@
             this.Controls.Add(this.groupBoxReceipt);
             this.Name = "PutAwayForm";
             this.Text = "Put Away";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PutAwayForm_FormClosing);
             this.Load += new System.EventHandler(this.PutAwayForm_Load);
             this.groupBoxReceipt.ResumeLayout(false);
             this.groupBoxReceipt.PerformLayout();
@@ -390,10 +391,10 @@
             this.groupBoxPrintSleeve.ResumeLayout(false);
             this.groupBoxPrintSleeve.PerformLayout();
             this.groupBoxLocation.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLocation)).EndInit();
             this.groupBoxStatus.ResumeLayout(false);
             this.groupBoxAvailable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAvailable)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLocation)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -8,56 +8,67 @@ using System.Threading.Tasks;
 
 namespace PrintSleeveManagement.Models
 {    
-    class Device : SerialPort
+    public class Device
     {
+        public string ErrorString;
+
+        public SerialPort serialPort;
+
         public enum DEVICE_INPUT_MODE
         {
             SERIAL_PORT = 1,
             HID_KEYBORD = 2
         }
 
-        public static DEVICE_INPUT_MODE InputMode
+        public static string ReadData { get; set; }
+
+        public DEVICE_INPUT_MODE InputMode
         {
             get { return (DEVICE_INPUT_MODE) Properties.Settings.Default.InputMode; }
             set { Properties.Settings.Default.InputMode = (short) value; }
         }
 
-        public static string SerialPortIncoming
+        public string SerialPortIncoming
         {
             get { return Properties.Settings.Default.SerialPortIncoming; }
             set { Properties.Settings.Default.SerialPortIncoming = value; }
         }
 
-        public static string SerialPortOutgoing
+        public string SerialPortOutgoing
         {
             get { return Properties.Settings.Default.SerialPortOutgoing; }
             set { Properties.Settings.Default.SerialPortOutgoing = value; }
         }
 
-        public string ErrorString;
+        public void Open() => serialPort.Open();
 
-        SerialPort serialPort;
+        public void Close() => serialPort.Close();
+
+        public Device()
+        {
+            serialPort = new SerialPort();
+        }
 
         public bool CheckInput()
         {
             switch (InputMode)
             {
                 case DEVICE_INPUT_MODE.SERIAL_PORT:
-                    PortName = SerialPortIncoming;
+                    serialPort.PortName = SerialPortIncoming;
                     try
                     {
                         Open();
                         for (int i = 0; i < 2; ++i)
                         {
                             int timeOut = 5;
-                            while (!DsrHolding && timeOut > 0)
+                            while (!serialPort.DsrHolding && timeOut > 0)
                             {
                                 Thread.Sleep(1000);
                                 --timeOut;
                             }
                             Thread.Sleep(3000);
                         }
-                        if (!DsrHolding)
+                        if (!serialPort.DsrHolding)
                         {
                             ErrorString = "DSR Time Out!";
                             return false;

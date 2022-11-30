@@ -25,7 +25,7 @@ namespace PrintSleeveManagement
 
             device = new Device();
 
-            labelActiveSerialPort.Text = Device.SerialPortIncoming;
+            labelActiveSerialPort.Text = device.SerialPortIncoming;
             string[] listSerialPort = SerialPort.GetPortNames();
             comboBoxOutgoingPort.Items.AddRange(listSerialPort);
             comboBoxIncomingPort.Items.AddRange(listSerialPort);

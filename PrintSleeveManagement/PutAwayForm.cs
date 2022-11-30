@@ -15,10 +15,15 @@ namespace PrintSleeveManagement
 {
     public partial class PutAwayForm : Form
     {
+        private delegate void DataReceiveCallback(string data);
+
         Receipt receipt;
         PrintSleeve printSleeve;
         Location location;
         Device device;
+
+        Thread threadDevice;
+        bool readyDevice;
 
         BindingSource bindingSourceReceipt;
         BindingSource bindingSourceAvailable;
@@ -28,10 +33,11 @@ namespace PrintSleeveManagement
             InitializeComponent();
 
             device = new Device();
+            //threadDevice = new Thread(DataReceived);
         }
 
-        public PutAwayForm(Device device)
-        {
+        public PutAwayForm(Device device) : this()
+        {            
             this.device = device;
         }
 
@@ -42,15 +48,47 @@ namespace PrintSleeveManagement
             textBoxPONo.Focus();
 
             //if (Device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT) { }
-            device.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            //device.serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            readyDevice = true;
+            //threadDevice.Start();
+
+            DataReceiveCallback dataReceiveCallback = new DataReceiveCallback(DataCallback);
+            threadDevice = new Thread(() => DataReceived(dataReceiveCallback));
+            threadDevice.Start();
         }
 
-        private static void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        private void DataCallback(string data)
+        {
+            //if (this)
+            //labelPartNo.Text = data;
+
+        }
+        
+        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
-            MessageBox.Show(indata);
-        }
+            //addPrintSleeve(indata);
+        }/**/
+        
+        private void DataReceived(DataReceiveCallback dataReceiveCallback)
+        {
+            while (readyDevice)
+            {
+                try
+                {
+                    string message = device.serialPort.ReadExisting();
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        dataReceiveCallback(message);
+                    }
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+        }/***/
 
         private void setDiplayReceipt(bool alreadyPO)
         {
@@ -234,6 +272,26 @@ namespace PrintSleeveManagement
 
         private void buttonAddPrintSleeve_Click(object sender, EventArgs e)
         {
+            addPrintSleeve();
+        }
+
+        private void buttonSelectLocation_Click(object sender, EventArgs e)
+        {
+            getLocation();
+        }
+
+        private void getLocation()
+        {
+            LocationDialog locationDialog = new LocationDialog();
+            if (locationDialog.Show() == DialogResult.OK)
+            {
+                location = new Location(locationDialog.LocationID);
+                labelLocation.Text = location.LocationID;
+            }
+        }
+
+        private void addPrintSleeve(string rollNo = null)
+        {
             if (DateTime.Compare(dateTimePickerExpiredDate.Value, DateTime.Now) <= 0)
             {
                 if (MessageBox.Show("PrintSleeve is Expied!\nAre you sure to put away?", "Expired!", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -262,45 +320,28 @@ namespace PrintSleeveManagement
                 return;
             }
 
-            string rollNo = "";
-            if (InputDialog.InputBox("RollNo", "Please enter RollNo.", ref rollNo) == DialogResult.OK)
+            if (location == null || location.LocationID == null)
             {
-                if (location != null)
+                MessageBox.Show("Please specify Location!");
+                return;
+            }
+
+            PrintSleeve printSleeve = new PrintSleeve();
+            if (string.IsNullOrEmpty(rollNo)) {
+                if (InputDialog.InputBox("RollNo", "Please enter RollNo.", ref rollNo) == DialogResult.Cancel)
                 {
-                    if (location.LocationID != null)
-                    {
-                        PrintSleeve printSleeve = new PrintSleeve();
-                        if (!printSleeve.Create(Int32.Parse(rollNo), receipt.PONo,
+                    return;
+                }
+            }
+            if (!printSleeve.Create(Int32.Parse(rollNo), receipt.PONo,
                             this.printSleeve.ItemNo, textBoxLotNo.Text,
                             Int32.Parse(textBoxQuantity.Text),
                             dateTimePickerExpiredDate.Value,
                             location))
-                        {
-                            MessageBox.Show(printSleeve.getErrorString());
-                        }
-                        updateReceipt();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Please specify Location!");
-                }
-            }
-        }
-
-        private void buttonSelectLocation_Click(object sender, EventArgs e)
-        {
-            getLocation();
-        }
-
-        private void getLocation()
-        {
-            LocationDialog locationDialog = new LocationDialog();
-            if (locationDialog.Show() == DialogResult.OK)
             {
-                location = new Location(locationDialog.LocationID);
-                labelLocation.Text = location.LocationID;
+                MessageBox.Show(printSleeve.getErrorString());
             }
+            updateReceipt();
         }
 
         private void checkResult()
@@ -352,6 +393,11 @@ namespace PrintSleeveManagement
                     MessageBox.Show(printSleeve.getErrorString());
                 }
             }
+        }
+
+        private void PutAwayForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            readyDevice = false;
         }
     }
 }
