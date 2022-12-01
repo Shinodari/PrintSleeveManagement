@@ -15,15 +15,12 @@ namespace PrintSleeveManagement
 {
     public partial class PutAwayForm : Form
     {
-        private delegate void DataReceiveCallback(string data);
+        public delegate void DataReceiveCallback(string data);
 
         Receipt receipt;
         PrintSleeve printSleeve;
         Location location;
         Device device;
-
-        Thread threadDevice;
-        bool readyDevice;
 
         BindingSource bindingSourceReceipt;
         BindingSource bindingSourceAvailable;
@@ -33,7 +30,6 @@ namespace PrintSleeveManagement
             InitializeComponent();
 
             device = new Device();
-            //threadDevice = new Thread(DataReceived);
         }
 
         public PutAwayForm(Device device) : this()
@@ -48,47 +44,28 @@ namespace PrintSleeveManagement
             textBoxPONo.Focus();
 
             //if (Device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT) { }
-            //device.serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-            readyDevice = true;
-            //threadDevice.Start();
-
-            DataReceiveCallback dataReceiveCallback = new DataReceiveCallback(DataCallback);
-            threadDevice = new Thread(() => DataReceived(dataReceiveCallback));
-            threadDevice.Start();
+            device.serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
         }
 
         private void DataCallback(string data)
         {
-            //if (this)
-            //labelPartNo.Text = data;
-
+            if (this.textBoxInputData.InvokeRequired)
+            {
+                DataReceiveCallback d = new DataReceiveCallback(DataCallback);
+                this.Invoke(d, new object[] { data });
+            }
+            else
+            {
+                this.textBoxInputData.Text = data;
+            }
         }
         
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadExisting();
-            //addPrintSleeve(indata);
+            DataCallback(indata);
         }/**/
-        
-        private void DataReceived(DataReceiveCallback dataReceiveCallback)
-        {
-            while (readyDevice)
-            {
-                try
-                {
-                    string message = device.serialPort.ReadExisting();
-                    if (!string.IsNullOrEmpty(message))
-                    {
-                        dataReceiveCallback(message);
-                    }
-                }
-                catch(Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-            }
-        }/***/
 
         private void setDiplayReceipt(bool alreadyPO)
         {
@@ -395,9 +372,29 @@ namespace PrintSleeveManagement
             }
         }
 
-        private void PutAwayForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void textBoxInputData_TextChanged(object sender, EventArgs e)
         {
-            readyDevice = false;
+            string txt = textBoxInputData.Text;
+            for (int i = 0; i < txt.Length; i++)
+            {
+                byte b = Convert.ToByte(txt[i]);
+                if (b.ToString() == "13")
+                {
+                    txt = txt.Substring(0, txt.Length - 1);
+                    processInputData(txt);
+                    textBoxInputData.Text = "";    
+                }
+            }
+        }
+
+        private void processInputData(string data)/////////////////////////
+        {
+            location = new Location();
+            if (location.IsLocation(data))
+            {
+                location.LocationID = data;
+                labelLocation.Text = data;
+            }
         }
     }
 }

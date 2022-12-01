@@ -68,6 +68,26 @@ namespace PrintSleeveManagement.Models
             }
         }
 
+        public bool IsLocation(string locationID)
+        {
+            bool result = false;
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                return false;
+            }
+            string sql = $"SELECT LocationID FROM Location WHERE LocationID ='{locationID}'";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            if (dataReader.HasRows)
+                result = true;
+
+            dataReader.Close();
+            command.Dispose();
+            close();
+            return result;
+        }
+
         private void getPrintSleeve()
         {
             Database.CONNECT_RESULT connect_result = connect();

@@ -57,6 +57,9 @@
             this.groupBoxAvailable = new System.Windows.Forms.GroupBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
+            this.groupBoxInputDevice = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxInputData = new System.Windows.Forms.TextBox();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
@@ -65,6 +68,7 @@
             this.groupBoxStatus.SuspendLayout();
             this.groupBoxAvailable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAvailable)).BeginInit();
+            this.groupBoxInputDevice.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxReceipt
@@ -156,7 +160,7 @@
             this.groupBoxPrintSleeve.Controls.Add(this.label3);
             this.groupBoxPrintSleeve.Controls.Add(this.label2);
             this.groupBoxPrintSleeve.Controls.Add(this.dateTimePickerExpiredDate);
-            this.groupBoxPrintSleeve.Location = new System.Drawing.Point(482, 12);
+            this.groupBoxPrintSleeve.Location = new System.Drawing.Point(482, 65);
             this.groupBoxPrintSleeve.Name = "groupBoxPrintSleeve";
             this.groupBoxPrintSleeve.Size = new System.Drawing.Size(1170, 313);
             this.groupBoxPrintSleeve.TabIndex = 1;
@@ -280,7 +284,7 @@
             this.groupBoxLocation.Controls.Add(this.dataGridViewLocation);
             this.groupBoxLocation.Controls.Add(this.buttonSelectLocation);
             this.groupBoxLocation.Controls.Add(this.labelLocation);
-            this.groupBoxLocation.Location = new System.Drawing.Point(482, 331);
+            this.groupBoxLocation.Location = new System.Drawing.Point(488, 384);
             this.groupBoxLocation.Name = "groupBoxLocation";
             this.groupBoxLocation.Size = new System.Drawing.Size(1170, 329);
             this.groupBoxLocation.TabIndex = 2;
@@ -321,9 +325,9 @@
             // groupBoxStatus
             // 
             this.groupBoxStatus.Controls.Add(this.labelStatus);
-            this.groupBoxStatus.Location = new System.Drawing.Point(482, 666);
+            this.groupBoxStatus.Location = new System.Drawing.Point(482, 719);
             this.groupBoxStatus.Name = "groupBoxStatus";
-            this.groupBoxStatus.Size = new System.Drawing.Size(1170, 183);
+            this.groupBoxStatus.Size = new System.Drawing.Size(1170, 130);
             this.groupBoxStatus.TabIndex = 3;
             this.groupBoxStatus.TabStop = false;
             this.groupBoxStatus.Text = "Status";
@@ -334,8 +338,9 @@
             this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.labelStatus.Location = new System.Drawing.Point(6, 16);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(1155, 149);
+            this.labelStatus.Size = new System.Drawing.Size(1155, 103);
             this.labelStatus.TabIndex = 4;
+            this.labelStatus.Text = "TEST";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBoxAvailable
@@ -371,11 +376,41 @@
             this.dataGridViewAvailable.Size = new System.Drawing.Size(449, 297);
             this.dataGridViewAvailable.TabIndex = 0;
             // 
+            // groupBoxInputDevice
+            // 
+            this.groupBoxInputDevice.Controls.Add(this.textBoxInputData);
+            this.groupBoxInputDevice.Controls.Add(this.label7);
+            this.groupBoxInputDevice.Location = new System.Drawing.Point(482, 17);
+            this.groupBoxInputDevice.Name = "groupBoxInputDevice";
+            this.groupBoxInputDevice.Size = new System.Drawing.Size(1170, 42);
+            this.groupBoxInputDevice.TabIndex = 5;
+            this.groupBoxInputDevice.TabStop = false;
+            this.groupBoxInputDevice.Text = "Input Device:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(63, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Input Data :";
+            // 
+            // textBoxInputData
+            // 
+            this.textBoxInputData.Enabled = false;
+            this.textBoxInputData.Location = new System.Drawing.Point(75, 15);
+            this.textBoxInputData.Name = "textBoxInputData";
+            this.textBoxInputData.Size = new System.Drawing.Size(1086, 20);
+            this.textBoxInputData.TabIndex = 1;
+            this.textBoxInputData.TextChanged += new System.EventHandler(this.textBoxInputData_TextChanged);
+            // 
             // PutAwayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1664, 861);
+            this.Controls.Add(this.groupBoxInputDevice);
             this.Controls.Add(this.groupBoxAvailable);
             this.Controls.Add(this.groupBoxStatus);
             this.Controls.Add(this.groupBoxLocation);
@@ -383,7 +418,6 @@
             this.Controls.Add(this.groupBoxReceipt);
             this.Name = "PutAwayForm";
             this.Text = "Put Away";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PutAwayForm_FormClosing);
             this.Load += new System.EventHandler(this.PutAwayForm_Load);
             this.groupBoxReceipt.ResumeLayout(false);
             this.groupBoxReceipt.PerformLayout();
@@ -395,6 +429,8 @@
             this.groupBoxStatus.ResumeLayout(false);
             this.groupBoxAvailable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAvailable)).EndInit();
+            this.groupBoxInputDevice.ResumeLayout(false);
+            this.groupBoxInputDevice.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -430,5 +466,8 @@
         private System.Windows.Forms.Button buttonSelectLocation;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.DataGridView dataGridViewLocation;
+        private System.Windows.Forms.GroupBox groupBoxInputDevice;
+        private System.Windows.Forms.TextBox textBoxInputData;
+        private System.Windows.Forms.Label label7;
     }
 }
