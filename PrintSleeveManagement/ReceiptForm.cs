@@ -74,6 +74,7 @@ namespace PrintSleeveManagement
             {
                 textBoxPONo.Enabled = true;
                 buttonNew.Enabled = true;
+                buttonImport.Enabled = true;
                 buttonClear.Enabled = false;
 
                 textBoxPartNo.Enabled = false;
@@ -90,6 +91,7 @@ namespace PrintSleeveManagement
             {
                 textBoxPONo.Enabled = false;
                 buttonNew.Enabled = false;
+                buttonImport.Enabled = false;
                 buttonClear.Enabled = true;
 
                 textBoxPartNo.Enabled = true;
@@ -158,7 +160,7 @@ namespace PrintSleeveManagement
                 {
                     basePrintSleeve.Quantity = Int32.Parse(textBoxQuantity.Text);
                     bindignSource.Add(basePrintSleeve);
-                    dataGridViewPrintSleeve.CurrentCell = dataGridViewPrintSleeve.Rows[dataGridViewPrintSleeve.RowCount - 1].Cells[0];
+                    dataGridViewPrintSleeve.CurrentCell = dataGridViewPrintSleeve[2,dataGridViewPrintSleeve.RowCount -1];
                 }
                 textBoxPartNo.Text = "";
                 textBoxQuantity.Text = "200";
@@ -305,6 +307,21 @@ namespace PrintSleeveManagement
             else
             {
                 MessageBox.Show("Can't connect the database!\nPlease contact Administrator");
+            }
+        }
+
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "C:\\";
+                openFileDialog.Filter = "XLS files (*.xls)";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Somting
+                }
             }
         }
     }

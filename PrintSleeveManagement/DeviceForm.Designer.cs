@@ -35,12 +35,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxOutgoingPort = new System.Windows.Forms.ComboBox();
             this.comboBoxIncomingPort = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxInputMode = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 0;
@@ -49,7 +51,7 @@
             // labelActiveSerialPort
             // 
             this.labelActiveSerialPort.AutoSize = true;
-            this.labelActiveSerialPort.Location = new System.Drawing.Point(110, 9);
+            this.labelActiveSerialPort.Location = new System.Drawing.Point(107, 46);
             this.labelActiveSerialPort.Name = "labelActiveSerialPort";
             this.labelActiveSerialPort.Size = new System.Drawing.Size(37, 13);
             this.labelActiveSerialPort.TabIndex = 1;
@@ -57,7 +59,7 @@
             // 
             // buttonActivate
             // 
-            this.buttonActivate.Location = new System.Drawing.Point(110, 79);
+            this.buttonActivate.Location = new System.Drawing.Point(107, 116);
             this.buttonActivate.Name = "buttonActivate";
             this.buttonActivate.Size = new System.Drawing.Size(75, 23);
             this.buttonActivate.TabIndex = 4;
@@ -68,7 +70,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 29);
+            this.label2.Location = new System.Drawing.Point(23, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 5;
@@ -77,7 +79,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 56);
+            this.label3.Location = new System.Drawing.Point(23, 93);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 6;
@@ -86,25 +88,44 @@
             // comboBoxOutgoingPort
             // 
             this.comboBoxOutgoingPort.FormattingEnabled = true;
-            this.comboBoxOutgoingPort.Location = new System.Drawing.Point(113, 25);
+            this.comboBoxOutgoingPort.Location = new System.Drawing.Point(110, 62);
             this.comboBoxOutgoingPort.Name = "comboBoxOutgoingPort";
-            this.comboBoxOutgoingPort.Size = new System.Drawing.Size(72, 21);
+            this.comboBoxOutgoingPort.Size = new System.Drawing.Size(166, 21);
             this.comboBoxOutgoingPort.TabIndex = 7;
             // 
             // comboBoxIncomingPort
             // 
             this.comboBoxIncomingPort.FormattingEnabled = true;
-            this.comboBoxIncomingPort.Location = new System.Drawing.Point(113, 52);
+            this.comboBoxIncomingPort.Location = new System.Drawing.Point(110, 89);
             this.comboBoxIncomingPort.Name = "comboBoxIncomingPort";
-            this.comboBoxIncomingPort.Size = new System.Drawing.Size(72, 21);
+            this.comboBoxIncomingPort.Size = new System.Drawing.Size(166, 21);
             this.comboBoxIncomingPort.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(34, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Input Mode :";
+            // 
+            // comboBoxInputMode
+            // 
+            this.comboBoxInputMode.FormattingEnabled = true;
+            this.comboBoxInputMode.Location = new System.Drawing.Point(110, 10);
+            this.comboBoxInputMode.Name = "comboBoxInputMode";
+            this.comboBoxInputMode.Size = new System.Drawing.Size(166, 21);
+            this.comboBoxInputMode.TabIndex = 9;
             // 
             // DeviceForm
             // 
             this.AcceptButton = this.buttonActivate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(211, 116);
+            this.ClientSize = new System.Drawing.Size(288, 151);
+            this.Controls.Add(this.comboBoxInputMode);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxIncomingPort);
             this.Controls.Add(this.comboBoxOutgoingPort);
             this.Controls.Add(this.label3);
@@ -128,5 +149,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxOutgoingPort;
         private System.Windows.Forms.ComboBox comboBoxIncomingPort;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBoxInputMode;
     }
 }

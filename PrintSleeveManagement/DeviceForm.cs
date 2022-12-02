@@ -24,21 +24,50 @@ namespace PrintSleeveManagement
             InitializeComponent();
 
             device = new Device();
+            
+            Dictionary<int, string> inputModeList = new Dictionary<int, string>();
+            foreach (Device.DEVICE_INPUT_MODE enumInputDevice in Enum.GetValues(typeof(Device.DEVICE_INPUT_MODE)))
+            {
+                inputModeList.Add((int)enumInputDevice, enumInputDevice.ToString());
+            }
+            comboBoxInputMode.DataSource = new BindingSource(inputModeList, null);
+            comboBoxInputMode.DisplayMember = "Value";
+            comboBoxInputMode.ValueMember = "Key";
 
-            labelActiveSerialPort.Text = device.SerialPortIncoming;
+            for (int i = 0;i < comboBoxInputMode.Items.Count; i++)
+            {
+                if (((KeyValuePair<int, string>)comboBoxInputMode.Items[i]).Key == (int) Device.InputMode)
+                {
+                    comboBoxInputMode.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            labelActiveSerialPort.Text = Device.SerialPortIncoming;
             string[] listSerialPort = SerialPort.GetPortNames();
             comboBoxOutgoingPort.Items.AddRange(listSerialPort);
+            if (comboBoxOutgoingPort.Items.Count > 0)
+                comboBoxOutgoingPort.SelectedIndex = 0;
             comboBoxIncomingPort.Items.AddRange(listSerialPort);
+            if (comboBoxIncomingPort.Items.Count > 0)
+                comboBoxIncomingPort.SelectedIndex = 0;
         }
 
         private void buttonActivate_Click(object sender, EventArgs e)
         {
-            outgoingPort = comboBoxOutgoingPort.SelectedItem.ToString();
-            incomingPort = comboBoxIncomingPort.SelectedItem.ToString();
-
-            using (WaitForm waitForm = new WaitForm(ActivateDevice))
+            if (comboBoxInputMode.SelectedItem.ToString() == Device.DEVICE_INPUT_MODE.SERIAL_PORT.ToString())
             {
-                waitForm.ShowDialog(this);
+                outgoingPort = comboBoxOutgoingPort.SelectedItem.ToString();
+                incomingPort = comboBoxIncomingPort.SelectedItem.ToString();
+                using (WaitForm waitForm = new WaitForm(ActivateDevice))
+                {
+                    waitForm.ShowDialog(this);
+                }
+            }
+            else
+            {
+                Device.InputMode = (Device.DEVICE_INPUT_MODE)((KeyValuePair<int, string>)comboBoxInputMode.SelectedItem).Key;
+                MessageBox.Show("Input Device Activate is Successfuly");
             }
         }
 
@@ -46,6 +75,9 @@ namespace PrintSleeveManagement
         {
             if (device.Activate(outgoingPort, incomingPort))
             {
+                Device.InputMode = (Device.DEVICE_INPUT_MODE) ((KeyValuePair<int, string>)comboBoxInputMode.SelectedItem).Key;
+                Device.SerialPortOutgoing = comboBoxOutgoingPort.SelectedItem.ToString();
+                Device.SerialPortIncoming = comboBoxIncomingPort.SelectedItem.ToString();
                 MessageBox.Show("Input Device Activate is Successfuly");
             }
             else

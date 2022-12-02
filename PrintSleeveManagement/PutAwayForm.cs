@@ -43,8 +43,14 @@ namespace PrintSleeveManagement
             dateTimePickerExpiredDate.Value = DateTime.Now;
             textBoxPONo.Focus();
 
-            //if (Device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT) { }
-            device.serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            if (Device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT)
+            {
+                device.serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            }
+            else
+            {
+                textBoxInputData.Enabled = true;
+            }
         }
 
         private void DataCallback(string data)

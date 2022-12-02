@@ -42,10 +42,10 @@ namespace PrintSleeveManagement
         {
             if (device.CheckInput())
             {
-                toolStripStatusDevice.Text = $"Device Input Mode: {device.InputMode}";
-                if (device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT)
+                toolStripStatusDevice.Text = $"Device Input Mode: {Device.InputMode}";
+                if (Device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT)
                 {
-                    toolStripStatusDevice.Text += $", ComPort: {device.SerialPortIncoming}";
+                    toolStripStatusDevice.Text += $", ComPort: {Device.SerialPortIncoming}";
                 }
             }
             else

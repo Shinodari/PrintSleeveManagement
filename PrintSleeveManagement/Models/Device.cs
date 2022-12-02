@@ -22,19 +22,19 @@ namespace PrintSleeveManagement.Models
 
         public static string ReadData { get; set; }
 
-        public DEVICE_INPUT_MODE InputMode
+        public static DEVICE_INPUT_MODE InputMode
         {
             get { return (DEVICE_INPUT_MODE) Properties.Settings.Default.InputMode; }
             set { Properties.Settings.Default.InputMode = (short) value; }
         }
 
-        public string SerialPortIncoming
+        public static string SerialPortIncoming
         {
             get { return Properties.Settings.Default.SerialPortIncoming; }
             set { Properties.Settings.Default.SerialPortIncoming = value; }
         }
 
-        public string SerialPortOutgoing
+        public static string SerialPortOutgoing
         {
             get { return Properties.Settings.Default.SerialPortOutgoing; }
             set { Properties.Settings.Default.SerialPortOutgoing = value; }

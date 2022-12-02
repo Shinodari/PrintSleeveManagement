@@ -58,8 +58,8 @@
             this.buttonDelete = new System.Windows.Forms.Button();
             this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
             this.groupBoxInputDevice = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.textBoxInputData = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
@@ -340,7 +340,6 @@
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(1155, 103);
             this.labelStatus.TabIndex = 4;
-            this.labelStatus.Text = "TEST";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBoxAvailable
@@ -387,15 +386,6 @@
             this.groupBoxInputDevice.TabStop = false;
             this.groupBoxInputDevice.Text = "Input Device:";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 19);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Input Data :";
-            // 
             // textBoxInputData
             // 
             this.textBoxInputData.Enabled = false;
@@ -404,6 +394,15 @@
             this.textBoxInputData.Size = new System.Drawing.Size(1086, 20);
             this.textBoxInputData.TabIndex = 1;
             this.textBoxInputData.TextChanged += new System.EventHandler(this.textBoxInputData_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(63, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Input Data :";
             // 
             // PutAwayForm
             // 

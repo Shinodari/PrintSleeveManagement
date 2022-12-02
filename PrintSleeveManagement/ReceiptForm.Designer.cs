@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxPONo = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonImport = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonNew = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -70,16 +71,27 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonImport);
             this.groupBox1.Controls.Add(this.buttonClear);
             this.groupBox1.Controls.Add(this.buttonNew);
             this.groupBox1.Controls.Add(this.textBoxPONo);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(300, 82);
+            this.groupBox1.Size = new System.Drawing.Size(346, 82);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Receipt Header";
+            // 
+            // buttonImport
+            // 
+            this.buttonImport.Location = new System.Drawing.Point(265, 17);
+            this.buttonImport.Name = "buttonImport";
+            this.buttonImport.Size = new System.Drawing.Size(75, 23);
+            this.buttonImport.TabIndex = 3;
+            this.buttonImport.Text = "&Import..";
+            this.buttonImport.UseVisualStyleBackColor = true;
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
             // buttonClear
             // 
@@ -116,14 +128,14 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(13, 101);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(300, 289);
+            this.groupBox2.Size = new System.Drawing.Size(346, 289);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Receipt Detail";
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(89, 255);
+            this.buttonCancel.Location = new System.Drawing.Point(265, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -134,7 +146,7 @@
             // 
             // buttonDone
             // 
-            this.buttonDone.Location = new System.Drawing.Point(89, 226);
+            this.buttonDone.Location = new System.Drawing.Point(265, 197);
             this.buttonDone.Name = "buttonDone";
             this.buttonDone.Size = new System.Drawing.Size(75, 23);
             this.buttonDone.TabIndex = 7;
@@ -182,7 +194,7 @@
             this.listBoxPartNo.FormattingEnabled = true;
             this.listBoxPartNo.Location = new System.Drawing.Point(64, 46);
             this.listBoxPartNo.Name = "listBoxPartNo";
-            this.listBoxPartNo.Size = new System.Drawing.Size(230, 147);
+            this.listBoxPartNo.Size = new System.Drawing.Size(276, 147);
             this.listBoxPartNo.TabIndex = 3;
             this.listBoxPartNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBoxPartNo_KeyPress);
             // 
@@ -210,7 +222,7 @@
             this.textBoxPartNo.Enabled = false;
             this.textBoxPartNo.Location = new System.Drawing.Point(64, 20);
             this.textBoxPartNo.Name = "textBoxPartNo";
-            this.textBoxPartNo.Size = new System.Drawing.Size(230, 20);
+            this.textBoxPartNo.Size = new System.Drawing.Size(276, 20);
             this.textBoxPartNo.TabIndex = 2;
             this.textBoxPartNo.TextChanged += new System.EventHandler(this.textBoxPartNo_TextChanged);
             this.textBoxPartNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxPartNo_KeyDown);
@@ -233,7 +245,7 @@
             this.dataGridViewPrintSleeve.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPrintSleeve.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewPrintSleeve.Enabled = false;
-            this.dataGridViewPrintSleeve.Location = new System.Drawing.Point(319, 13);
+            this.dataGridViewPrintSleeve.Location = new System.Drawing.Point(365, 13);
             this.dataGridViewPrintSleeve.MultiSelect = false;
             this.dataGridViewPrintSleeve.Name = "dataGridViewPrintSleeve";
             this.dataGridViewPrintSleeve.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -242,7 +254,7 @@
             // 
             // buttonReceiptAll
             // 
-            this.buttonReceiptAll.Location = new System.Drawing.Point(177, 406);
+            this.buttonReceiptAll.Location = new System.Drawing.Point(243, 406);
             this.buttonReceiptAll.Name = "buttonReceiptAll";
             this.buttonReceiptAll.Size = new System.Drawing.Size(110, 62);
             this.buttonReceiptAll.TabIndex = 11;
@@ -254,7 +266,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 493);
+            this.ClientSize = new System.Drawing.Size(824, 493);
             this.Controls.Add(this.buttonReceiptAll);
             this.Controls.Add(this.dataGridViewPrintSleeve);
             this.Controls.Add(this.groupBox2);
@@ -290,5 +302,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonDone;
         private System.Windows.Forms.Button buttonReceiptAll;
+        private System.Windows.Forms.Button buttonImport;
     }
 }
