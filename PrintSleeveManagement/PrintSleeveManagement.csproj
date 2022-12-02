@@ -122,6 +122,12 @@
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\ReceiptBasePrintSleeve.cs" />
     <Compile Include="Models\Transaction.cs" />
+    <Compile Include="PickForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PickForm.Designer.cs">
+      <DependentUpon>PickForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PODialog.cs">
       <SubType>Form</SubType>
     </Compile>

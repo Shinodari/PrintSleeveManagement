@@ -32,6 +32,12 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripPutAway = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPick = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonStage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonShip = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonTransfer = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonBalance = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonTransaction = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripConnectDevice = new System.Windows.Forms.ToolStripButton();
             this.toolStripDevice = new System.Windows.Forms.ToolStripButton();
@@ -39,12 +45,6 @@
             this.toolStripStatusMain = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusDevice = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusUser = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripButtonPick = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonStage = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonShip = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonTransfer = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonBalance = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonTransaction = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -97,6 +97,85 @@
             this.toolStripPutAway.Size = new System.Drawing.Size(95, 45);
             this.toolStripPutAway.Text = "&PutAway";
             this.toolStripPutAway.Click += new System.EventHandler(this.toolStripPutAway_Click);
+            // 
+            // toolStripButtonPick
+            // 
+            this.toolStripButtonPick.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.toolStripButtonPick.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonPick.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.toolStripButtonPick.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPick.Image")));
+            this.toolStripButtonPick.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPick.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolStripButtonPick.Name = "toolStripButtonPick";
+            this.toolStripButtonPick.Padding = new System.Windows.Forms.Padding(10);
+            this.toolStripButtonPick.Size = new System.Drawing.Size(62, 45);
+            this.toolStripButtonPick.Text = "Pic&k";
+            this.toolStripButtonPick.Click += new System.EventHandler(this.toolStripButtonPick_Click);
+            // 
+            // toolStripButtonStage
+            // 
+            this.toolStripButtonStage.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.toolStripButtonStage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonStage.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.toolStripButtonStage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonStage.Image")));
+            this.toolStripButtonStage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonStage.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolStripButtonStage.Name = "toolStripButtonStage";
+            this.toolStripButtonStage.Padding = new System.Windows.Forms.Padding(10);
+            this.toolStripButtonStage.Size = new System.Drawing.Size(72, 45);
+            this.toolStripButtonStage.Text = "&Stage";
+            // 
+            // toolStripButtonShip
+            // 
+            this.toolStripButtonShip.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.toolStripButtonShip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonShip.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.toolStripButtonShip.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonShip.Image")));
+            this.toolStripButtonShip.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonShip.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolStripButtonShip.Name = "toolStripButtonShip";
+            this.toolStripButtonShip.Padding = new System.Windows.Forms.Padding(10);
+            this.toolStripButtonShip.Size = new System.Drawing.Size(65, 45);
+            this.toolStripButtonShip.Text = "Shi&p";
+            // 
+            // toolStripButtonTransfer
+            // 
+            this.toolStripButtonTransfer.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.toolStripButtonTransfer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonTransfer.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.toolStripButtonTransfer.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonTransfer.Image")));
+            this.toolStripButtonTransfer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonTransfer.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolStripButtonTransfer.Name = "toolStripButtonTransfer";
+            this.toolStripButtonTransfer.Padding = new System.Windows.Forms.Padding(10);
+            this.toolStripButtonTransfer.Size = new System.Drawing.Size(90, 45);
+            this.toolStripButtonTransfer.Text = "&Transfer";
+            // 
+            // toolStripButtonBalance
+            // 
+            this.toolStripButtonBalance.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.toolStripButtonBalance.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonBalance.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.toolStripButtonBalance.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonBalance.Image")));
+            this.toolStripButtonBalance.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonBalance.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolStripButtonBalance.Name = "toolStripButtonBalance";
+            this.toolStripButtonBalance.Padding = new System.Windows.Forms.Padding(10);
+            this.toolStripButtonBalance.Size = new System.Drawing.Size(87, 45);
+            this.toolStripButtonBalance.Text = "&Balance";
+            // 
+            // toolStripButtonTransaction
+            // 
+            this.toolStripButtonTransaction.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.toolStripButtonTransaction.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonTransaction.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.toolStripButtonTransaction.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonTransaction.Image")));
+            this.toolStripButtonTransaction.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonTransaction.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolStripButtonTransaction.Name = "toolStripButtonTransaction";
+            this.toolStripButtonTransaction.Padding = new System.Windows.Forms.Padding(10);
+            this.toolStripButtonTransaction.Size = new System.Drawing.Size(113, 45);
+            this.toolStripButtonTransaction.Text = "Transactio&n";
             // 
             // toolStripSeparator1
             // 
@@ -165,84 +244,6 @@
             this.toolStripStatusUser.Name = "toolStripStatusUser";
             this.toolStripStatusUser.Size = new System.Drawing.Size(59, 19);
             this.toolStripStatusUser.Text = "User By : ";
-            // 
-            // toolStripButtonPick
-            // 
-            this.toolStripButtonPick.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.toolStripButtonPick.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonPick.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.toolStripButtonPick.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPick.Image")));
-            this.toolStripButtonPick.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonPick.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolStripButtonPick.Name = "toolStripButtonPick";
-            this.toolStripButtonPick.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButtonPick.Size = new System.Drawing.Size(62, 45);
-            this.toolStripButtonPick.Text = "Pic&k";
-            // 
-            // toolStripButtonStage
-            // 
-            this.toolStripButtonStage.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.toolStripButtonStage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonStage.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.toolStripButtonStage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonStage.Image")));
-            this.toolStripButtonStage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonStage.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolStripButtonStage.Name = "toolStripButtonStage";
-            this.toolStripButtonStage.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButtonStage.Size = new System.Drawing.Size(72, 45);
-            this.toolStripButtonStage.Text = "&Stage";
-            // 
-            // toolStripButtonShip
-            // 
-            this.toolStripButtonShip.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.toolStripButtonShip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonShip.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.toolStripButtonShip.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonShip.Image")));
-            this.toolStripButtonShip.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonShip.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolStripButtonShip.Name = "toolStripButtonShip";
-            this.toolStripButtonShip.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButtonShip.Size = new System.Drawing.Size(65, 45);
-            this.toolStripButtonShip.Text = "Shi&p";
-            // 
-            // toolStripButtonTransfer
-            // 
-            this.toolStripButtonTransfer.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.toolStripButtonTransfer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonTransfer.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.toolStripButtonTransfer.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonTransfer.Image")));
-            this.toolStripButtonTransfer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonTransfer.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolStripButtonTransfer.Name = "toolStripButtonTransfer";
-            this.toolStripButtonTransfer.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButtonTransfer.Size = new System.Drawing.Size(90, 45);
-            this.toolStripButtonTransfer.Text = "&Transfer";
-            // 
-            // toolStripButtonBalance
-            // 
-            this.toolStripButtonBalance.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.toolStripButtonBalance.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonBalance.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.toolStripButtonBalance.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonBalance.Image")));
-            this.toolStripButtonBalance.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonBalance.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolStripButtonBalance.Name = "toolStripButtonBalance";
-            this.toolStripButtonBalance.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButtonBalance.Size = new System.Drawing.Size(87, 45);
-            this.toolStripButtonBalance.Text = "&Balance";
-            // 
-            // toolStripButtonTransaction
-            // 
-            this.toolStripButtonTransaction.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.toolStripButtonTransaction.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonTransaction.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.toolStripButtonTransaction.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonTransaction.Image")));
-            this.toolStripButtonTransaction.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonTransaction.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolStripButtonTransaction.Name = "toolStripButtonTransaction";
-            this.toolStripButtonTransaction.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButtonTransaction.Size = new System.Drawing.Size(113, 45);
-            this.toolStripButtonTransaction.Text = "Transactio&n";
             // 
             // MainForm
             // 
