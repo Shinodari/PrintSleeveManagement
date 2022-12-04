@@ -315,7 +315,7 @@ namespace PrintSleeveManagement
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "C:\\";
-                openFileDialog.Filter = "XLS files (*.xls)";
+                openFileDialog.Filter = "XLS files (*.xls)|*.xls";
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
