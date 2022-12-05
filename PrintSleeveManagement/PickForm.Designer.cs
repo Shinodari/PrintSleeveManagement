@@ -40,6 +40,7 @@
             this.buttonClearAllocate = new System.Windows.Forms.Button();
             this.buttonAllocate = new System.Windows.Forms.Button();
             this.dataGridViewAllocate = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBoxOrder.SuspendLayout();
             this.groupBoxOrderDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
@@ -126,8 +127,8 @@
             // 
             // groupBoxAllocate
             // 
+            this.groupBoxAllocate.Controls.Add(this.button1);
             this.groupBoxAllocate.Controls.Add(this.buttonClearAllocate);
-            this.groupBoxAllocate.Controls.Add(this.buttonAllocate);
             this.groupBoxAllocate.Controls.Add(this.dataGridViewAllocate);
             this.groupBoxAllocate.Location = new System.Drawing.Point(500, 96);
             this.groupBoxAllocate.Name = "groupBoxAllocate";
@@ -147,23 +148,34 @@
             // 
             // buttonAllocate
             // 
-            this.buttonAllocate.Location = new System.Drawing.Point(559, 20);
+            this.buttonAllocate.Location = new System.Drawing.Point(397, 541);
             this.buttonAllocate.Name = "buttonAllocate";
-            this.buttonAllocate.Size = new System.Drawing.Size(75, 23);
+            this.buttonAllocate.Size = new System.Drawing.Size(97, 36);
             this.buttonAllocate.TabIndex = 1;
             this.buttonAllocate.Text = "&Allocate";
             this.buttonAllocate.UseVisualStyleBackColor = true;
+            this.buttonAllocate.Click += new System.EventHandler(this.buttonAllocate_Click);
             // 
             // dataGridViewAllocate
             // 
             this.dataGridViewAllocate.AllowUserToAddRows = false;
             this.dataGridViewAllocate.AllowUserToDeleteRows = false;
+            this.dataGridViewAllocate.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewAllocate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAllocate.Location = new System.Drawing.Point(7, 20);
             this.dataGridViewAllocate.Name = "dataGridViewAllocate";
-            this.dataGridViewAllocate.ReadOnly = true;
             this.dataGridViewAllocate.Size = new System.Drawing.Size(546, 413);
             this.dataGridViewAllocate.TabIndex = 0;
+            this.dataGridViewAllocate.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAllocate_CellValueChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(559, 20);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Clea&r";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // PickForm
             // 
@@ -171,6 +183,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1664, 861);
             this.Controls.Add(this.groupBoxAllocate);
+            this.Controls.Add(this.buttonAllocate);
             this.Controls.Add(this.groupBoxOrderDetail);
             this.Controls.Add(this.groupBoxOrder);
             this.Name = "PickForm";
@@ -199,5 +212,6 @@
         private System.Windows.Forms.DataGridView dataGridViewAllocate;
         private System.Windows.Forms.Button buttonClearAllocate;
         private System.Windows.Forms.Button buttonAllocate;
+        private System.Windows.Forms.Button button1;
     }
 }

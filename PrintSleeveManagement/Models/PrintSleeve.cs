@@ -178,7 +178,7 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return null;
             }
-            string sql = $"SELECT * FROM PrintSleeve INNER JOIN [Transaction] ON PrintSleeve.RollNo = [Transaction].RollNo WHERE PrintSleeve.ItemNo = '{itemNo}' ORDER BY [ExpireDate], [PONo], [LocationID], [PrintSleeve].[RollNo]";
+            string sql = $"SELECT * FROM PrintSleeve INNER JOIN [Transaction] ON PrintSleeve.RollNo = [Transaction].RollNo WHERE PrintSleeve.ItemNo = '{itemNo}' ORDER BY [ExpireDate], [LotNo], [PONo], [LocationID], [PrintSleeve].[RollNo]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             List<OrderAllocate> orderAllocate = new List<OrderAllocate>();

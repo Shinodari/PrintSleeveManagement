@@ -9,6 +9,8 @@ namespace PrintSleeveManagement.View
 {
     class OrderAllocate : Database
     {
+        public bool Allocate { get; set; }
+
         public DateTime ExpiredDate { get; }
 
         public string LocationId { get; }
@@ -21,6 +23,7 @@ namespace PrintSleeveManagement.View
 
         public OrderAllocate(int rollNo, string lotNo, int quantity, DateTime expiredDate, string locationID)
         {
+            this.Allocate = false;
             this.RollNo = rollNo;
             this.LotNo = lotNo;
             this.Quantity = quantity;
