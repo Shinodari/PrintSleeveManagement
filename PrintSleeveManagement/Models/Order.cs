@@ -8,13 +8,7 @@ namespace PrintSleeveManagement.Models
 {
     class Order : Database
     {
-        PrintSleeve printSleeve;
         public int OrderNo { get; set; }
-
-        public Order()
-        {
-            printSleeve = new PrintSleeve();
-        }
 
         public List<BasePrintSleeve> Allocation
         {
@@ -22,8 +16,28 @@ namespace PrintSleeveManagement.Models
             {
                 return new List<BasePrintSleeve>();
             }
+            set { }
         }
 
+        public List<PrintSleeve> PrintSleeve { get; set; }
+
         public DateTime OrderTime { get; }
+
+        public Order()
+        {
+            PrintSleeve = new List<PrintSleeve>();
+        }
+        
+        public bool IsAllocate(int rollNo)
+        {
+            for (int i = 0; i < PrintSleeve.Count; i++)
+            {
+                if (PrintSleeve[i].RollNo == rollNo)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }/**/
     }
 }

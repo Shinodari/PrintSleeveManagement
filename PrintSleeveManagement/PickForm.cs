@@ -82,7 +82,36 @@ namespace PrintSleeveManagement
 
         private void dataGridViewAllocate_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-
+            int rollNo = (int) dataGridViewAllocate.Rows[e.RowIndex].Cells[4].Value;
+            PrintSleeve printSleeve = new PrintSleeve();
+            List<PrintSleeve> printSleeveList = printSleeve.find(rollNo, PrintSleeve.PRINTSLEEVE_FIND_TYPE.RollNo);
+            if ((bool)dataGridViewAllocate.Rows[e.RowIndex].Cells[0].Value)
+            {
+                if (!order.IsAllocate(rollNo))
+                {
+                    order.PrintSleeve.Add(printSleeveList[0]);
+                }
+                else {
+                    MessageBox.Show("Error 501");
+                }
+            }
+            else
+            {
+                if (order.IsAllocate(rollNo))
+                {
+                    for (int i = 0; i < order.PrintSleeve.Count; i++)
+                    {
+                        if (order.PrintSleeve[i].RollNo == rollNo)
+                        {
+                            order.PrintSleeve.RemoveAt(i);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error 502");
+                }
+            }
         }
     }
 }

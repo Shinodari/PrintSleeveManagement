@@ -208,5 +208,23 @@ namespace PrintSleeveManagement.Models
         public string Creator { get; set; }
 
         public DateTime CreateTime { get; set; }
+        /*
+        public override int GetHashCode()
+        {
+            return RollNo;
+        }
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            PrintSleeve objAsPrintSleeve = obj as PrintSleeve;
+            if (objAsPrintSleeve == null) return false;
+            else return Equals(objAsPrintSleeve);
+        }
+
+        public bool Equals(PrintSleeve other)
+        {
+            if (other == null) return true;
+            return (this.RollNo.Equals(other.RollNo));
+        }/***/
     }
 }
