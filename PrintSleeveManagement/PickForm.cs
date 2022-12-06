@@ -30,8 +30,12 @@ namespace PrintSleeveManagement
 
         private void commitOrder()
         {
-            string orderNo = textBoxOrderNo.Text;
+            order.OrderNo = Int32.Parse(textBoxOrderNo.Text);
+            if (order.IsOrder)
+            {
 
+            }
+            
             bindingSourceOrder = new BindingSource();
             bindingSourceOrder.DataSource = order.Allocation;
             dataGridViewOrder.DataSource = bindingSourceOrder;
@@ -71,13 +75,7 @@ namespace PrintSleeveManagement
 
         private void buttonAllocate_Click(object sender, EventArgs e)
         {
-            int j = 0;
-            for (int i = 0; i < dataGridViewAllocate.RowCount; i++)
-            {
-                if ((bool)dataGridViewAllocate.Rows[i].Cells[0].Value)
-                    j++;
-            }
-            MessageBox.Show(j.ToString());
+            
         }
 
         private void dataGridViewAllocate_CellValueChanged(object sender, DataGridViewCellEventArgs e)

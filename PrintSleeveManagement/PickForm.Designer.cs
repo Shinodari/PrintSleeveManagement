@@ -37,10 +37,8 @@
             this.groupBoxOrderDetail = new System.Windows.Forms.GroupBox();
             this.dataGridViewOrder = new System.Windows.Forms.DataGridView();
             this.groupBoxAllocate = new System.Windows.Forms.GroupBox();
-            this.buttonClearAllocate = new System.Windows.Forms.Button();
-            this.buttonAllocate = new System.Windows.Forms.Button();
             this.dataGridViewAllocate = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonAllocate = new System.Windows.Forms.Button();
             this.groupBoxOrder.SuspendLayout();
             this.groupBoxOrderDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
@@ -127,34 +125,13 @@
             // 
             // groupBoxAllocate
             // 
-            this.groupBoxAllocate.Controls.Add(this.button1);
-            this.groupBoxAllocate.Controls.Add(this.buttonClearAllocate);
             this.groupBoxAllocate.Controls.Add(this.dataGridViewAllocate);
             this.groupBoxAllocate.Location = new System.Drawing.Point(500, 96);
             this.groupBoxAllocate.Name = "groupBoxAllocate";
-            this.groupBoxAllocate.Size = new System.Drawing.Size(640, 439);
+            this.groupBoxAllocate.Size = new System.Drawing.Size(564, 439);
             this.groupBoxAllocate.TabIndex = 2;
             this.groupBoxAllocate.TabStop = false;
             this.groupBoxAllocate.Text = "Allocate";
-            // 
-            // buttonClearAllocate
-            // 
-            this.buttonClearAllocate.Location = new System.Drawing.Point(559, 49);
-            this.buttonClearAllocate.Name = "buttonClearAllocate";
-            this.buttonClearAllocate.Size = new System.Drawing.Size(75, 23);
-            this.buttonClearAllocate.TabIndex = 2;
-            this.buttonClearAllocate.Text = "Clea&r";
-            this.buttonClearAllocate.UseVisualStyleBackColor = true;
-            // 
-            // buttonAllocate
-            // 
-            this.buttonAllocate.Location = new System.Drawing.Point(397, 541);
-            this.buttonAllocate.Name = "buttonAllocate";
-            this.buttonAllocate.Size = new System.Drawing.Size(97, 36);
-            this.buttonAllocate.TabIndex = 1;
-            this.buttonAllocate.Text = "&Allocate";
-            this.buttonAllocate.UseVisualStyleBackColor = true;
-            this.buttonAllocate.Click += new System.EventHandler(this.buttonAllocate_Click);
             // 
             // dataGridViewAllocate
             // 
@@ -168,20 +145,21 @@
             this.dataGridViewAllocate.TabIndex = 0;
             this.dataGridViewAllocate.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAllocate_CellValueChanged);
             // 
-            // button1
+            // buttonAllocate
             // 
-            this.button1.Location = new System.Drawing.Point(559, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Clea&r";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonAllocate.Location = new System.Drawing.Point(917, 23);
+            this.buttonAllocate.Name = "buttonAllocate";
+            this.buttonAllocate.Size = new System.Drawing.Size(136, 59);
+            this.buttonAllocate.TabIndex = 1;
+            this.buttonAllocate.Text = "&Allocate";
+            this.buttonAllocate.UseVisualStyleBackColor = true;
+            this.buttonAllocate.Click += new System.EventHandler(this.buttonAllocate_Click);
             // 
             // PickForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1664, 861);
+            this.ClientSize = new System.Drawing.Size(1077, 547);
             this.Controls.Add(this.groupBoxAllocate);
             this.Controls.Add(this.buttonAllocate);
             this.Controls.Add(this.groupBoxOrderDetail);
@@ -210,8 +188,6 @@
         private System.Windows.Forms.DataGridView dataGridViewOrder;
         private System.Windows.Forms.GroupBox groupBoxAllocate;
         private System.Windows.Forms.DataGridView dataGridViewAllocate;
-        private System.Windows.Forms.Button buttonClearAllocate;
         private System.Windows.Forms.Button buttonAllocate;
-        private System.Windows.Forms.Button button1;
     }
 }
