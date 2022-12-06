@@ -30,13 +30,17 @@ namespace PrintSleeveManagement
 
         private void commitOrder()
         {
+            bindingSourceOrder = new BindingSource();
             order.OrderNo = Int32.Parse(textBoxOrderNo.Text);
             if (order.IsOrder)
             {
-
+                
+            }
+            else
+            {
+                order.CreateOrder();
             }
             
-            bindingSourceOrder = new BindingSource();
             bindingSourceOrder.DataSource = order.Allocation;
             dataGridViewOrder.DataSource = bindingSourceOrder;
             dataGridViewOrder.Columns["Quantity"].DisplayIndex = 1;
@@ -75,7 +79,8 @@ namespace PrintSleeveManagement
 
         private void buttonAllocate_Click(object sender, EventArgs e)
         {
-            
+            int countAllocate = order.Allocate();
+            MessageBox.Show($"OrderNo {order.OrderNo} allocate {countAllocate} Rolls");
         }
 
         private void dataGridViewAllocate_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -110,6 +115,11 @@ namespace PrintSleeveManagement
                     MessageBox.Show("Error 502");
                 }
             }
+        }
+
+        private void buttonResult_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

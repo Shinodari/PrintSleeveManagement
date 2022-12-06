@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrintSleeveManagement.View;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,7 +11,9 @@ namespace PrintSleeveManagement.Models
     class Order : Database
     {
         private int orderNo;
+        private List<BasePrintSleeve> allocation;
         private bool isOrder;
+
         public int OrderNo
         {
             get { return orderNo; }
@@ -23,11 +26,7 @@ namespace PrintSleeveManagement.Models
 
         public List<BasePrintSleeve> Allocation
         {
-            get
-            {
-                return new List<BasePrintSleeve>();
-            }
-            set { }
+            get { return allocation; }
         }
 
         public List<PrintSleeve> PrintSleeve { get; set; }
@@ -41,6 +40,7 @@ namespace PrintSleeveManagement.Models
 
         public Order()
         {
+            allocation = new List<BasePrintSleeve>();
             PrintSleeve = new List<PrintSleeve>();
         }
 
@@ -132,21 +132,29 @@ namespace PrintSleeveManagement.Models
                 return -1;
             }
 
-            string sql = "INSERT INTO [Stage]([RollNo], [OrderNo]) VALUES";
+            string sql;
+            string sql1 = "INSERT INTO [Stage]([RollNo], [OrderNo]) VALUES";
+            string sql2 = "INSERT INTO [Order_Item] VALUES";
             foreach (PrintSleeve printSleeve in this.PrintSleeve)
             {
-                sql += $"({printSleeve.RollNo},{this.OrderNo}),";
+                sql1 += $"({printSleeve.RollNo},{this.OrderNo}),";
             }
-            sql.Substring(0, sql.Length - 1);
+            foreach (BasePrintSleeve basePrintSleeve in Allocation)
+            {
+
+                sql2 += $"({this.OrderNo}, {basePrintSleeve.ItemNo}, {basePrintSleeve.Quantity}),";
+            }
+            sql = sql1.Substring(0, sql1.Length - 1) + "\n" + sql2.Substring(0, sql2.Length - 1);
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             dataAdapter.InsertCommand = command;
             int row = dataAdapter.InsertCommand.ExecuteNonQuery();
+
             dataAdapter.Dispose();
             command.Dispose();
             close();
 
-            return row;
+            return row / 2;
         }
         
         public bool IsAllocate(int rollNo)
@@ -159,6 +167,20 @@ namespace PrintSleeveManagement.Models
                 }
             }
             return false;
+        }
+        /*
+        public List<OrderStage> GetOrderWithStageStatus()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return null;
+            }
+            string sql = ""
+            SqlCommand command = new
+
+            close();
         }/**/
     }
 }

@@ -122,6 +122,7 @@
     <Compile Include="Models\PrintSleeve.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\ReceiptBasePrintSleeve.cs" />
+    <Compile Include="Models\Stage.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="PickForm.cs">
       <SubType>Form</SubType>
@@ -155,7 +156,14 @@
     <Compile Include="SerialPortDialog.Designer.cs">
       <DependentUpon>SerialPortDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="StageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StageForm.Designer.cs">
+      <DependentUpon>StageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\OrderAllocate.cs" />
+    <Compile Include="View\OrderStage.cs" />
     <Compile Include="WaitForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SerialPortDialog.resx">
       <DependentUpon>SerialPortDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StageForm.resx">
+      <DependentUpon>StageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaitForm.resx">
       <DependentUpon>WaitForm.cs</DependentUpon>
