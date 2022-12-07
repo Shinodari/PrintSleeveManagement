@@ -9,26 +9,23 @@ namespace PrintSleeveManagement.View
 {
     class OrderAllocate : Database
     {
-        public bool Allocate { get; set; }
-
         public DateTime ExpiredDate { get; }
 
         public string LocationId { get; }
 
         public string LotNo { get; }
 
-        public int RollNo { get;}
-
         public int Quantity { get; }
 
-        public OrderAllocate(int rollNo, string lotNo, int quantity, DateTime expiredDate, string locationID, bool isAllocate)
+        public int Allocate { get; set; }
+
+        public OrderAllocate(string lotNo, int quantity, DateTime expiredDate, string locationID, int allocate)
         {
-            this.Allocate = isAllocate;
-            this.RollNo = rollNo;
             this.LotNo = lotNo;
             this.Quantity = quantity;
             this.ExpiredDate = expiredDate;
             this.LocationId = locationID;
+            this.Allocate = allocate;
         }
     }
 }

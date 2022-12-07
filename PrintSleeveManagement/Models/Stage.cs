@@ -41,6 +41,8 @@ namespace PrintSleeveManagement.Models
             dataReader.Close();
             command.Dispose();
             close();
+
+            return null;
         }
     }
 }
