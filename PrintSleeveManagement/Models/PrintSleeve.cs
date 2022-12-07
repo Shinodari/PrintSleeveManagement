@@ -170,35 +170,6 @@ namespace PrintSleeveManagement.Models
             return find(sql);
         }
 
-        public List<OrderAllocate> getLocation(string itemNo)
-        {
-            Database.CONNECT_RESULT connect_result = connect();
-            if (connect_result == Database.CONNECT_RESULT.FAIL)
-            {
-                errorString = "Can't connect database. Please contact Administrator";
-                return null;
-            }
-            string sql = $"SELECT * FROM PrintSleeve INNER JOIN [Transaction] ON PrintSleeve.RollNo = [Transaction].RollNo LEFT JOIN [Stage] ON PrintSleeve.RollNo = [Stage].RollNo WHERE PrintSleeve.ItemNo = '{itemNo}' ORDER BY [ExpireDate], [LotNo], [PONo], [LocationID], [PrintSleeve].[RollNo]";
-            SqlCommand command = new SqlCommand(sql, cnn);
-            SqlDataReader dataReader = command.ExecuteReader();
-            List<OrderAllocate> orderAllocate = new List<OrderAllocate>();
-            while (dataReader.Read())
-            {
-                string allocate = dataReader.GetValue(13).ToString();
-                bool isAllocate;
-                if (string.IsNullOrEmpty(allocate)) isAllocate = false;
-                else isAllocate = true;
-                orderAllocate.Add(new OrderAllocate(dataReader.GetInt32(0), dataReader.GetString(3), dataReader.GetInt32(4), dataReader.GetDateTime(5), dataReader.GetString(10), isAllocate));
-
-            }
-
-            dataReader.Close();
-            command.Dispose();
-            close();
-
-            return orderAllocate;
-        }
-
         public int RollNo { get; set; }
 
         public int PONo { get; }

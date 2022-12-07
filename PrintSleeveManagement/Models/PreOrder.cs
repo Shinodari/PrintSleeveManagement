@@ -1,13 +1,12 @@
-﻿using PrintSleeveManagement.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrintSleeveManagement.View
+namespace PrintSleeveManagement.Models
 {
-    class OrderAllocate : Database
+    class PreOrder
     {
         public DateTime ExpiredDate { get; }
 
@@ -19,7 +18,7 @@ namespace PrintSleeveManagement.View
 
         public int Allocate { get; set; }
 
-        public OrderAllocate(DateTime expiredDate, string locationID, string lotNo, int quantity,  int allocate)
+        public PreOrder(DateTime expiredDate, string locationID, string lotNo, int quantity, int allocate)
         {
             this.LotNo = lotNo;
             this.Quantity = quantity;

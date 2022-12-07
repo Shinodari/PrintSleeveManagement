@@ -52,9 +52,8 @@ namespace PrintSleeveManagement
 
         private void DisplayAllocate(string itemNo)
         {
-            PrintSleeve printSleeve = new PrintSleeve();
             BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = printSleeve.getLocation(itemNo);
+            bindingSource.DataSource = order.getPreOrder(itemNo);
             dataGridViewAllocate.DataSource = bindingSource;
         }
 
