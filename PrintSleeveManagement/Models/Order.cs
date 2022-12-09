@@ -11,7 +11,7 @@ namespace PrintSleeveManagement.Models
     class Order : Database
     {
         private int orderNo;
-        private List<BasePrintSleeve> allocation;
+        //private List<BasePrintSleeve> allocation;
         private List<PreOrder> preOrder;
         private bool isOrder;
 
@@ -24,19 +24,15 @@ namespace PrintSleeveManagement.Models
                 isOrder = checkOrder();
             }
         }
-
+        /*
         public List<BasePrintSleeve> Allocation
         {
             get { return allocation; }
-        }
+        }/**/
 
-        public List<PrintSleeve> PrintSleeve { get; set; }
         public List<PreOrder> PreOrder
         {
-            get
-            {
-                return preOrder;
-            }
+            get { return preOrder; }
         }
 
         public DateTime OrderTime { get; }
@@ -48,8 +44,7 @@ namespace PrintSleeveManagement.Models
 
         public Order()
         {
-            allocation = new List<BasePrintSleeve>();
-            PrintSleeve = new List<PrintSleeve>();
+            //allocation = new List<BasePrintSleeve>();
             preOrder = new List<PreOrder>();
         }
 
@@ -133,7 +128,7 @@ namespace PrintSleeveManagement.Models
         }
 
         public int Allocate()
-        {
+        {/*
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
             {
@@ -161,46 +156,24 @@ namespace PrintSleeveManagement.Models
 
             dataAdapter.Dispose();
             command.Dispose();
-            close();
+            close();/**/
 
-            return row / 2;
+            //return row / 2;
+            return 0;
         }
         
         public bool IsAllocate(int rollNo)
-        {
-            for (int i = 0; i < PrintSleeve.Count; i++)
+        {/*
+            for (int i = 0; i < OrderAllocate.Count; i++)
             {
-                if (PrintSleeve[i].RollNo == rollNo)
+                if (OrderAllocate[i].RollNo == rollNo)
                 {
                     return true;
                 }
-            }
+            }/**/
             return false;
         }
 
-        public List<PreOrder> getPreOrder(string itemNo)
-        {
-            Database.CONNECT_RESULT connect_result = connect();
-            if (connect_result == Database.CONNECT_RESULT.FAIL)
-            {
-                errorString = "Can't connect database. Please contact Administrator";
-                return null;
-            }
-            string sql = $"SELECT [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo], SUM([PrintSleeve].[Quantity]) AS Quantity, ISNULL(SUM([PreOrder].[Allocate]),0) AS Allocate FROM [PrintSleeve] INNER JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo] LEFT JOIN [PreOrder] ON [PreOrder].[LocationID] = [Transaction].[LocationID] WHERE [PrintSleeve].[ItemNo] = '{itemNo}' GROUP BY [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo] HAVING [Transaction].[LocationID] = MAX([Transaction].[LocationID]) ORDER BY [PrintSleeve].[ExpireDate], [PrintSleeve].[LotNo], [Transaction].[LocationID]";
-            SqlCommand command = new SqlCommand(sql, cnn);
-            SqlDataReader dataReader = command.ExecuteReader();
-            List<PreOrder> preOrder = new List<PreOrder>();
-            while (dataReader.Read())
-            {
-                preOrder.Add(new PreOrder(dataReader.GetDateTime(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetInt32(4)));
-            }
-
-            dataReader.Close();
-            command.Dispose();
-            close();
-
-            return preOrder;
-        }
         /*
         public List<OrderStage> GetOrderWithStageStatus()
         {
