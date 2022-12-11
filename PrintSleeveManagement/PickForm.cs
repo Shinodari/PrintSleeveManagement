@@ -84,7 +84,7 @@ namespace PrintSleeveManagement
 
         private void dataGridViewAllocate_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            
+            dataGridViewOrder.Refresh();
         }
 
         private void buttonResult_Click(object sender, EventArgs e)

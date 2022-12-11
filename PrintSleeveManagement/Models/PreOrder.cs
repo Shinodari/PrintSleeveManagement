@@ -32,7 +32,22 @@ namespace PrintSleeveManagement.Models
 
         public int Quantity { get; set; }
 
-        public int Allocate { get; }
+        public int Allocate
+        {
+            get
+            {
+                if (orderAllocate != null)
+                {
+                    int total = 0;
+                    foreach (OrderAllocate oac in orderAllocate)
+                    {
+                        total += oac.Allocate;
+                    }
+                    return total;
+                }
+                else { return 0; }
+            }
+        }
 
         public List<OrderAllocate> OrderAllocate
         {
@@ -49,7 +64,7 @@ namespace PrintSleeveManagement.Models
             this.ItemNo = itemNo;
             this.partNo = partNo;
             this.Quantity = quantity;
-            this.Allocate = allocate;
+            //this.Allocate = allocate;
 
             orderAllocate = new List<OrderAllocate>();
         }

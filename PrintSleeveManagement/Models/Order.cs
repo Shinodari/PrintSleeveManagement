@@ -13,6 +13,7 @@ namespace PrintSleeveManagement.Models
         private int orderNo;
         //private List<BasePrintSleeve> allocation;
         private List<PreOrder> preOrder;
+        private List<Stage> stage;
         private bool isOrder;
 
         public int OrderNo
@@ -35,6 +36,8 @@ namespace PrintSleeveManagement.Models
             get { return preOrder; }
         }
 
+        public List<Stage> Stage { get { return stage; } }
+
         public DateTime OrderTime { get; }
 
         public bool IsOrder
@@ -46,6 +49,11 @@ namespace PrintSleeveManagement.Models
         {
             //allocation = new List<BasePrintSleeve>();
             preOrder = new List<PreOrder>();
+        }
+
+        public Order(int orderNo) : this()
+        {
+            this.OrderNo = orderNo;
         }
 
         public bool CreateOrder()
@@ -128,7 +136,7 @@ namespace PrintSleeveManagement.Models
         }
 
         public int Allocate()
-        {/*
+        {
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
             {
@@ -136,19 +144,17 @@ namespace PrintSleeveManagement.Models
                 return -1;
             }
 
-            string sql;
-            string sql1 = "INSERT INTO [Stage]([RollNo], [OrderNo]) VALUES";
-            string sql2 = "INSERT INTO [Order_Item] VALUES";
-            foreach (PrintSleeve printSleeve in this.PrintSleeve)
+            string sql = "INSERT INTO [PreOrder] VALUES ";
+            foreach (PreOrder pod in preOrder)
             {
-                sql1 += $"({printSleeve.RollNo},{this.OrderNo}),";
+                foreach (OrderAllocate oac in pod.OrderAllocate)
+                {
+                    if (oac.Allocate > 0) {
+                        sql += $"({this.OrderNo}, '{pod.ItemNo}', '{oac.LocationId}', '{oac.LotNo}', {pod.Quantity}, {pod.Allocate}),";
+                    }
+                }
             }
-            foreach (BasePrintSleeve basePrintSleeve in Allocation)
-            {
-
-                sql2 += $"({this.OrderNo}, {basePrintSleeve.ItemNo}, {basePrintSleeve.Quantity}),";
-            }
-            sql = sql1.Substring(0, sql1.Length - 1) + "\n" + sql2.Substring(0, sql2.Length - 1);
+            sql = sql.Substring(0, sql.Length - 1);
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             dataAdapter.InsertCommand = command;
@@ -156,10 +162,9 @@ namespace PrintSleeveManagement.Models
 
             dataAdapter.Dispose();
             command.Dispose();
-            close();/**/
+            close();
 
-            //return row / 2;
-            return 0;
+            return row;
         }
         
         public bool IsAllocate(int rollNo)

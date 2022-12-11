@@ -165,6 +165,7 @@
     <Compile Include="View\OrderAllocate.cs" />
     <Compile Include="Models\PreOrder.cs" />
     <Compile Include="View\OrderStage.cs" />
+    <Compile Include="View\StageView.cs" />
     <Compile Include="WaitForm.cs">
       <SubType>Form</SubType>
     </Compile>
