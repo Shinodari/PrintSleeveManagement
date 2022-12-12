@@ -124,6 +124,7 @@
             this.toolStripButtonStage.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButtonStage.Size = new System.Drawing.Size(72, 45);
             this.toolStripButtonStage.Text = "&Stage";
+            this.toolStripButtonStage.Click += new System.EventHandler(this.toolStripButtonStage_Click);
             // 
             // toolStripButtonShip
             // 

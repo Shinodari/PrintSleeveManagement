@@ -19,7 +19,7 @@ namespace PrintSleeveManagement.View
 
         public int Allocate { get; set; }
 
-        public OrderAllocate(string lotNo, int quantity, DateTime expiredDate, string locationID, int allocate)
+        public OrderAllocate(DateTime expiredDate, string locationID, string lotNo, int quantity,  int allocate)
         {
             this.LotNo = lotNo;
             this.Quantity = quantity;

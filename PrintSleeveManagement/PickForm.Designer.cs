@@ -39,7 +39,6 @@
             this.groupBoxAllocate = new System.Windows.Forms.GroupBox();
             this.dataGridViewAllocate = new System.Windows.Forms.DataGridView();
             this.buttonAllocate = new System.Windows.Forms.Button();
-            this.buttonResult = new System.Windows.Forms.Button();
             this.groupBoxOrder.SuspendLayout();
             this.groupBoxOrderDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
@@ -119,6 +118,7 @@
             // 
             this.dataGridViewOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOrder.Location = new System.Drawing.Point(7, 20);
+            this.dataGridViewOrder.MultiSelect = false;
             this.dataGridViewOrder.Name = "dataGridViewOrder";
             this.dataGridViewOrder.Size = new System.Drawing.Size(468, 413);
             this.dataGridViewOrder.TabIndex = 0;
@@ -148,7 +148,7 @@
             // 
             // buttonAllocate
             // 
-            this.buttonAllocate.Location = new System.Drawing.Point(775, 23);
+            this.buttonAllocate.Location = new System.Drawing.Point(928, 23);
             this.buttonAllocate.Name = "buttonAllocate";
             this.buttonAllocate.Size = new System.Drawing.Size(136, 59);
             this.buttonAllocate.TabIndex = 1;
@@ -156,23 +156,12 @@
             this.buttonAllocate.UseVisualStyleBackColor = true;
             this.buttonAllocate.Click += new System.EventHandler(this.buttonAllocate_Click);
             // 
-            // buttonResult
-            // 
-            this.buttonResult.Location = new System.Drawing.Point(917, 23);
-            this.buttonResult.Name = "buttonResult";
-            this.buttonResult.Size = new System.Drawing.Size(136, 59);
-            this.buttonResult.TabIndex = 1;
-            this.buttonResult.Text = "&Result";
-            this.buttonResult.UseVisualStyleBackColor = true;
-            this.buttonResult.Click += new System.EventHandler(this.buttonResult_Click);
-            // 
             // PickForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1077, 547);
             this.Controls.Add(this.groupBoxAllocate);
-            this.Controls.Add(this.buttonResult);
             this.Controls.Add(this.buttonAllocate);
             this.Controls.Add(this.groupBoxOrderDetail);
             this.Controls.Add(this.groupBoxOrder);
@@ -201,6 +190,5 @@
         private System.Windows.Forms.GroupBox groupBoxAllocate;
         private System.Windows.Forms.DataGridView dataGridViewAllocate;
         private System.Windows.Forms.Button buttonAllocate;
-        private System.Windows.Forms.Button buttonResult;
     }
 }

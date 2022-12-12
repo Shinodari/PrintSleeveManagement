@@ -41,39 +41,38 @@ namespace PrintSleeveManagement
                 order.CreateOrder();
             }
             
-            bindingSourceOrder.DataSource = order.Allocation;
+            bindingSourceOrder.DataSource = order.PreOrder;
             dataGridViewOrder.DataSource = bindingSourceOrder;
+            /*
             dataGridViewOrder.Columns["Quantity"].DisplayIndex = 1;
             dataGridViewOrder.Columns["PartNo"].ReadOnly = true;
             dataGridViewOrder.Columns["ItemNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridViewOrder.Columns["Quantity"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewOrder.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewOrder.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;*/
         }
 
         private void DisplayAllocate(string itemNo)
         {
-            PrintSleeve printSleeve = new PrintSleeve();
             BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = printSleeve.getLocation(itemNo);
+            order.PreOrder[order.PreOrder.Count - 1].getOrderAllocater(itemNo);
+            bindingSource.DataSource = order.PreOrder[order.PreOrder.Count - 1].OrderAllocate;
             dataGridViewAllocate.DataSource = bindingSource;
         }
 
         private void dataGridViewOrder_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 1)
+            if (e.ColumnIndex == 0)
             {
                 Item item = new Item();
                 if (item.setPartNo(dataGridViewOrder.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()))
                 {
-                    dataGridViewOrder.Rows[e.RowIndex].Cells[2].Value = item.PartNo;
                     DisplayAllocate(item.ItemNo);
                 }
                 else
                 {
                     MessageBox.Show("ItemNo incorrect!");
                     dataGridViewOrder.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
-                }
-                
+                }                
             }
         }
 
@@ -85,36 +84,7 @@ namespace PrintSleeveManagement
 
         private void dataGridViewAllocate_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            int rollNo = (int) dataGridViewAllocate.Rows[e.RowIndex].Cells[4].Value;
-            PrintSleeve printSleeve = new PrintSleeve();
-            List<PrintSleeve> printSleeveList = printSleeve.find(rollNo, PrintSleeve.PRINTSLEEVE_FIND_TYPE.RollNo);
-            if ((bool)dataGridViewAllocate.Rows[e.RowIndex].Cells[0].Value)
-            {
-                if (!order.IsAllocate(rollNo))
-                {
-                    order.PrintSleeve.Add(printSleeveList[0]);
-                }
-                else {
-                    MessageBox.Show("Error 501");
-                }
-            }
-            else
-            {
-                if (order.IsAllocate(rollNo))
-                {
-                    for (int i = 0; i < order.PrintSleeve.Count; i++)
-                    {
-                        if (order.PrintSleeve[i].RollNo == rollNo)
-                        {
-                            order.PrintSleeve.RemoveAt(i);
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Error 502");
-                }
-            }
+            dataGridViewOrder.Refresh();
         }
 
         private void buttonResult_Click(object sender, EventArgs e)
