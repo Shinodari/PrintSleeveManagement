@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBoxOrder = new System.Windows.Forms.GroupBox();
+            this.buttonStage = new System.Windows.Forms.Button();
             this.dataGridViewOrder = new System.Windows.Forms.DataGridView();
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.buttonView = new System.Windows.Forms.Button();
             this.textBoxOrderNo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxDevice = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.buttonInputManually = new System.Windows.Forms.Button();
             this.groupBoxStage = new System.Windows.Forms.GroupBox();
             this.dataGridViewStage = new System.Windows.Forms.DataGridView();
-            this.buttonStage = new System.Windows.Forms.Button();
             this.groupBoxOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
             this.groupBoxDevice.SuspendLayout();
@@ -64,6 +64,16 @@
             this.groupBoxOrder.TabStop = false;
             this.groupBoxOrder.Text = "Order";
             // 
+            // buttonStage
+            // 
+            this.buttonStage.Location = new System.Drawing.Point(1241, 13);
+            this.buttonStage.Name = "buttonStage";
+            this.buttonStage.Size = new System.Drawing.Size(126, 55);
+            this.buttonStage.TabIndex = 4;
+            this.buttonStage.Text = "Stage";
+            this.buttonStage.UseVisualStyleBackColor = true;
+            this.buttonStage.Click += new System.EventHandler(this.buttonStage_Click);
+            // 
             // dataGridViewOrder
             // 
             this.dataGridViewOrder.AllowUserToAddRows = false;
@@ -71,14 +81,14 @@
             this.dataGridViewOrder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewOrder.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LimeGreen;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LimeGreen;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewOrder.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LimeGreen;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LimeGreen;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewOrder.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewOrder.Location = new System.Drawing.Point(6, 74);
             this.dataGridViewOrder.MultiSelect = false;
             this.dataGridViewOrder.Name = "dataGridViewOrder";
@@ -133,6 +143,14 @@
             this.groupBoxDevice.TabStop = false;
             this.groupBoxDevice.Text = "Input Device";
             // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(87, 19);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(377, 20);
+            this.textBox1.TabIndex = 1;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -141,14 +159,6 @@
             this.label2.Size = new System.Drawing.Size(74, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Input Device :";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(87, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(377, 20);
-            this.textBox1.TabIndex = 1;
             // 
             // buttonInputManually
             // 
@@ -181,15 +191,6 @@
             this.dataGridViewStage.Size = new System.Drawing.Size(457, 495);
             this.dataGridViewStage.TabIndex = 0;
             // 
-            // buttonStage
-            // 
-            this.buttonStage.Location = new System.Drawing.Point(1241, 13);
-            this.buttonStage.Name = "buttonStage";
-            this.buttonStage.Size = new System.Drawing.Size(126, 55);
-            this.buttonStage.TabIndex = 4;
-            this.buttonStage.Text = "Stage";
-            this.buttonStage.UseVisualStyleBackColor = true;
-            // 
             // StageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,7 +200,7 @@
             this.Controls.Add(this.groupBoxDevice);
             this.Controls.Add(this.groupBoxOrder);
             this.Name = "StageForm";
-            this.Text = "Stage";
+            this.Text = "Pick";
             this.groupBoxOrder.ResumeLayout(false);
             this.groupBoxOrder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).EndInit();

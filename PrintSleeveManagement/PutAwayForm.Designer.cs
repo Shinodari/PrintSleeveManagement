@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBoxReceipt = new System.Windows.Forms.GroupBox();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonCommit = new System.Windows.Forms.Button();
@@ -112,6 +113,14 @@
             this.dataGridViewReceipt.AllowUserToDeleteRows = false;
             this.dataGridViewReceipt.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewReceipt.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewReceipt.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewReceipt.Location = new System.Drawing.Point(6, 47);
             this.dataGridViewReceipt.Name = "dataGridViewReceipt";
             this.dataGridViewReceipt.ReadOnly = true;
@@ -203,21 +212,21 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label6.Location = new System.Drawing.Point(262, 227);
+            this.label6.Location = new System.Drawing.Point(305, 228);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(339, 73);
+            this.label6.Size = new System.Drawing.Size(267, 73);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Available :";
+            this.label6.Text = "Moved :";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(255, 142);
+            this.label4.Location = new System.Drawing.Point(355, 142);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(345, 73);
+            this.label4.Size = new System.Drawing.Size(217, 73);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Received :";
+            this.label4.Text = "Total :";
             // 
             // labelPartNo
             // 

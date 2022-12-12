@@ -15,14 +15,14 @@ namespace PrintSleeveManagement.Models
 
         public ReceiptBasePrintSleeve(string itemNo, string partNo, int quantity) : base(itemNo, partNo, quantity)
         {
-            Available = 0;
+            Moved = 0;
         }
 
         public ReceiptBasePrintSleeve(string itemNo, string partNo, int quantity, int available) : base(itemNo, partNo, quantity)
         {
-            Available = available;
+            Moved = available;
         }
 
-        public int Available { get; set; }
+        public int Moved { get; set; }
     }
 }

@@ -38,5 +38,10 @@ namespace PrintSleeveManagement
             dataGridViewStage.Columns["Creator"].Visible = false;
             dataGridViewStage.Columns["CreateTime"].Visible = false;
         }
+
+        private void buttonStage_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Wrong Part!");
+        }
     }
 }

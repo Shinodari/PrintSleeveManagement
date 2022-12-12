@@ -108,8 +108,8 @@
             this.toolStripButtonPick.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.toolStripButtonPick.Name = "toolStripButtonPick";
             this.toolStripButtonPick.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButtonPick.Size = new System.Drawing.Size(62, 45);
-            this.toolStripButtonPick.Text = "Pic&k";
+            this.toolStripButtonPick.Size = new System.Drawing.Size(89, 45);
+            this.toolStripButtonPick.Text = "Allocate";
             this.toolStripButtonPick.Click += new System.EventHandler(this.toolStripButtonPick_Click);
             // 
             // toolStripButtonStage
@@ -122,8 +122,8 @@
             this.toolStripButtonStage.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
             this.toolStripButtonStage.Name = "toolStripButtonStage";
             this.toolStripButtonStage.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButtonStage.Size = new System.Drawing.Size(72, 45);
-            this.toolStripButtonStage.Text = "&Stage";
+            this.toolStripButtonStage.Size = new System.Drawing.Size(62, 45);
+            this.toolStripButtonStage.Text = "Pick";
             this.toolStripButtonStage.Click += new System.EventHandler(this.toolStripButtonStage_Click);
             // 
             // toolStripButtonShip
@@ -138,6 +138,7 @@
             this.toolStripButtonShip.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButtonShip.Size = new System.Drawing.Size(65, 45);
             this.toolStripButtonShip.Text = "Shi&p";
+            this.toolStripButtonShip.Visible = false;
             // 
             // toolStripButtonTransfer
             // 
@@ -151,6 +152,7 @@
             this.toolStripButtonTransfer.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButtonTransfer.Size = new System.Drawing.Size(90, 45);
             this.toolStripButtonTransfer.Text = "&Transfer";
+            this.toolStripButtonTransfer.Visible = false;
             // 
             // toolStripButtonBalance
             // 
@@ -164,6 +166,7 @@
             this.toolStripButtonBalance.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButtonBalance.Size = new System.Drawing.Size(87, 45);
             this.toolStripButtonBalance.Text = "&Balance";
+            this.toolStripButtonBalance.Click += new System.EventHandler(this.toolStripButtonBalance_Click);
             // 
             // toolStripButtonTransaction
             // 
@@ -177,6 +180,7 @@
             this.toolStripButtonTransaction.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButtonTransaction.Size = new System.Drawing.Size(113, 45);
             this.toolStripButtonTransaction.Text = "Transactio&n";
+            this.toolStripButtonTransaction.Visible = false;
             // 
             // toolStripSeparator1
             // 

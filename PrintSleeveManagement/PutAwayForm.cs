@@ -136,7 +136,7 @@ namespace PrintSleeveManagement
             bindingSourceReceipt.DataSource = receipt.ReceiptBasePrintSleeve;
             dataGridViewReceipt.DataSource = bindingSourceReceipt;
             dataGridViewReceipt.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewReceipt.Columns["Available"].DisplayIndex = 3;
+            dataGridViewReceipt.Columns["Moved"].DisplayIndex = 3;
             dataGridViewReceipt.Columns["Quantity"].DisplayIndex = 2;
             bindingSourceReceipt.PositionChanged += new EventHandler(rowChanged);
                         

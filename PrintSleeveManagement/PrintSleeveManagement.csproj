@@ -113,6 +113,13 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Authentication.cs" />
+    <Compile Include="Models\Balance.cs" />
+    <Compile Include="Models\BalanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\BalanceForm.Designer.cs">
+      <DependentUpon>BalanceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\BasePrintSleeve.cs" />
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\Device.cs" />
@@ -183,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\BalanceForm.resx">
+      <DependentUpon>BalanceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PickForm.resx">
       <DependentUpon>PickForm.cs</DependentUpon>

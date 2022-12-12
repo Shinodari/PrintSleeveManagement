@@ -126,5 +126,12 @@ namespace PrintSleeveManagement
             stageForm.MdiParent = this;
             stageForm.Show();
         }
+
+        private void toolStripButtonBalance_Click(object sender, EventArgs e)
+        {
+            BalanceForm balanceForm = new BalanceForm();
+            balanceForm.MdiParent = this;
+            balanceForm.Show();
+        }
     }
 }

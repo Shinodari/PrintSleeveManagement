@@ -61,7 +61,7 @@ namespace PrintSleeveManagement.Models
             SqlCommand command;
             SqlDataReader dataReader;
             String sql = "SELECT Receipt_Item.*, Item.PartNo, SUM(PrintSleeve.Quantity) AS Available FROM Item, Receipt_Item LEFT JOIN PrintSleeve\n";
-            sql += "ON Receipt_Item.ItemNo = PrintSleeve.ItemNo\n";
+            sql += "ON Receipt_Item.ItemNo = PrintSleeve.ItemNo AND PrintSleeve.PONo = Receipt_Item.PONo\n";
             sql += "WHERE Receipt_Item.ItemNo = Item.ItemNo AND Receipt_Item.PONo = '" + this.PONo + "'\n";
             sql += "GROUP BY Receipt_Item.ItemNo, Receipt_Item.PONo, Receipt_Item.Quantity, Item.PartNo\n";
             sql += "ORDER BY PartNo";

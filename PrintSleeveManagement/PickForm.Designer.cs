@@ -166,7 +166,7 @@
             this.Controls.Add(this.groupBoxOrderDetail);
             this.Controls.Add(this.groupBoxOrder);
             this.Name = "PickForm";
-            this.Text = "Pick";
+            this.Text = "Allocate";
             this.groupBoxOrder.ResumeLayout(false);
             this.groupBoxOrder.PerformLayout();
             this.groupBoxOrderDetail.ResumeLayout(false);
