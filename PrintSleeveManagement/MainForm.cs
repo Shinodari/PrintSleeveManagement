@@ -115,7 +115,7 @@ namespace PrintSleeveManagement
 
         private void toolStripButtonPick_Click(object sender, EventArgs e)
         {
-            PickForm pickForm = new PickForm();
+            AllocateForm pickForm = new AllocateForm();
             pickForm.MdiParent = this;
             pickForm.Show();
         }

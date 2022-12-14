@@ -165,33 +165,6 @@ namespace PrintSleeveManagement.Models
             close();
 
             return row;
-        }
-        
-        public bool IsAllocate(int rollNo)
-        {/*
-            for (int i = 0; i < OrderAllocate.Count; i++)
-            {
-                if (OrderAllocate[i].RollNo == rollNo)
-                {
-                    return true;
-                }
-            }/**/
-            return false;
-        }
-
-        /*
-        public List<OrderStage> GetOrderWithStageStatus()
-        {
-            Database.CONNECT_RESULT connect_result = connect();
-            if (connect_result == Database.CONNECT_RESULT.FAIL)
-            {
-                errorString = "Can't connect database. Please contact Administrator";
-                return null;
-            }
-            string sql = ""
-            SqlCommand command = new
-
-            close();
-        }/**/
+        }        
     }
 }

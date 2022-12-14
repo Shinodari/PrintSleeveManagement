@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace PrintSleeveManagement
 {
-    public partial class PickForm : Form
+    public partial class AllocateForm : Form
     {
         Order order;
         BindingSource bindingSourceOrder;
 
-        public PickForm()
+        public AllocateForm()
         {
             InitializeComponent();
 
@@ -34,7 +34,7 @@ namespace PrintSleeveManagement
             order.OrderNo = Int32.Parse(textBoxOrderNo.Text);
             if (order.IsOrder)
             {
-                
+                ////////////////////////////////////////////////////////////
             }
             else
             {
@@ -43,6 +43,7 @@ namespace PrintSleeveManagement
             
             bindingSourceOrder.DataSource = order.PreOrder;
             dataGridViewOrder.DataSource = bindingSourceOrder;
+            bindingSourceOrder.PositionChanged += new EventHandler(rowOrderChanged);
             /*
             dataGridViewOrder.Columns["Quantity"].DisplayIndex = 1;
             dataGridViewOrder.Columns["PartNo"].ReadOnly = true;
@@ -51,11 +52,22 @@ namespace PrintSleeveManagement
             dataGridViewOrder.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;*/
         }
 
-        private void DisplayAllocate(string itemNo)
+        private void rowOrderChanged(Object sender, System.EventArgs e)
+        {
+            DisplayAllocate(bindingSourceOrder.Position);
+        }
+        
+        private void DisplayAllocate(int index)
         {
             BindingSource bindingSource = new BindingSource();
-            order.PreOrder[order.PreOrder.Count - 1].getOrderAllocater(itemNo);
-            bindingSource.DataSource = order.PreOrder[order.PreOrder.Count - 1].OrderAllocate;
+            
+            if (dataGridViewOrder.Rows[index].Cells[0].Value == null) { return; }
+
+            string itemNo = dataGridViewOrder.Rows[index].Cells[0].Value.ToString();
+            if (string.IsNullOrEmpty(itemNo) || string.IsNullOrWhiteSpace(itemNo)) { return; }
+
+            order.PreOrder[index].getOrderAllocater(itemNo);
+            bindingSource.DataSource = order.PreOrder[index].OrderAllocate;
             dataGridViewAllocate.DataSource = bindingSource;
         }
 
@@ -66,7 +78,7 @@ namespace PrintSleeveManagement
                 Item item = new Item();
                 if (item.setPartNo(dataGridViewOrder.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()))
                 {
-                    DisplayAllocate(item.ItemNo);
+                    DisplayAllocate(e.RowIndex);
                 }
                 else
                 {
@@ -88,6 +100,11 @@ namespace PrintSleeveManagement
         }
 
         private void buttonResult_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonDeleteOrder_Click(object sender, EventArgs e)
         {
 
         }

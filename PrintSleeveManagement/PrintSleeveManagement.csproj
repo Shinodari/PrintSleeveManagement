@@ -114,10 +114,10 @@
     </Compile>
     <Compile Include="Models\Authentication.cs" />
     <Compile Include="Models\Balance.cs" />
-    <Compile Include="Models\BalanceForm.cs">
+    <Compile Include="BalanceForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Models\BalanceForm.Designer.cs">
+    <Compile Include="BalanceForm.Designer.cs">
       <DependentUpon>BalanceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BasePrintSleeve.cs" />
@@ -131,11 +131,11 @@
     <Compile Include="Models\ReceiptBasePrintSleeve.cs" />
     <Compile Include="Models\Stage.cs" />
     <Compile Include="Models\Transaction.cs" />
-    <Compile Include="PickForm.cs">
+    <Compile Include="AllocateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PickForm.Designer.cs">
-      <DependentUpon>PickForm.cs</DependentUpon>
+    <Compile Include="AllocateForm.Designer.cs">
+      <DependentUpon>AllocateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PODialog.cs">
       <SubType>Form</SubType>
@@ -191,11 +191,11 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\BalanceForm.resx">
+    <EmbeddedResource Include="BalanceForm.resx">
       <DependentUpon>BalanceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PickForm.resx">
-      <DependentUpon>PickForm.cs</DependentUpon>
+    <EmbeddedResource Include="AllocateForm.resx">
+      <DependentUpon>AllocateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PODialog.resx">
       <DependentUpon>PODialog.cs</DependentUpon>
