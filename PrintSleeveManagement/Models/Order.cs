@@ -23,6 +23,7 @@ namespace PrintSleeveManagement.Models
             {
                 orderNo = value;
                 isOrder = checkOrder();
+                if (isOrder) PullDatabase();
             }
         }
         /*
@@ -135,28 +136,56 @@ namespace PrintSleeveManagement.Models
             return result;
         }
 
+        private void PullDatabase()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return;
+            }
+            string sql = $"SELECT [PreOrder].[ItemNo], [Item].[PartNo], SUM([PreOrder].[Quantity]) AS Quantiry, SUM([PreOrder].[Allocate]) AS Allocate FROM [PreOrder]  ";
+            sql += $"LEFT JOIN [Item] ON [PreOrder].[ItemNo] = [Item].[ItemNo] WHERE [OrderNo] = '{this.orderNo}' ";
+            sql += $"GROUP BY [PreOrder].[OrderNo], [PreOrder].[ItemNo], [Item].[PartNo]";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                preOrder.Add(new PreOrder(this.OrderNo, dataReader.GetString(0), dataReader.GetString(1), dataReader.GetInt32(2), dataReader.GetInt32(3)));
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+        }
+
         public int Allocate()
         {
+            if (!IsOrder) CreateOrder();
+
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
             {
                 errorString = "Can't connect database. Please contact Administrator";
                 return -1;
             }
+            string sql = $"DELETE FROM [PreOrder] WHERE [OrderNo] = '{this.OrderNo}'";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataAdapter dataAdapter = new SqlDataAdapter();
+            dataAdapter.DeleteCommand = command;
+            dataAdapter.DeleteCommand.ExecuteNonQuery();
 
-            string sql = "INSERT INTO [PreOrder] VALUES ";
+            sql = "INSERT INTO [PreOrder] VALUES ";
             foreach (PreOrder pod in preOrder)
             {
                 foreach (OrderAllocate oac in pod.OrderAllocate)
                 {
                     if (oac.Allocate > 0) {
-                        sql += $"({this.OrderNo}, '{pod.ItemNo}', '{oac.LocationId}', '{oac.LotNo}', {pod.Quantity}, {pod.Allocate}),";
+                        sql += $"({this.OrderNo}, '{pod.ItemNo}', '{oac.LocationId}', '{oac.LotNo}', {pod.Quantity}, {oac.Allocate}),";
                     }
                 }
             }
             sql = sql.Substring(0, sql.Length - 1);
-            SqlCommand command = new SqlCommand(sql, cnn);
-            SqlDataAdapter dataAdapter = new SqlDataAdapter();
+            command.CommandText = sql;
             dataAdapter.InsertCommand = command;
             int row = dataAdapter.InsertCommand.ExecuteNonQuery();
 

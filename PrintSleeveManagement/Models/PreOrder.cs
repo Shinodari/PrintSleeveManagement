@@ -10,6 +10,7 @@ namespace PrintSleeveManagement.Models
 {
     class PreOrder : Database
     {
+        private int orderNo;
         private string itemNo;
         private string partNo;
         private List<OrderAllocate> orderAllocate;
@@ -23,6 +24,7 @@ namespace PrintSleeveManagement.Models
                 Item item = new Item();
                 item.setPartNo(itemNo);
                 partNo = item.PartNo;
+                this.PullOrderAllocater(itemNo);
             }
         }
 
@@ -59,17 +61,19 @@ namespace PrintSleeveManagement.Models
 
         }
 
-        public PreOrder(string itemNo, string partNo, int quantity, int allocate)
+        public PreOrder(int orderNo, string itemNo, string partNo, int quantity, int allocate)
         {
+            this.orderNo = orderNo;
             this.ItemNo = itemNo;
             this.partNo = partNo;
             this.Quantity = quantity;
             //this.Allocate = allocate;
 
             orderAllocate = new List<OrderAllocate>();
+            PullOrderAllocater(itemNo);
         }
 
-        public void getOrderAllocater(string itemNo)
+        public void PullOrderAllocater(string itemNo)
         {
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
@@ -77,7 +81,13 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = $"SELECT [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo], SUM([PrintSleeve].[Quantity]) AS Quantity, ISNULL(SUM([PreOrder].[Allocate]),0) AS Allocate FROM [PrintSleeve] INNER JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo] LEFT JOIN [PreOrder] ON [PreOrder].[LocationID] = [Transaction].[LocationID] WHERE [PrintSleeve].[ItemNo] = '{itemNo}' GROUP BY [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo] HAVING [Transaction].[LocationID] = MAX([Transaction].[LocationID]) ORDER BY [PrintSleeve].[ExpireDate], [PrintSleeve].[LotNo], [Transaction].[LocationID]";
+            string sql = "SELECT [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo], SUM([PrintSleeve].[Quantity]) AS Quantity, ";
+            sql += $"(SELECT ISNULL(SUM([Allocate]),0) FROM [Allocate] WHERE [OrderNo] = '{this.orderNo}' AND [ItemNo] = [PrintSleeve].[ItemNo] AND [LocationID] = [Transaction].[LocationID] AND [LotNo] = [PrintSleeve].[LotNo]) AS Allocate FROM [PrintSleeve] ";
+            sql += $"INNER JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo] ";
+            sql += $"WHERE [PrintSleeve].[ItemNo] = '{itemNo}' ";
+            sql += $"GROUP BY [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo], [PrintSleeve].[ItemNo] ";
+            sql += $"HAVING [Transaction].[LocationID] = MAX([Transaction].[LocationID]) ";
+            sql += $"ORDER BY [PrintSleeve].[ExpireDate], [PrintSleeve].[LotNo], [Transaction].[LocationID]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             List<PreOrder> preOrder = new List<PreOrder>();
