@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBoxOrder = new System.Windows.Forms.GroupBox();
+            this.buttonBrowse = new System.Windows.Forms.Button();
             this.buttonDeleteOrder = new System.Windows.Forms.Button();
             this.buttonImportOrder = new System.Windows.Forms.Button();
             this.buttonCreateOrder = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.groupBoxAllocate = new System.Windows.Forms.GroupBox();
             this.dataGridViewAllocate = new System.Windows.Forms.DataGridView();
             this.buttonAllocate = new System.Windows.Forms.Button();
-            this.buttonBrowse = new System.Windows.Forms.Button();
             this.groupBoxOrder.SuspendLayout();
             this.groupBoxOrderDetail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).BeginInit();
@@ -62,12 +62,21 @@
             this.groupBoxOrder.TabStop = false;
             this.groupBoxOrder.Text = "Order";
             // 
+            // buttonBrowse
+            // 
+            this.buttonBrowse.Location = new System.Drawing.Point(255, 16);
+            this.buttonBrowse.Name = "buttonBrowse";
+            this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
+            this.buttonBrowse.TabIndex = 3;
+            this.buttonBrowse.Text = "Browse..";
+            this.buttonBrowse.UseVisualStyleBackColor = true;
+            // 
             // buttonDeleteOrder
             // 
             this.buttonDeleteOrder.Location = new System.Drawing.Point(174, 46);
             this.buttonDeleteOrder.Name = "buttonDeleteOrder";
             this.buttonDeleteOrder.Size = new System.Drawing.Size(75, 23);
-            this.buttonDeleteOrder.TabIndex = 2;
+            this.buttonDeleteOrder.TabIndex = 5;
             this.buttonDeleteOrder.Text = "&Delete";
             this.buttonDeleteOrder.UseVisualStyleBackColor = true;
             this.buttonDeleteOrder.Click += new System.EventHandler(this.buttonDeleteOrder_Click);
@@ -77,7 +86,7 @@
             this.buttonImportOrder.Location = new System.Drawing.Point(336, 16);
             this.buttonImportOrder.Name = "buttonImportOrder";
             this.buttonImportOrder.Size = new System.Drawing.Size(75, 23);
-            this.buttonImportOrder.TabIndex = 2;
+            this.buttonImportOrder.TabIndex = 4;
             this.buttonImportOrder.Text = "&Import..";
             this.buttonImportOrder.UseVisualStyleBackColor = true;
             // 
@@ -97,6 +106,7 @@
             this.textBoxOrderNo.Name = "textBoxOrderNo";
             this.textBoxOrderNo.Size = new System.Drawing.Size(100, 20);
             this.textBoxOrderNo.TabIndex = 1;
+            this.textBoxOrderNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxOrderNo_KeyPress);
             // 
             // label1
             // 
@@ -124,7 +134,7 @@
             this.dataGridViewOrder.MultiSelect = false;
             this.dataGridViewOrder.Name = "dataGridViewOrder";
             this.dataGridViewOrder.Size = new System.Drawing.Size(468, 413);
-            this.dataGridViewOrder.TabIndex = 0;
+            this.dataGridViewOrder.TabIndex = 6;
             this.dataGridViewOrder.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOrder_CellValueChanged);
             // 
             // groupBoxAllocate
@@ -146,7 +156,7 @@
             this.dataGridViewAllocate.Location = new System.Drawing.Point(7, 20);
             this.dataGridViewAllocate.Name = "dataGridViewAllocate";
             this.dataGridViewAllocate.Size = new System.Drawing.Size(546, 413);
-            this.dataGridViewAllocate.TabIndex = 0;
+            this.dataGridViewAllocate.TabIndex = 7;
             this.dataGridViewAllocate.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAllocate_CellValueChanged);
             // 
             // buttonAllocate
@@ -154,21 +164,12 @@
             this.buttonAllocate.Location = new System.Drawing.Point(928, 23);
             this.buttonAllocate.Name = "buttonAllocate";
             this.buttonAllocate.Size = new System.Drawing.Size(136, 59);
-            this.buttonAllocate.TabIndex = 1;
+            this.buttonAllocate.TabIndex = 8;
             this.buttonAllocate.Text = "&Allocate";
             this.buttonAllocate.UseVisualStyleBackColor = true;
             this.buttonAllocate.Click += new System.EventHandler(this.buttonAllocate_Click);
             // 
-            // buttonBrowse
-            // 
-            this.buttonBrowse.Location = new System.Drawing.Point(255, 16);
-            this.buttonBrowse.Name = "buttonBrowse";
-            this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
-            this.buttonBrowse.TabIndex = 3;
-            this.buttonBrowse.Text = "Browse..";
-            this.buttonBrowse.UseVisualStyleBackColor = true;
-            // 
-            // PickForm
+            // AllocateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -177,7 +178,7 @@
             this.Controls.Add(this.buttonAllocate);
             this.Controls.Add(this.groupBoxOrderDetail);
             this.Controls.Add(this.groupBoxOrder);
-            this.Name = "PickForm";
+            this.Name = "AllocateForm";
             this.Text = "Allocate";
             this.groupBoxOrder.ResumeLayout(false);
             this.groupBoxOrder.PerformLayout();

@@ -170,6 +170,31 @@ namespace PrintSleeveManagement.Models
             return find(sql);
         }
 
+        public bool hasRollNoSec(int rollNo)
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return true;
+            }
+            string sql = $"SELECT ISNULL([RollNoSecondary],0) FROM [PrintSleeve] WHERE [RollNo] = '{rollNo}'";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            bool result = true;
+            while (dataReader.Read())
+            {
+                if (dataReader.GetInt32(0) != 0)
+                    result = true;
+                else
+                    result = false;
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+            return result;
+        }
+
         public int RollNo { get; set; }
 
         public int PONo { get; }

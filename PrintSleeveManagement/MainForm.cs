@@ -122,7 +122,7 @@ namespace PrintSleeveManagement
 
         private void toolStripButtonStage_Click(object sender, EventArgs e)
         {
-            StageForm stageForm = new StageForm();
+            PickForm stageForm = new PickForm();
             stageForm.MdiParent = this;
             stageForm.Show();
         }

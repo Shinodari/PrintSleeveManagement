@@ -8,26 +8,39 @@ namespace PrintSleeveManagement.View
 {
     class StageView
     {
-        public string LocationID { get; set; }
+        public string ItemNo { get; set; }
 
         public string PartNo { get; set; }
 
         public string LotNo { get; set; }
 
+        public int RollNo { get; set; }
+
+        public string LocationID { get; set; }
+
+        public DateTime ExprieDate { get; set; }
+
         public int Quantity { get; set; }
 
-        public int Allocate { get; set; }
+        public int PONo { get; set; }
 
-        public int Stage { get; set; }
+        public DateTime CreateTime { get; set; }
 
-        public StageView(string partNo, string locationID, string lotNo, int quantity, int allocate, int stage)
+        //Future is remove this property
+        public int RollNoSec { get; set; }
+
+        public StageView(string itemNo, string partNo, string lotNo, int rollNo, string locationID, DateTime exprieDate, int quantity, int pONo, DateTime createTime, int rollNoSec)
         {
+            this.ItemNo = itemNo;
             this.PartNo = partNo;
-            this.LocationID = locationID;
             this.LotNo = lotNo;
+            this.RollNo = rollNo;
+            this.LocationID = locationID;
+            this.ExprieDate = exprieDate;
             this.Quantity = quantity;
-            this.Allocate = allocate;
-            this.Stage = stage;
+            this.PONo = pONo;
+            this.CreateTime = createTime;
+            this.RollNoSec = rollNoSec;
         }
     }
 }

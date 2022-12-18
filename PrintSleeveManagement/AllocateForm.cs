@@ -25,7 +25,9 @@ namespace PrintSleeveManagement
 
         private void buttonCreateOrder_Click(object sender, EventArgs e)
         {
-            commitOrder();
+            string orderNo = textBoxOrderNo.Text;
+            if (!string.IsNullOrWhiteSpace(orderNo) || !string.IsNullOrEmpty(orderNo))
+                commitOrder();
         }
 
         private void commitOrder()
@@ -34,6 +36,7 @@ namespace PrintSleeveManagement
             order.OrderNo = Int32.Parse(textBoxOrderNo.Text);
             if (order.IsOrder)
             {
+                MessageBox.Show("This Order No is already exist.");
                 DisplayAllocate(0);
             }
             
@@ -82,14 +85,15 @@ namespace PrintSleeveManagement
             dataGridViewOrder.Refresh();
         }
 
-        private void buttonResult_Click(object sender, EventArgs e)
+        private void buttonDeleteOrder_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void buttonDeleteOrder_Click(object sender, EventArgs e)
+        private void textBoxOrderNo_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (e.KeyChar == (char)Keys.Enter)
+                commitOrder();
         }
     }
 }

@@ -129,7 +129,7 @@
     <Compile Include="Models\PrintSleeve.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\ReceiptBasePrintSleeve.cs" />
-    <Compile Include="Models\Stage.cs" />
+    <Compile Include="Models\Pick.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="AllocateForm.cs">
       <SubType>Form</SubType>
@@ -163,15 +163,16 @@
     <Compile Include="SerialPortDialog.Designer.cs">
       <DependentUpon>SerialPortDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="StageForm.cs">
+    <Compile Include="PickForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StageForm.Designer.cs">
-      <DependentUpon>StageForm.cs</DependentUpon>
+    <Compile Include="PickForm.Designer.cs">
+      <DependentUpon>PickForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\OrderAllocate.cs" />
     <Compile Include="Models\PreOrder.cs" />
     <Compile Include="View\OrderStage.cs" />
+    <Compile Include="View\PickView.cs" />
     <Compile Include="View\StageView.cs" />
     <Compile Include="WaitForm.cs">
       <SubType>Form</SubType>
@@ -219,8 +220,8 @@
     <EmbeddedResource Include="SerialPortDialog.resx">
       <DependentUpon>SerialPortDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StageForm.resx">
-      <DependentUpon>StageForm.cs</DependentUpon>
+    <EmbeddedResource Include="PickForm.resx">
+      <DependentUpon>PickForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaitForm.resx">
       <DependentUpon>WaitForm.cs</DependentUpon>

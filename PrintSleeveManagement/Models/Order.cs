@@ -13,7 +13,7 @@ namespace PrintSleeveManagement.Models
         private int orderNo;
         //private List<BasePrintSleeve> allocation;
         private List<PreOrder> preOrder;
-        private List<Stage> stage;
+        private List<Pick> stage;
         private bool isOrder;
 
         public int OrderNo
@@ -37,7 +37,7 @@ namespace PrintSleeveManagement.Models
             get { return preOrder; }
         }
 
-        public List<Stage> Stage { get { return stage; } }
+        public List<Pick> Stage { get { return stage; } }
 
         public DateTime OrderTime { get; }
 
@@ -98,7 +98,9 @@ namespace PrintSleeveManagement.Models
                 return false;
             }
 
-            string sql = $"DELETE FROM [Order] WHERE [OrderNo] = {this.OrderNo}";
+            string sql = $"DELETE FROM [Allocate] WHERE [OrderNo] = {this.OrderNo}\n";
+            sql += $"DELETE FROM [PreOrder] WHERE [OrderNo] = {this.OrderNo}\n";
+            sql += $"DELETE FROM [Order] WHERE [OrderNo] = {this.OrderNo}";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             dataAdapter.DeleteCommand = command;
@@ -108,7 +110,8 @@ namespace PrintSleeveManagement.Models
             command.Dispose();
             close();
 
-            if (result > 0) return true;
+            if (result > 0)
+                return true;
             else
             {
                 errorString = "Can't Delete Order";
@@ -144,9 +147,11 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = $"SELECT [PreOrder].[ItemNo], [Item].[PartNo], SUM([PreOrder].[Quantity]) AS Quantiry, SUM([PreOrder].[Allocate]) AS Allocate FROM [PreOrder]  ";
-            sql += $"LEFT JOIN [Item] ON [PreOrder].[ItemNo] = [Item].[ItemNo] WHERE [OrderNo] = '{this.orderNo}' ";
-            sql += $"GROUP BY [PreOrder].[OrderNo], [PreOrder].[ItemNo], [Item].[PartNo]";
+            string sql = $"SELECT [PreOrder].[ItemNo], [Item].[PartNo], [PreOrder].[Quantity] AS Quantiry, SUM([Allocate].[Allocate]) AS Allocate FROM [PreOrder] ";
+            sql += $"LEFT JOIN [Item] ON [PreOrder].[ItemNo] = [Item].[ItemNo] ";
+            sql += $"LEFT JOIN [Allocate] ON [PreOrder].[OrderNo] = [Allocate].[OrderNo] AND [PreOrder].[ItemNo] = [Allocate].[ItemNo] ";
+            sql += $"WHERE [PreOrder].[OrderNo] = '{this.orderNo}' ";
+            sql += $"GROUP BY [PreOrder].[OrderNo], [PreOrder].[ItemNo], [Item].[PartNo], [PreOrder].[Quantity]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
@@ -168,23 +173,28 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return -1;
             }
-            string sql = $"DELETE FROM [PreOrder] WHERE [OrderNo] = '{this.OrderNo}'";
+            string sql = $"DELETE FROM [PreOrder] WHERE [OrderNo] = '{this.OrderNo}'\n";
+            sql += $"DELETE FROM [Allocate] WHERE [OrderNo] = '{this.OrderNo}'";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             dataAdapter.DeleteCommand = command;
             dataAdapter.DeleteCommand.ExecuteNonQuery();
 
-            sql = "INSERT INTO [PreOrder] VALUES ";
+            string sql1 = "INSERT INTO [PreOrder] VALUES ";
+            string sql2 = "INSERT INTO [Allocate] VALUES ";
             foreach (PreOrder pod in preOrder)
             {
+                sql1 += $"({this.orderNo}, '{pod.ItemNo}', '{pod.Quantity}'),";
                 foreach (OrderAllocate oac in pod.OrderAllocate)
                 {
                     if (oac.Allocate > 0) {
-                        sql += $"({this.OrderNo}, '{pod.ItemNo}', '{oac.LocationId}', '{oac.LotNo}', {pod.Quantity}, {oac.Allocate}),";
+                        sql2 += $"({this.OrderNo}, '{pod.ItemNo}', '{oac.LocationId}', '{oac.LotNo}', {oac.Allocate}),";
                     }
                 }
             }
-            sql = sql.Substring(0, sql.Length - 1);
+            sql1 = sql1.Substring(0, sql1.Length - 1);
+            sql2 = sql2.Substring(0, sql2.Length - 1);
+            sql = sql1 + "\n" + sql2;
             command.CommandText = sql;
             dataAdapter.InsertCommand = command;
             int row = dataAdapter.InsertCommand.ExecuteNonQuery();
