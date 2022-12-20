@@ -14,20 +14,49 @@ namespace PrintSleeveManagement
     public partial class PickForm : Form
     {
         Pick pick;
+        BindingSource bindingSourceOrder;
+        BindingSource bindingSourcePick;
 
         public PickForm()
         {
             InitializeComponent();
+
+            bindingSourceOrder = new BindingSource();
+            bindingSourcePick = new BindingSource();
         }
 
         private void InputRollNo(int rollNo)
         {
+            if (!pick.AddPrintSleeve(rollNo))
+                MessageBox.Show(pick.getErrorString());
+            
+            bindingSourcePick.ResetBindings(false);
+        }
 
+        private void InputRollNo(int rollNo, int rollNoSec)
+        {
+            if (!pick.AddPrintSleeve(rollNo, rollNoSec))
+            {
+                if (pick.getErrorString() == "DifferantLocation")
+                {
+                    string locationID = null;
+                    if (InputDialog.InputBox("Location", "Please enter Location.", ref locationID) == DialogResult.Cancel)
+                        return;
+                    InputRollNo(rollNo, rollNoSec, locationID);
+                }
+            }
+            else
+            {
+                bindingSourcePick.ResetBindings(false);
+            }
         }
 
         private void InputRollNo(int rollNo, int rollNoSec, string locationID)
         {
+            if (!pick.AddPrintSleeve(rollNo, rollNoSec, locationID))
+                MessageBox.Show(pick.getErrorString());
 
+            bindingSourcePick.ResetBindings(false);
         }
 
         private void checkStageColor()
@@ -49,15 +78,13 @@ namespace PrintSleeveManagement
         {
             string orderNo = textBoxOrderNo.Text;
             pick = new Pick(Int32.Parse(orderNo));
-
-            BindingSource bindingSourceOrder = new BindingSource();
+                        
             bindingSourceOrder.DataSource = pick.PickViewList;
             bindingSourceOrder.ListChanged += BindingSourceOrder_ListChanged;
             dataGridViewOrder.DataSource = bindingSourceOrder;
             dataGridViewOrder.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewOrder.CellValueChanged += DataGridViewOrder_CellValueChanged;
 
-            BindingSource bindingSourcePick = new BindingSource();
             bindingSourcePick.DataSource = pick.StageList;
             bindingSourcePick.ListChanged += BindingSourcePick_ListChanged;
             dataGridViewPick.DataSource = bindingSourcePick;
@@ -86,7 +113,11 @@ namespace PrintSleeveManagement
 
         private void buttonStage_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Wrong Part!");
+            int rs = pick.Stage();
+            if (rs > 0)
+                MessageBox.Show($"Pick {rs} Rolls is Succesfuly");
+            else
+                MessageBox.Show("Pick is Error!\nPlease try agian");
         }
 
         private void buttonInputManually_Click(object sender, EventArgs e)
@@ -97,7 +128,7 @@ namespace PrintSleeveManagement
                 return;
             }
 
-            if (string.IsNullOrEmpty(strRollNo) || string.IsNullOrWhiteSpace(strRollNo))
+            if (!string.IsNullOrEmpty(strRollNo) || !string.IsNullOrWhiteSpace(strRollNo))
             {
                 int rollNo;
                 if (Int32.TryParse(strRollNo, out rollNo))
@@ -114,15 +145,12 @@ namespace PrintSleeveManagement
                             return;
                         }
 
-                        if (string.IsNullOrEmpty(strRollNoSec) || string.IsNullOrWhiteSpace(strRollNoSec))
+                        if (!string.IsNullOrEmpty(strRollNoSec) || !string.IsNullOrWhiteSpace(strRollNoSec))
                         {
                             int rollNoSec;
                             if (Int32.TryParse(strRollNoSec, out rollNoSec))
                             {
-                                string locationID = null;
-                                if (InputDialog.InputBox("Location", "Please enter Location.", ref locationID) == DialogResult.Cancel)
-                                    return;
-                                InputRollNo(rollNo, rollNoSec, locationID);
+                                InputRollNo(rollNo, rollNoSec);                                
                             }
                         }
                     }

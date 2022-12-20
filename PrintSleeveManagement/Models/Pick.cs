@@ -11,6 +11,7 @@ namespace PrintSleeveManagement.Models
     class Pick : Database
     {
         private List<PickView> pickViewList;
+        private List<StageView> stageList;
 
         public int OrderNo { get; set; }
 
@@ -19,7 +20,10 @@ namespace PrintSleeveManagement.Models
             get { return pickViewList; }
         }
 
-        public List<StageView> StageList { get; set; }
+        public List<StageView> StageList
+        {
+            get { return stageList; }
+        }
 
         public string RequestStage
         {
@@ -70,7 +74,7 @@ namespace PrintSleeveManagement.Models
         {
             this.OrderNo = orderNo;
             pickViewList = new List<PickView>();
-            StageList = new List<StageView>();
+            stageList = new List<StageView>();
             GetPick();
             PrePick(orderNo);
             UpdateStage();
@@ -84,7 +88,7 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return false;
             }
-            string sql = @"SELECT [PrintSleeve].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Transaction].[LocationID], [PrintSleeve].[ExpireDate], [PrintSleeve].[Quantity], [PrintSleeve].[PONo], [PrintSleeve].[CreateTime], [PrintSleeve].[RollNoSecondary] FROM [PrintSleeve]
+            string sql = @"SELECT [PrintSleeve].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Transaction].[LocationID], [PrintSleeve].[ExpireDate], [PrintSleeve].[Quantity], [PrintSleeve].[PONo], [PrintSleeve].[CreateTime], ISNULL([PrintSleeve].[RollNoSecondary], 0) AS RollNoSecondary FROM [PrintSleeve]
                 LEFT JOIN [Transaction] ON [Transaction].[RollNo] = [PrintSleeve].[RollNo]
                 LEFT JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]";
             sql += $"WHERE [PrintSleeve].[RollNo] = '{rollNo}' ";
@@ -92,7 +96,7 @@ namespace PrintSleeveManagement.Models
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                StageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8), dataReader.GetInt32(9)));
+                stageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8), dataReader.GetInt32(9)));
             }
             dataReader.Close();
             command.Dispose();
@@ -131,9 +135,16 @@ namespace PrintSleeveManagement.Models
             {
                 if (locationIDList[0] == locationIDList[1])
                 {
-
+                    AddPrintSleeve(rollNoList[0]);
+                }
+                else
+                {
+                    errorString = "DifferantLocation";
+                    return false;
                 }
             }
+            else
+                AddPrintSleeve(rollNoList[0]);
 
             return true;
         }
@@ -146,7 +157,21 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return false;
             }
-
+            string sql = "SELECT [PrintSleeve].[RollNo], [Transaction].[LocationID] FROM [PrintSleeve] JOIN [Transaction] ON [Transaction].[RollNo] = [PrintSleeve].[RollNo]\n";
+            sql += $"WHERE ([PrintSleeve].[RollNo] = '{rollNo}' AND [RollNoSecondary] = '{rollNoSec}')\n";
+            sql += $"OR ([PrintSleeve].[RollNo] = '{rollNoSec}' AND [RollNoSecondary] = '{rollNo}')\n";
+            sql += $"AND [LocationID] = '{locationID}'";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            List<int> rollNoList = new List<int>();
+            while (dataReader.Read())
+            {
+                rollNoList.Add(dataReader.GetInt32(0));
+            }
+            AddPrintSleeve(rollNoList[0]);
+            dataReader.Close();
+            command.Dispose();
+            close();
             return true;
         }
 
@@ -163,6 +188,38 @@ namespace PrintSleeveManagement.Models
                 }
                 pickViewList[i].Stage = stage;
             }
+        }
+
+        public int Stage()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return -1;
+            }
+            string sqlClear = $"DELETE FROM [Pick] WHERE [OrderNo] = {this.OrderNo}";
+            string sql = "INSERT INTO [Pick]([OrderNo], [ItemNo], [LocationID], [RollNo]) VALUES";
+            foreach (StageView sv in stageList)
+            {
+                sql += $"('{this.OrderNo}','{sv.ItemNo}','{sv.LocationID}','{sv.RollNo}'),";
+            }
+            sql = sql.Substring(0, sql.Length - 1);
+
+            SqlCommand command = new SqlCommand(sqlClear, cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.DeleteCommand = command;
+            adapter.DeleteCommand.ExecuteNonQuery();
+
+            command.CommandText = sql;
+            adapter.InsertCommand = command;
+            int row = adapter.InsertCommand.ExecuteNonQuery();
+
+            adapter.Dispose();
+            command.Dispose();
+            close();
+
+            return row;
         }
 
         private void PrePick(int orderNo)
@@ -199,12 +256,12 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = $"SELECT [Pick].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Pick].[LocationID], [PrintSleeve].[ExpireDate], [PrintSleeve].[Quantity], [PrintSleeve].[PONo], [PrintSleeve].[CreateTime], [PrintSleeve].[RollNoSecondary] FROM [Pick] LEFT JOIN [PrintSleeve] ON [Pick].[RollNo] = [PrintSleeve].[RollNo] LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo] WHERE [OrderNo] = '{this.OrderNo}'";
+            string sql = $"SELECT [Pick].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Pick].[LocationID], [PrintSleeve].[ExpireDate], [PrintSleeve].[Quantity], [PrintSleeve].[PONo], [PrintSleeve].[CreateTime], ISNULL([PrintSleeve].[RollNoSecondary],0) FROM [Pick] LEFT JOIN [PrintSleeve] ON [Pick].[RollNo] = [PrintSleeve].[RollNo] LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo] WHERE [OrderNo] = '{this.OrderNo}'";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                StageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8), dataReader.GetInt32(9)));
+                stageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8), dataReader.GetInt32(9)));
             }
             dataReader.Close();
             command.Dispose();
