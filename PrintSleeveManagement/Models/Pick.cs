@@ -94,15 +94,37 @@ namespace PrintSleeveManagement.Models
             sql += $"WHERE [PrintSleeve].[RollNo] = '{rollNo}' ";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
+            bool rs = false;
+            bool duplicate = false;
             while (dataReader.Read())
             {
-                stageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8), dataReader.GetInt32(9)));
+                foreach (StageView sv in stageList)
+                {
+                    if (sv.RollNo == dataReader.GetInt32(3))
+                    {
+                        errorString = "This RollNo is already!";
+                        duplicate = true;
+                        break;
+                    }
+                }
+                if (duplicate) break;
+
+                foreach (PickView pv in pickViewList)
+                {
+                    if (pv.PartNo == dataReader.GetString(1) && pv.LotNo == dataReader.GetString(2) && pv.LocationID == dataReader.GetString(4))
+                    {
+                        stageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8), dataReader.GetInt32(9)));
+                        rs = true;
+                        break;
+                    }
+                }
             }
             dataReader.Close();
             command.Dispose();
             close();
 
-            return true;
+            if (!rs && !duplicate) errorString = "Wrong Part!";
+            return rs;
         }
 
         public bool AddPrintSleeve(int rollNo, int rollNoSec)
@@ -131,6 +153,7 @@ namespace PrintSleeveManagement.Models
             command.Dispose();
             close();
 
+            bool rs = false;
             if (rollNoList.Count > 1)
             {
                 if (locationIDList[0] == locationIDList[1])
@@ -144,9 +167,9 @@ namespace PrintSleeveManagement.Models
                 }
             }
             else
-                AddPrintSleeve(rollNoList[0]);
+                rs = AddPrintSleeve(rollNoList[0]);
 
-            return true;
+            return rs;
         }
 
         public bool AddPrintSleeve(int rollNo, int rollNoSec, string locationID)
@@ -168,11 +191,11 @@ namespace PrintSleeveManagement.Models
             {
                 rollNoList.Add(dataReader.GetInt32(0));
             }
-            AddPrintSleeve(rollNoList[0]);
+            bool rs = AddPrintSleeve(rollNoList[0]);
             dataReader.Close();
             command.Dispose();
             close();
-            return true;
+            return rs;
         }
 
         public void UpdateStage()
@@ -231,9 +254,7 @@ namespace PrintSleeveManagement.Models
                 return;
             }
             string sql = @"SELECT [Item].[PartNo], [Allocate].[LocationID], [Allocate].[LotNo], [Allocate].[Allocate] FROM [Allocate] 
-                LEFT JOIN [Item] ON [Allocate].[ItemNo] = [Item].[ItemNo] 
-                LEFT JOIN [PreOrder] ON [Allocate].[OrderNo] = [PreOrder].[OrderNo] AND [Allocate].[ItemNo]	= [PreOrder].[ItemNo]
-                LEFT JOIN [Pick] ON [Allocate].[OrderNo] = [Pick].[OrderNo] AND [Allocate].[ItemNo] = [Pick].[ItemNo] AND [Allocate].[LocationID] = [Pick].[LocationID] ";
+                LEFT JOIN [Item] ON [Allocate].[ItemNo] = [Item].[ItemNo] ";
             sql += $"WHERE [Allocate].[OrderNo] = {this.OrderNo}\n";
             sql += "ORDER BY [Allocate].[LocationID], [Item].[PartNo], [Allocate].[LotNo]";
             SqlCommand command = new SqlCommand(sql, cnn);

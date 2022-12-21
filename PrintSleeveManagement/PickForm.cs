@@ -44,6 +44,8 @@ namespace PrintSleeveManagement
                         return;
                     InputRollNo(rollNo, rollNoSec, locationID);
                 }
+                else
+                    MessageBox.Show(pick.getErrorString());
             }
             else
             {
@@ -95,12 +97,12 @@ namespace PrintSleeveManagement
 
         private void BindingSourceOrder_ListChanged(object sender, ListChangedEventArgs e)
         {
-            MessageBox.Show("OrderListChanged");
+            //MessageBox.Show("OrderListChanged");
         }
 
         private void BindingSourcePick_ListChanged(object sender, ListChangedEventArgs e)
         {
-            MessageBox.Show("PickListChanged");
+            //MessageBox.Show("PickListChanged");
             pick.UpdateStage();
             dataGridViewOrder.Refresh();
             checkStageColor();
@@ -108,7 +110,7 @@ namespace PrintSleeveManagement
 
         private void DataGridViewOrder_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("OrderDataChange");
+            //MessageBox.Show("OrderDataChange");
         }
 
         private void buttonStage_Click(object sender, EventArgs e)

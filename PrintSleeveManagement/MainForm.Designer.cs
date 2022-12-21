@@ -109,7 +109,7 @@
             this.toolStripButtonPick.Name = "toolStripButtonPick";
             this.toolStripButtonPick.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButtonPick.Size = new System.Drawing.Size(89, 45);
-            this.toolStripButtonPick.Text = "Allocate";
+            this.toolStripButtonPick.Text = "&Allocate";
             this.toolStripButtonPick.Click += new System.EventHandler(this.toolStripButtonPick_Click);
             // 
             // toolStripButtonStage
@@ -123,7 +123,7 @@
             this.toolStripButtonStage.Name = "toolStripButtonStage";
             this.toolStripButtonStage.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButtonStage.Size = new System.Drawing.Size(62, 45);
-            this.toolStripButtonStage.Text = "Pick";
+            this.toolStripButtonStage.Text = "Pic&k";
             this.toolStripButtonStage.Click += new System.EventHandler(this.toolStripButtonStage_Click);
             // 
             // toolStripButtonShip

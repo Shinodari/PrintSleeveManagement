@@ -69,7 +69,7 @@
             this.buttonStage.Location = new System.Drawing.Point(1241, 13);
             this.buttonStage.Name = "buttonStage";
             this.buttonStage.Size = new System.Drawing.Size(126, 55);
-            this.buttonStage.TabIndex = 4;
+            this.buttonStage.TabIndex = 7;
             this.buttonStage.Text = "Stage";
             this.buttonStage.UseVisualStyleBackColor = true;
             this.buttonStage.Click += new System.EventHandler(this.buttonStage_Click);
@@ -96,14 +96,14 @@
             this.dataGridViewOrder.ReadOnly = true;
             this.dataGridViewOrder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewOrder.Size = new System.Drawing.Size(1361, 555);
-            this.dataGridViewOrder.TabIndex = 3;
+            this.dataGridViewOrder.TabIndex = 4;
             // 
             // buttonBrowse
             // 
             this.buttonBrowse.Location = new System.Drawing.Point(256, 17);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
-            this.buttonBrowse.TabIndex = 2;
+            this.buttonBrowse.TabIndex = 3;
             this.buttonBrowse.Text = "Browse..";
             this.buttonBrowse.UseVisualStyleBackColor = true;
             // 
@@ -150,7 +150,7 @@
             this.textBox1.Location = new System.Drawing.Point(87, 19);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(377, 20);
-            this.textBox1.TabIndex = 1;
+            this.textBox1.TabIndex = 8;
             // 
             // label2
             // 
@@ -166,7 +166,7 @@
             this.buttonInputManually.Location = new System.Drawing.Point(319, 520);
             this.buttonInputManually.Name = "buttonInputManually";
             this.buttonInputManually.Size = new System.Drawing.Size(144, 54);
-            this.buttonInputManually.TabIndex = 2;
+            this.buttonInputManually.TabIndex = 6;
             this.buttonInputManually.Text = "Input RollNo Manually..";
             this.buttonInputManually.UseVisualStyleBackColor = true;
             this.buttonInputManually.Click += new System.EventHandler(this.buttonInputManually_Click);
@@ -193,7 +193,7 @@
             this.dataGridViewPick.ReadOnly = true;
             this.dataGridViewPick.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewPick.Size = new System.Drawing.Size(457, 495);
-            this.dataGridViewPick.TabIndex = 0;
+            this.dataGridViewPick.TabIndex = 5;
             // 
             // PickForm
             // 
