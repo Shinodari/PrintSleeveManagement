@@ -137,8 +137,8 @@
             this.toolStripButtonShip.Name = "toolStripButtonShip";
             this.toolStripButtonShip.Padding = new System.Windows.Forms.Padding(10);
             this.toolStripButtonShip.Size = new System.Drawing.Size(65, 45);
-            this.toolStripButtonShip.Text = "Shi&p";
-            this.toolStripButtonShip.Visible = false;
+            this.toolStripButtonShip.Text = "&Ship";
+            this.toolStripButtonShip.Click += new System.EventHandler(this.toolStripButtonShip_Click);
             // 
             // toolStripButtonTransfer
             // 
