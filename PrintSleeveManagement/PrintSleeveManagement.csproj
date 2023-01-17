@@ -130,6 +130,7 @@
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\ReceiptBasePrintSleeve.cs" />
     <Compile Include="Models\Pick.cs" />
+    <Compile Include="Models\Ship.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="AllocateForm.cs">
       <SubType>Form</SubType>
@@ -168,6 +169,12 @@
     </Compile>
     <Compile Include="PickForm.Designer.cs">
       <DependentUpon>PickForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShipForm.Designer.cs">
+      <DependentUpon>ShipForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\OrderAllocate.cs" />
     <Compile Include="Models\PreOrder.cs" />
@@ -222,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PickForm.resx">
       <DependentUpon>PickForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShipForm.resx">
+      <DependentUpon>ShipForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaitForm.resx">
       <DependentUpon>WaitForm.cs</DependentUpon>

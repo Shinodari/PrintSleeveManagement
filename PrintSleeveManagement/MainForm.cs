@@ -133,5 +133,12 @@ namespace PrintSleeveManagement
             balanceForm.MdiParent = this;
             balanceForm.Show();
         }
+
+        private void toolStripButtonShip_Click(object sender, EventArgs e)
+        {
+            ShipForm shipForm = new ShipForm();
+            shipForm.MdiParent = this;
+            shipForm.Show();
+        }
     }
 }
