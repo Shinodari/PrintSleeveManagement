@@ -53,7 +53,6 @@
             this.dataGridViewShip.Location = new System.Drawing.Point(12, 42);
             this.dataGridViewShip.MultiSelect = false;
             this.dataGridViewShip.Name = "dataGridViewShip";
-            this.dataGridViewShip.ReadOnly = true;
             this.dataGridViewShip.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewShip.Size = new System.Drawing.Size(403, 479);
             this.dataGridViewShip.TabIndex = 1;

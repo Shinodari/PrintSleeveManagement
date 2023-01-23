@@ -42,6 +42,11 @@ namespace PrintSleeveManagement.Models
             GetShipList();
         }
 
+        public Ship(int orderNo)
+        {
+            this.orderNo = orderNo;
+        }
+
         public Ship(int orderNo, DateTime orderTime, int itemQuantity, int total)
         {
             this.orderNo = orderNo;
@@ -59,14 +64,37 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return -1;
             }
-            string sql = "INSERT INTO [Ship]([RollNo]) VALUES(";
+            bool flagFrist = true;
+            string sqlPick = $"SELECT [RollNo] FROM [Pick] WHERE ";
             foreach (Ship ship in shipList)
             {
-                sql += $"'{}'";
+                if (!flagFrist)
+                    sqlPick += ", ";
+                flagFrist = false;
+                sqlPick += $"[OrderNo] = '{ship.OrderNo}'";
             }
+            SqlCommand command = new SqlCommand(sqlPick, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            
+            string sqlShip = "INSERT INTO [Ship]([RollNo]) VALUES";
+            flagFrist = true;
+            while (dataReader.Read())
+            {
+                if (!flagFrist)
+                    sqlShip += ", ";
+                flagFrist = false;
+                sqlShip += $"('{dataReader.GetInt32(0)}')";
+            }
+            dataReader.Close();
+            command = new SqlCommand(sqlShip, cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.InsertCommand = command;
+            int result = adapter.InsertCommand.ExecuteNonQuery();
 
+            command.Dispose();
+            adapter.Dispose();
             close();
-            return 0;
+            return result;
         }
 
         private void GetShipList()
