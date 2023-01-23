@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace PrintSleeveManagement.Models
             this.selected = false;
         }
 
-        public int MassShip(Ship ship)
+        public int MassShip(List<Ship> shipList)
         {
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
@@ -58,7 +59,11 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return -1;
             }
-            string sql = "INSERT INTO [Ship]";
+            string sql = "INSERT INTO [Ship]([RollNo]) VALUES(";
+            foreach (Ship ship in shipList)
+            {
+                sql += $"'{}'";
+            }
 
             close();
             return 0;
