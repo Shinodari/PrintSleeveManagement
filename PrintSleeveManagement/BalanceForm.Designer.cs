@@ -37,6 +37,7 @@
             // 
             this.dataGridViewBalance.AllowUserToAddRows = false;
             this.dataGridViewBalance.AllowUserToDeleteRows = false;
+            this.dataGridViewBalance.AllowUserToOrderColumns = true;
             this.dataGridViewBalance.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewBalance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewBalance.Location = new System.Drawing.Point(13, 41);
