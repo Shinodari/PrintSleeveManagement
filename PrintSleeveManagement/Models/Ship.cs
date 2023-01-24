@@ -14,7 +14,8 @@ namespace PrintSleeveManagement.Models
         private int orderNo;
         private DateTime orderTime;
         private int itemQuantity;
-        private int total;/**/
+        private int total;
+        private int pick;
         private List<Ship> shipList;
 
         public bool Selected
@@ -30,6 +31,8 @@ namespace PrintSleeveManagement.Models
         public int ItemQuantity { get { return itemQuantity; } }
 
         public int Total { get { return total; } }
+
+        public int Pick { get { return pick; } }
 
         public List<Ship> ShipList
         {
@@ -47,12 +50,13 @@ namespace PrintSleeveManagement.Models
             this.orderNo = orderNo;
         }
 
-        public Ship(int orderNo, DateTime orderTime, int itemQuantity, int total)
+        public Ship(int orderNo, DateTime orderTime, int itemQuantity, int total, int pick)
         {
             this.orderNo = orderNo;
             this.orderTime = orderTime;
             this.itemQuantity = itemQuantity;
             this.total = total;
+            this.pick = pick;
             this.selected = false;
         }
 
@@ -69,7 +73,7 @@ namespace PrintSleeveManagement.Models
             foreach (Ship ship in shipList)
             {
                 if (!flagFrist)
-                    sqlPick += ", ";
+                    sqlPick += " OR ";
                 flagFrist = false;
                 sqlPick += $"[OrderNo] = '{ship.OrderNo}'";
             }
@@ -105,14 +109,25 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = @"SELECT [Order].*, COUNT([PreOrder].[ItemNo]) AS ItemQuantity, SUM([PreOrder].[Quantity]) AS Total FROM [Order]
-                LEFT JOIN [PreOrder] ON [PreOrder].[OrderNo] = [Order].[OrderNo]
-                GROUP BY [Order].[OrderNo], [Order].[OrderTime]";
+            string sql = @"SELECT [Order].*, COUNT([PreOrder].[ItemNo]) AS ItemQuantity, SUM([PreOrder].[Quantity]) AS Total, b.[Quantity] AS Pick FROM [Order]
+			                LEFT JOIN [PreOrder] ON [PreOrder].[OrderNo] = [Order].[OrderNo]
+							LEFT JOIN (SELECT [Pick].[OrderNo], SUM([PrintSleeve].[Quantity]) AS Quantity FROM [Pick]
+						                LEFT JOIN [PrintSleeve] ON [PrintSleeve].[RollNo] = [Pick].[RollNo]
+						                GROUP BY [Pick].[OrderNo]) b
+										ON [Order].[OrderNo] = b.[OrderNo]
+			                LEFT JOIN (SELECT [Pick].[OrderNo], SUM([PrintSleeve].[Quantity]) AS Quantity FROM [Pick]
+						                INNER JOIN [Ship] ON [Pick].[RollNo] = [Ship].[RollNo]
+						                LEFT JOIN [PrintSleeve] ON [PrintSleeve].[RollNo] = [Pick].[RollNo]
+						                GROUP BY [Pick].[OrderNo]) a 
+										ON [Order].[OrderNo] = a.[OrderNo]
+			                GROUP BY [Order].[OrderNo], [Order].[OrderTime], b.[Quantity], a.[Quantity]
+			                HAVING SUM([PreOrder].[Quantity]) != ISNULL(a.[Quantity], 0)
+			                ORDER BY [Order].[OrderTime]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                shipList.Add(new Ship(dataReader.GetInt32(0), dataReader.GetDateTime(1), dataReader.GetInt32(2), dataReader.GetInt32(3)));
+                shipList.Add(new Ship(dataReader.GetInt32(0), dataReader.GetDateTime(1), dataReader.GetInt32(2), dataReader.GetInt32(3), dataReader.GetInt32(4)));
             }
             dataReader.Close();
             command.Dispose();

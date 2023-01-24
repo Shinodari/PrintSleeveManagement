@@ -47,6 +47,7 @@ namespace PrintSleeveManagement
             }
             int result = ship.MassShip(shipList);
             MessageBox.Show($"Ship PrintSleeve {result} Roll(s)");
+            DataRefresh();
         }
     }
 }

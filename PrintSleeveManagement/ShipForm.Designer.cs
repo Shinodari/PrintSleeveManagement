@@ -36,7 +36,7 @@
             // 
             // buttonRefresh
             // 
-            this.buttonRefresh.Location = new System.Drawing.Point(340, 12);
+            this.buttonRefresh.Location = new System.Drawing.Point(418, 12);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 0;
@@ -54,7 +54,7 @@
             this.dataGridViewShip.MultiSelect = false;
             this.dataGridViewShip.Name = "dataGridViewShip";
             this.dataGridViewShip.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewShip.Size = new System.Drawing.Size(403, 479);
+            this.dataGridViewShip.Size = new System.Drawing.Size(481, 479);
             this.dataGridViewShip.TabIndex = 1;
             // 
             // buttonShip
@@ -71,7 +71,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 533);
+            this.ClientSize = new System.Drawing.Size(505, 533);
             this.Controls.Add(this.buttonShip);
             this.Controls.Add(this.dataGridViewShip);
             this.Controls.Add(this.buttonRefresh);
