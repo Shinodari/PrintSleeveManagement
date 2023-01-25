@@ -45,6 +45,7 @@
             this.dataGridViewBalance.ReadOnly = true;
             this.dataGridViewBalance.Size = new System.Drawing.Size(1626, 808);
             this.dataGridViewBalance.TabIndex = 0;
+            this.dataGridViewBalance.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewBalance_ColumnHeaderMouseClick);
             // 
             // buttonFilter
             // 
