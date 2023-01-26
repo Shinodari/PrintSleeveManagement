@@ -9,7 +9,17 @@ namespace PrintSleeveManagement.Models
 {
     class Balance : Database
     {
-        public string Location { get; set; }
+        public enum DirectionType
+        {
+            NONE,
+            Ascending,
+            Descending
+        }
+
+        private string sortedColumn;
+        private DirectionType directionType;
+
+        public string LocationID { get; set; }
 
         public string ItemNo { get; set; }
 
@@ -19,7 +29,7 @@ namespace PrintSleeveManagement.Models
 
         public int RollNo { get; set; }
 
-        public DateTime ExpiredDate { get; set; }
+        public DateTime ExpireDate { get; set; }
 
         public int Quantity { get; set; }
 
@@ -54,12 +64,12 @@ namespace PrintSleeveManagement.Models
             string receiver, 
             DateTime receivedTime)
         {
-            this.Location = location;
+            this.LocationID = location;
             this.ItemNo = itemNo;
             this.PartNo = partNo;
             this.LotNo = lotNo;
             this.RollNo = rollNo;
-            this.ExpiredDate = expiredDate;
+            this.ExpireDate = expiredDate;
             this.Quantity = quantity;
             this.PONo = pONo;
             this.Creator = creator;
@@ -68,7 +78,7 @@ namespace PrintSleeveManagement.Models
             this.ReceivedTime = receivedTime;
         }
 
-        private void getBalance()
+        private void getBalance(string order = null, DirectionType directionType = DirectionType.NONE)
         {
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
@@ -76,24 +86,45 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = "SELECT * FROM [PrintSleeve] LEFT JOIN [Receipt] ON [PrintSleeve].[PONo] = [Receipt].[PONo] LEFT JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo] LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo]";
-            sql += " ORDER BY [LocationID], [PartNo], [ExpireDate], [LotNo]";
+            string sql = @"SELECT [Transaction].[LocationID], [PrintSleeve].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [PrintSleeve].[ExpireDate], [PrintSleeve].[Quantity], [Receipt].[PONo], [PrintSleeve].[Creator], [PrintSleeve].[CreateTime], [Receipt].[Receiver], [Receipt].[ReceivedTime] FROM [PrintSleeve] 
+                            LEFT JOIN [Receipt] ON [PrintSleeve].[PONo] = [Receipt].[PONo] 
+                            LEFT JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo] 
+                            LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo]
+                            LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
+                            WHERE [Ship].[RollNo] IS NULL";
+            if (order == null)
+            {
+                sql += "\nORDER BY [LocationID], [PartNo], [ExpireDate], [LotNo]";
+            }
+            else
+            {
+                sql += $"\nORDER BY [{order}] ";
+                switch (directionType)
+                {
+                    case DirectionType.Ascending:
+                        sql += "ASC";
+                        break;
+                    case DirectionType.Descending:
+                        sql += "DESC";
+                        break;
+                }
+            }
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                BalanceList.Add(new Balance(dataReader.GetString(13),
+                BalanceList.Add(new Balance(dataReader.GetString(0),
+                    dataReader.GetString(1),
                     dataReader.GetString(2),
-                    dataReader.GetString(17),
                     dataReader.GetString(3),
-                    dataReader.GetInt32(0),
-                    dataReader.GetDateTime(5),
                     dataReader.GetInt32(4),
-                    dataReader.GetInt32(1),
-                    dataReader.GetString(7),
-                    dataReader.GetDateTime(8),
-                    dataReader.GetString(11),
-                    dataReader.GetDateTime(10)));
+                    dataReader.GetDateTime(5),
+                    dataReader.GetInt32(6),
+                    dataReader.GetInt32(7),
+                    dataReader.GetString(8),
+                    dataReader.GetDateTime(9),
+                    dataReader.GetString(10),
+                    dataReader.GetDateTime(11)));
                 /*
                 this.ItemNo = ;
                 this.PartNo = ;
@@ -110,6 +141,24 @@ namespace PrintSleeveManagement.Models
             dataReader.Close();
             command.Dispose();
             close();/**/
+        }
+
+        public void SortList(string order = null, DirectionType directionType = DirectionType.NONE)
+        {
+            this.sortedColumn = order;
+            this.directionType = directionType;
+            BalanceList.Clear();
+            getBalance(order, directionType);
+        }
+
+        public string GetSotedColumn()
+        {
+            return this.sortedColumn;
+        }
+
+        public DirectionType GetDirectionType()
+        {
+            return this.directionType;
         }
     }
 }

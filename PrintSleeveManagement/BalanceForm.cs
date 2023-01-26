@@ -37,30 +37,31 @@ namespace PrintSleeveManagement.Models
         private void dataGridViewBalance_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int columnIndex = e.ColumnIndex;
-            DataGridViewColumn oldColumn = dataGridViewBalance.SortedColumn;
+            string oldSortedColumn = balance.GetSotedColumn();
             DataGridViewColumn newColumn = dataGridViewBalance.Columns[columnIndex];
-            ListSortDirection direction;
+            Balance.DirectionType directionType = balance.GetDirectionType();
+            Balance.DirectionType direction;
             
-            if (oldColumn != null)
+            if (oldSortedColumn != null)
             {
-                if (oldColumn == newColumn && dataGridViewBalance.SortOrder == SortOrder.Ascending)
+                if (oldSortedColumn == newColumn.Name && directionType == Balance.DirectionType.Ascending)
                 {
-                    direction = ListSortDirection.Descending;
+                    direction = Balance.DirectionType.Descending;
                 }
                 else
                 {
-                    direction = ListSortDirection.Ascending;
-                    oldColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+                    direction = Balance.DirectionType.Ascending;
+                    dataGridViewBalance.Columns[oldSortedColumn].HeaderCell.SortGlyphDirection = SortOrder.None;
                 }
             }
             else
             {
-                direction = ListSortDirection.Ascending;
+                direction = Balance.DirectionType.Ascending;
             }
 
             //dataGridViewBalance.Sort(newColumn, direction);
-            newColumn.HeaderCell.SortGlyphDirection = direction == ListSortDirection.Ascending ? SortOrder.Ascending : SortOrder.Descending;
-            bindingSourceBalance.DataSource = balance.BalanceList.OrderBy(x => x.PartNo).ToList();
+            newColumn.HeaderCell.SortGlyphDirection = direction == Balance.DirectionType.Ascending ? SortOrder.Ascending : SortOrder.Descending;
+            balance.SortList(newColumn.Name, direction);
             dataGridViewBalance.Refresh();
         }
     }
