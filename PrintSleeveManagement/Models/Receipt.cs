@@ -92,15 +92,26 @@ namespace PrintSleeveManagement.Models
             {
                 return -1;
             }
+            //Check dupicate PONo
+            string sqlPO = $"SELECT * FROM [Receipt] WHERE [PONo] = '{this.PONo}'";
+            SqlCommand commandPO = new SqlCommand(sqlPO, cnn);
+            SqlDataReader dataReaderPO = commandPO.ExecuteReader();
+            commandPO.Dispose();
+
             SqlCommand command;
             SqlDataAdapter adapter = new SqlDataAdapter();
-
+            string sql;
             bool flagFirstValue = true;
             int row = -2;
-            string sql = "INSERT INTO Receipt(PONo, Receiver) VALUES(" + this.PONo + ", '" + Authentication.Username + "')";
-            command = new SqlCommand(sql, cnn);
-            adapter.InsertCommand = command;
-            if (adapter.InsertCommand.ExecuteNonQuery() > 0)
+            if (!dataReaderPO.HasRows)
+            {
+                sql = "INSERT INTO Receipt(PONo, Receiver) VALUES(" + this.PONo + ", '" + Authentication.Username + "')";
+                command = new SqlCommand(sql, cnn);
+                adapter.InsertCommand = command;
+            }
+            dataReaderPO.Close();
+
+            if (ReceiptBasePrintSleeve.Count > 0)
             {
                 sql = "INSERT INTO Receipt_Item VALUES";
                 foreach (BasePrintSleeve printSleeve in ReceiptBasePrintSleeve)
@@ -119,9 +130,10 @@ namespace PrintSleeveManagement.Models
                 command = new SqlCommand(sql, cnn);
                 adapter.InsertCommand = command;
                 row = adapter.InsertCommand.ExecuteNonQuery();
+                command.Dispose();
+                adapter.Dispose();
+                close();
             }
-            command.Dispose();
-            close();
             return row;
         }
 

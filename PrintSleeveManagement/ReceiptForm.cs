@@ -63,7 +63,7 @@ namespace PrintSleeveManagement
             dataGridViewPrintSleeve.DataSource = bindignSource;
             dataGridViewPrintSleeve.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewPrintSleeve.Columns["Quantity"].DisplayIndex = 3;
-            dataGridViewPrintSleeve.Columns["Available"].Visible = false;
+            dataGridViewPrintSleeve.Columns["Moved"].Visible = false;
 
             setDisplay(false);
             textBoxPartNo.Focus();

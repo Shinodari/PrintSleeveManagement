@@ -403,6 +403,7 @@
             this.textBoxInputData.Size = new System.Drawing.Size(1086, 20);
             this.textBoxInputData.TabIndex = 1;
             this.textBoxInputData.TextChanged += new System.EventHandler(this.textBoxInputData_TextChanged);
+            this.textBoxInputData.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxInputData_KeyPress);
             // 
             // label7
             // 

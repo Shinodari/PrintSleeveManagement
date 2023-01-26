@@ -30,6 +30,7 @@ namespace PrintSleeveManagement
             InitializeComponent();
 
             device = new Device();
+            location = new Location();
         }
 
         public PutAwayForm(Device device) : this()
@@ -380,26 +381,41 @@ namespace PrintSleeveManagement
 
         private void textBoxInputData_TextChanged(object sender, EventArgs e)
         {
-            string txt = textBoxInputData.Text;
-            for (int i = 0; i < txt.Length; i++)
+            
+        }
+
+        private void processInputData(string data)
+        {
+            if (location.IsLocation(data))
             {
-                byte b = Convert.ToByte(txt[i]);
-                if (b.ToString() == "13")
-                {
-                    txt = txt.Substring(0, txt.Length - 1);
-                    processInputData(txt);
-                    textBoxInputData.Text = "";    
-                }
+                location = new Location();
+                location.LocationID = data;
+                labelLocation.Text = data;
+            }
+            else
+            {
+                addPrintSleeve(data);
             }
         }
 
-        private void processInputData(string data)/////////////////////////
+        private void textBoxInputData_KeyPress(object sender, KeyPressEventArgs e)
         {
-            location = new Location();
-            if (location.IsLocation(data))
+            if (e.KeyChar == (char)Keys.Enter)
             {
-                location.LocationID = data;
-                labelLocation.Text = data;
+                string txt = textBoxInputData.Text;
+                processInputData(txt);
+                textBoxInputData.Text = "";
+                /*
+                for (int i = 0; i < txt.Length; i++)
+                {
+                    byte b = Convert.ToByte(txt[i]);
+                    if (b.ToString() == "13")
+                    {
+                        txt = txt.Substring(0, txt.Length - 1);
+                        processInputData(txt);
+                        textBoxInputData.Text = "";
+                    }
+                }*/
             }
         }
     }
