@@ -261,17 +261,17 @@ namespace PrintSleeveManagement
 
         private void buttonSelectLocation_Click(object sender, EventArgs e)
         {
-            getLocation();
-        }
-
-        private void getLocation()
-        {
             LocationDialog locationDialog = new LocationDialog();
             if (locationDialog.Show() == DialogResult.OK)
             {
-                location = new Location(locationDialog.LocationID);
-                labelLocation.Text = location.LocationID;
+                getLocation(locationDialog.LocationID);
             }
+        }
+
+        private void getLocation(string strLocation)
+        {
+            location = new Location(strLocation);
+            labelLocation.Text = location.LocationID;
         }
 
         private void addPrintSleeve(string rollNo = null)
@@ -379,18 +379,11 @@ namespace PrintSleeveManagement
             }
         }
 
-        private void textBoxInputData_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void processInputData(string data)
         {
             if (location.IsLocation(data))
             {
-                location = new Location();
-                location.LocationID = data;
-                labelLocation.Text = data;
+                getLocation(data);
             }
             else
             {
@@ -403,7 +396,7 @@ namespace PrintSleeveManagement
             if (e.KeyChar == (char)Keys.Enter)
             {
                 string txt = textBoxInputData.Text;
-                processInputData(txt);
+                processInputData(txt.ToUpper());
                 textBoxInputData.Text = "";
                 /*
                 for (int i = 0; i < txt.Length; i++)

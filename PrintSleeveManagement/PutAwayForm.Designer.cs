@@ -117,8 +117,8 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewReceipt.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewReceipt.Location = new System.Drawing.Point(6, 47);
@@ -247,7 +247,7 @@
             // 
             // textBoxLotNo
             // 
-            this.textBoxLotNo.Location = new System.Drawing.Point(105, 170);
+            this.textBoxLotNo.Location = new System.Drawing.Point(105, 144);
             this.textBoxLotNo.Name = "textBoxLotNo";
             this.textBoxLotNo.Size = new System.Drawing.Size(100, 20);
             this.textBoxLotNo.TabIndex = 1;
@@ -264,7 +264,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 173);
+            this.label3.Location = new System.Drawing.Point(57, 147);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 2;
@@ -273,7 +273,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 150);
+            this.label2.Location = new System.Drawing.Point(25, 173);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 13);
             this.label2.TabIndex = 1;
@@ -282,7 +282,7 @@
             // dateTimePickerExpiredDate
             // 
             this.dateTimePickerExpiredDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerExpiredDate.Location = new System.Drawing.Point(105, 144);
+            this.dateTimePickerExpiredDate.Location = new System.Drawing.Point(105, 170);
             this.dateTimePickerExpiredDate.Name = "dateTimePickerExpiredDate";
             this.dateTimePickerExpiredDate.Size = new System.Drawing.Size(100, 20);
             this.dateTimePickerExpiredDate.TabIndex = 2;
@@ -402,7 +402,6 @@
             this.textBoxInputData.Name = "textBoxInputData";
             this.textBoxInputData.Size = new System.Drawing.Size(1086, 20);
             this.textBoxInputData.TabIndex = 1;
-            this.textBoxInputData.TextChanged += new System.EventHandler(this.textBoxInputData_TextChanged);
             this.textBoxInputData.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxInputData_KeyPress);
             // 
             // label7

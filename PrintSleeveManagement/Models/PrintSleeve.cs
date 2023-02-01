@@ -32,6 +32,17 @@ namespace PrintSleeveManagement.Models
             this.ExpiredDate = expiredDate;
         }
 
+        public PrintSleeve(int rollNo, int pONo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate)
+        {
+            this.RollNo = rollNo;
+            this.PONo = pONo;
+            this.ItemNo = itemNo;
+            this.PartNo = partNo;
+            this.LotNo = lotNo;
+            this.Quantity = quantity;
+            this.ExpiredDate = expiredDate;
+        }
+
         public bool Create(int rollNo, int pONo, string itemNo, string lotNo, int quantity, DateTime expiredDate, Location location)
         {
             this.RollNo = rollNo;
@@ -197,7 +208,7 @@ namespace PrintSleeveManagement.Models
 
         public int RollNo { get; set; }
 
-        public int PONo { get; }
+        public int PONo { get; set; }
 
         public string LotNo { get; set; }
 

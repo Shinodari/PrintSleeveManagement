@@ -88,20 +88,42 @@ namespace PrintSleeveManagement.Models
             return result;
         }
 
-        private void getPrintSleeve()
+        private void getPrintSleeve(string locationID)
         {
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)
             {
                 return;
             }
-            string sql = "SELECT * FROM ";
-
+            string sql = $@"SELECT [PrintSleeve].[RollNo], [PrintSleeve].[PONo], [PrintSleeve].[ItemNo], 
+                            [Item].[PartNo], [PrintSleeve].[LotNo], 
+                            [PrintSleeve].[Quantity], [PrintSleeve].[ExpireDate],
+                            MAX([Transaction].[TransactionTime]) AS [TransactionTime] FROM [PrintSleeve]
+                            INNER JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo]
+                            INNER JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo]
+                            LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
+                            WHERE [Transaction].[LocationID] = '{locationID}' AND [Ship].[RollNo] IS NULL
+                            GROUP BY [PrintSleeve].[RollNo], [PrintSleeve].[RollNo], [PrintSleeve].[PONo], [PrintSleeve].[ItemNo], [PrintSleeve].[LotNo], [PrintSleeve].[Quantity], [PrintSleeve].[ExpireDate], 
+                            [Item].[PartNo], [Ship].[RollNo]";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                PrintSleeveList.Add(new PrintSleeve(dataReader.GetInt32(0), 
+                    dataReader.GetInt32(1), 
+                    dataReader.GetString(2), 
+                    dataReader.GetString(3), 
+                    dataReader.GetString(4), 
+                    dataReader.GetInt32(5), 
+                    dataReader.GetDateTime(6)));
+            }
+            dataReader.Close();
+            command.Dispose();
             close();
         }
 
         public string LocationID { get; set; }
         public string Status { get; set; }
-        public List<PrintSleeve> printSleeve { get; set; }
+        public List<PrintSleeve> PrintSleeveList { get; set; }
     }
 }
