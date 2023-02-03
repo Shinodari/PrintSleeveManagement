@@ -81,13 +81,20 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = "SELECT [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo], SUM([PrintSleeve].[Quantity]) AS Quantity, ";
-            sql += $"(SELECT ISNULL(SUM([Allocate]),0) FROM [Allocate] WHERE [OrderNo] = '{this.orderNo}' AND [ItemNo] = [PrintSleeve].[ItemNo] AND [LocationID] = [Transaction].[LocationID] AND [LotNo] = [PrintSleeve].[LotNo]) AS Allocate FROM [PrintSleeve] ";
-            sql += $"INNER JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo] ";
-            sql += $"WHERE [PrintSleeve].[ItemNo] = '{itemNo}' ";
-            sql += $"GROUP BY [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo], [PrintSleeve].[ItemNo] ";
-            sql += $"HAVING [Transaction].[LocationID] = MAX([Transaction].[LocationID]) ";
-            sql += $"ORDER BY [PrintSleeve].[ExpireDate], [PrintSleeve].[LotNo], [Transaction].[LocationID]";
+            string sql = $@"SELECT [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo], 
+                            SUM([PrintSleeve].[Quantity]) AS Quantity, 
+                            (SELECT ISNULL(SUM([Allocate]),0) FROM [Allocate] 
+	                            WHERE [OrderNo] = '{this.orderNo}' 
+	                            AND [ItemNo] = [PrintSleeve].[ItemNo] 
+	                            AND [LocationID] = [Transaction].[LocationID] 
+	                            AND [LotNo] = [PrintSleeve].[LotNo]) AS Allocate
+                            FROM [PrintSleeve] 
+                            INNER JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo] 
+                            LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
+                            WHERE [PrintSleeve].[ItemNo] = '{itemNo}' AND [Ship].[RollNo] IS NULL
+                            GROUP BY [PrintSleeve].[ExpireDate], [Transaction].[LocationID], [PrintSleeve].[LotNo], [PrintSleeve].[ItemNo] , [Ship].[RollNo]
+                            HAVING [Transaction].[LocationID] = MAX([Transaction].[LocationID]) 
+                            ORDER BY [PrintSleeve].[ExpireDate], [PrintSleeve].[LotNo], [Transaction].[LocationID]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             List<PreOrder> preOrder = new List<PreOrder>();
