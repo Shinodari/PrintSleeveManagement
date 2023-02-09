@@ -118,6 +118,7 @@ namespace PrintSleeveManagement
                 case (char)Keys.Enter:
                     textBoxQuantity.Focus();
                     break;
+
             }
         }
 
@@ -268,10 +269,12 @@ namespace PrintSleeveManagement
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                    bindignSource.MovePrevious();
+                    listBoxPartNo.SelectedIndex -= 1;
+                    e.Handled = true;
                     break;
                 case Keys.Down:
-                    bindignSource.MoveNext();
+                    listBoxPartNo.SelectedIndex += 1;
+                    e.Handled = true;
                     break;
             }
         }
