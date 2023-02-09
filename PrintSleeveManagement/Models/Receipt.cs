@@ -103,13 +103,15 @@ namespace PrintSleeveManagement.Models
             string sql;
             bool flagFirstValue = true;
             int row = -2;
-            if (!dataReaderPO.HasRows)
+            bool hasRows = dataReaderPO.HasRows;
+            dataReaderPO.Close();
+            if (!hasRows)
             {
                 sql = "INSERT INTO Receipt(PONo, Receiver) VALUES(" + this.PONo + ", '" + Authentication.Username + "')";
                 command = new SqlCommand(sql, cnn);
                 adapter.InsertCommand = command;
-            }
-            dataReaderPO.Close();
+                adapter.InsertCommand.ExecuteNonQuery();
+            }            
 
             if (ReceiptBasePrintSleeve.Count > 0)
             {
