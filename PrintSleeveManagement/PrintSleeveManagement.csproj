@@ -90,6 +90,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BrowseDialog.Designer.cs">
+      <DependentUpon>BrowseDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="DeviceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +185,7 @@
     <Compile Include="ShipForm.Designer.cs">
       <DependentUpon>ShipForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Order.cs" />
     <Compile Include="View\OrderAllocate.cs" />
     <Compile Include="Models\PreOrder.cs" />
     <Compile Include="View\OrderStage.cs" />
@@ -191,6 +198,9 @@
     <Compile Include="WaitForm.Designer.cs">
       <DependentUpon>WaitForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BrowseDialog.resx">
+      <DependentUpon>BrowseDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DeviceForm.resx">
       <DependentUpon>DeviceForm.cs</DependentUpon>
     </EmbeddedResource>

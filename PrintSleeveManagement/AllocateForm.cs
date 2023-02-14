@@ -95,5 +95,16 @@ namespace PrintSleeveManagement
             if (e.KeyChar == (char)Keys.Enter)
                 commitOrder();
         }
+
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+            List<View.Order> orderList = this.order.GetAllOrder();
+            BrowseDialog dialog = new BrowseDialog(orderList, "Order Browse", 0);
+            if (dialog.Show() == DialogResult.OK)
+            {
+                textBoxOrderNo.Text = dialog.Result;
+                commitOrder();
+            }
+        }
     }
 }

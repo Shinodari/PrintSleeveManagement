@@ -14,6 +14,7 @@ namespace PrintSleeveManagement.Models
         //private List<BasePrintSleeve> allocation;
         private List<PreOrder> preOrder;
         private List<Pick> stage;
+        private DateTime orderTime;
         private bool isOrder;
 
         public int OrderNo
@@ -39,7 +40,7 @@ namespace PrintSleeveManagement.Models
 
         public List<Pick> Stage { get { return stage; } }
 
-        public DateTime OrderTime { get; }
+        public DateTime OrderTime { get { return orderTime; } }
 
         public bool IsOrder
         {
@@ -205,5 +206,29 @@ namespace PrintSleeveManagement.Models
 
             return row;
         }        
+
+        public List<View.Order> GetAllOrder()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return null;
+            }
+
+            List<View.Order> allOrder = new List<View.Order>();
+            string sql = "SELECT TOP 25 * FROM [Order]";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                allOrder.Add(new View.Order(dataReader.GetInt32(0), dataReader.GetDateTime(1)));
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+
+            return allOrder;
+        }
     }
 }

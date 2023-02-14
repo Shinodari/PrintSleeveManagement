@@ -70,6 +70,7 @@
             this.buttonBrowse.TabIndex = 3;
             this.buttonBrowse.Text = "Browse..";
             this.buttonBrowse.UseVisualStyleBackColor = true;
+            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
             // buttonDeleteOrder
             // 
@@ -180,6 +181,7 @@
             this.Controls.Add(this.groupBoxOrder);
             this.Name = "AllocateForm";
             this.Text = "Allocate";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.groupBoxOrder.ResumeLayout(false);
             this.groupBoxOrder.PerformLayout();
             this.groupBoxOrderDetail.ResumeLayout(false);
