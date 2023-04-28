@@ -148,7 +148,7 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = $"SELECT [PreOrder].[ItemNo], [Item].[PartNo], [PreOrder].[Quantity] AS Quantiry, ISNULL(SUM([Allocate].[Allocate]),0) AS Allocate FROM [PreOrder] ";
+            string sql = $"SELECT [PreOrder].[ItemNo], [Item].[PartNo], [PreOrder].[Quantity] AS Quantiry, SUM([Allocate].[Allocate]) AS Allocate FROM [PreOrder] ";
             sql += $"LEFT JOIN [Item] ON [PreOrder].[ItemNo] = [Item].[ItemNo] ";
             sql += $"LEFT JOIN [Allocate] ON [PreOrder].[OrderNo] = [Allocate].[OrderNo] AND [PreOrder].[ItemNo] = [Allocate].[ItemNo] ";
             sql += $"WHERE [PreOrder].[OrderNo] = '{this.orderNo}' ";
