@@ -147,7 +147,7 @@ namespace PrintSleeveManagement.Models
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                printSleeve.Add(new PrintSleeve(dataReader.GetInt32(0), dataReader.GetString(2), dataReader.GetString(7), dataReader.GetString(3), dataReader.GetInt32(4), dataReader.GetDateTime(5)));
+                printSleeve.Add(new PrintSleeve(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetInt32(4), dataReader.GetDateTime(5)));
             }
             dataReader.Close();
             command.Dispose();
@@ -157,7 +157,9 @@ namespace PrintSleeveManagement.Models
 
         public List<PrintSleeve> find(int keyword, PRINTSLEEVE_FIND_TYPE printSleeveFindType)
         {
-            string sql = "SELECT PrintSleeve.*, Item.PartNo FROM PrintSleeve LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo ";
+            string sql = @"PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity, MAX([ExpireDate].[ExpireDate]) AS 'ExpireDate' FROM PrintSleeve 
+                            LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo 
+                            LEFT JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]";
             switch (printSleeveFindType)
             {
                 case PRINTSLEEVE_FIND_TYPE.PONo:
@@ -170,14 +172,17 @@ namespace PrintSleeveManagement.Models
                     sql += "WHERE PrintSleeve.ItemNo = '" + keyword + "'";
                     break;
             }
+            sql += "\nGROUP BY PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity";
             return find(sql);
         }
 
         public List<PrintSleeve> findPONoAndItemNo(int pONo, string itemNo)
         {
-            string sql = "SELECT PrintSleeve.*, Item.PartNo FROM PrintSleeve LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo ";
+            string sql = @"SELECT PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity, MAX([ExpireDate].[ExpireDate]) AS 'ExpireDate' FROM PrintSleeve 
+                            LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo 
+                            LEFT JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]";
             sql += "WHERE PrintSleeve.PONo = '" + pONo + "' AND PrintSleeve.ItemNo = '" + itemNo + "'";
-                    
+            sql += "\nGROUP BY PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity";
             return find(sql);
         }
 
