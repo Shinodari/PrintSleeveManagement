@@ -77,6 +77,7 @@
             this.Controls.Add(this.buttonRefresh);
             this.Name = "ShipForm";
             this.Text = "Ship";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShip)).EndInit();
             this.ResumeLayout(false);
 

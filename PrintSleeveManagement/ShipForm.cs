@@ -48,11 +48,15 @@ namespace PrintSleeveManagement
                     int remain = total - pick;
                     if (remain != 0)
                     {
-                        DialogResult dialogResult = MessageBox.Show($"OrderNo.{((int)row.Cells["OrderNo"].Value)}\nTotal {total}\nPicked {pick}\nRemain {remain}\nCan't ship this order!\n", "Order incomplete!", MessageBoxButtons.OKCancel);
+                        DialogResult dialogResult = MessageBox.Show($"OrderNo.{((int)row.Cells["OrderNo"].Value)}\nTotal {total}\nPicked {pick}\nRemain {remain}\nCan't ship this order!\n", "Order incomplete!", MessageBoxButtons.OK);
+                        return;
+                        //FUTURE USES OKCANCELL or YESNO
+                        /*
                         if (dialogResult == DialogResult.OK)
                             continue;
                         else if (dialogResult == DialogResult.Cancel)
                             return;
+                        */
                     }
                     shipList.Add(new Ship(Int32.Parse(row.Cells["OrderNo"].Value.ToString())));
                 }

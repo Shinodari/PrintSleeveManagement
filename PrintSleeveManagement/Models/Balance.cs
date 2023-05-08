@@ -86,12 +86,24 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = @"SELECT [Transaction].[LocationID], [PrintSleeve].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [PrintSleeve].[ExpireDate], [PrintSleeve].[Quantity], [Receipt].[PONo], [PrintSleeve].[Creator], [PrintSleeve].[CreateTime], [Receipt].[Receiver], [Receipt].[ReceivedTime] FROM [PrintSleeve] 
-                            LEFT JOIN [Receipt] ON [PrintSleeve].[PONo] = [Receipt].[PONo] 
-                            LEFT JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo] 
+            string sql = @"SELECT [Transaction].[LocationID], 
+	                            [PrintSleeve].[ItemNo], 
+	                            [Item].[PartNo], 
+	                            [PrintSleeve].[LotNo], 
+	                            [PrintSleeve].[RollNo], 
+	                            e.[ExpireDate], 
+	                            [PrintSleeve].[Quantity], 
+	                            [Receipt].[PONo], 
+	                            [PrintSleeve].[Creator], 
+	                            [PrintSleeve].[CreateTime], 
+	                            [Receipt].[Receiver], 
+	                            [Receipt].[ReceivedTime] FROM [PrintSleeve]
+                            LEFT JOIN [ExpireDate] e ON [PrintSleeve].[RollNo] = e.[RollNo]
+                            LEFT JOIN [Receipt] ON [PrintSleeve].[PONo] = [Receipt].[PONo]
+                            LEFT JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo]
                             LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo]
                             LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-                            WHERE [Ship].[RollNo] IS NULL";
+                            WHERE [Ship].[RollNo] IS NULL AND e.[ExpireDate] = (SELECT MAX([ExpireDate]) FROM [ExpireDate] WHERE [RollNo] = e.[RollNo])";
             if (order == null)
             {
                 sql += "\nORDER BY [LocationID], [PartNo], [ExpireDate], [LotNo]";

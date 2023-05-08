@@ -26,10 +26,7 @@ namespace PrintSleeveManagement.View
 
         public DateTime CreateTime { get; set; }
 
-        //Future is remove this property
-        public int RollNoSec { get; set; }
-
-        public StageView(string itemNo, string partNo, string lotNo, int rollNo, string locationID, DateTime exprieDate, int quantity, int pONo, DateTime createTime, int rollNoSec)
+        public StageView(string itemNo, string partNo, string lotNo, int rollNo, string locationID, DateTime exprieDate, int quantity, int pONo, DateTime createTime)
         {
             this.ItemNo = itemNo;
             this.PartNo = partNo;
@@ -40,7 +37,6 @@ namespace PrintSleeveManagement.View
             this.Quantity = quantity;
             this.PONo = pONo;
             this.CreateTime = createTime;
-            this.RollNoSec = rollNoSec;
         }
     }
 }

@@ -88,10 +88,19 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return false;
             }
-            string sql = @"SELECT [PrintSleeve].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Transaction].[LocationID], [PrintSleeve].[ExpireDate], [PrintSleeve].[Quantity], [PrintSleeve].[PONo], [PrintSleeve].[CreateTime], ISNULL([PrintSleeve].[RollNoSecondary], 0) AS RollNoSecondary FROM [PrintSleeve]
-                LEFT JOIN [Transaction] ON [Transaction].[RollNo] = [PrintSleeve].[RollNo]
-                LEFT JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]";
-            sql += $"WHERE [PrintSleeve].[RollNo] = '{rollNo}' ";
+            string sql = @"SELECT [PrintSleeve].[ItemNo], 
+	                            [Item].[PartNo], [PrintSleeve].[LotNo], 
+	                            [PrintSleeve].[RollNo], 
+	                            [Transaction].[LocationID],
+	                            e.[ExpireDate],
+	                            [PrintSleeve].[Quantity], 
+	                            [PrintSleeve].[PONo], 
+	                            [PrintSleeve].[CreateTime]
+                            FROM [PrintSleeve]
+                            LEFT JOIN [ExpireDate] e ON e.[RollNo] = [PrintSleeve].[RollNo]
+                            LEFT JOIN [Transaction] ON [Transaction].[RollNo] = [PrintSleeve].[RollNo]
+                            LEFT JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo] ";
+            sql += $"WHERE [PrintSleeve].[RollNo] = '{rollNo}' AND e.[ExpireDate] = (SELECT MAX([ExpireDate]) FROM [ExpireDate] WHERE [RollNo] = e.[RollNo])";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             bool rs = false;
@@ -113,7 +122,7 @@ namespace PrintSleeveManagement.Models
                 {
                     if (pv.PartNo == dataReader.GetString(1) && pv.LotNo == dataReader.GetString(2) && pv.LocationID == dataReader.GetString(4))
                     {
-                        stageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8), dataReader.GetInt32(9)));
+                        stageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8)));
                         rs = true;
                         break;
                     }
@@ -277,12 +286,12 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = $"SELECT [Pick].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Pick].[LocationID], [PrintSleeve].[ExpireDate], [PrintSleeve].[Quantity], [PrintSleeve].[PONo], [PrintSleeve].[CreateTime], ISNULL([PrintSleeve].[RollNoSecondary],0) FROM [Pick] LEFT JOIN [PrintSleeve] ON [Pick].[RollNo] = [PrintSleeve].[RollNo] LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo] WHERE [OrderNo] = '{this.OrderNo}'";
+            string sql = $"SELECT [Pick].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Pick].[LocationID], [PrintSleeve].[Quantity], [PrintSleeve].[PONo], [PrintSleeve].[CreateTime] FROM [Pick] LEFT JOIN [PrintSleeve] ON [Pick].[RollNo] = [PrintSleeve].[RollNo] LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo] WHERE [OrderNo] = '{this.OrderNo}'";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                stageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8), dataReader.GetInt32(9)));
+                stageList.Add(new StageView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetInt32(3), dataReader.GetString(4), dataReader.GetDateTime(5), dataReader.GetInt32(6), dataReader.GetInt32(7), dataReader.GetDateTime(8)));
             }
             dataReader.Close();
             command.Dispose();
