@@ -51,6 +51,8 @@ namespace PrintSleeveManagement.Models
             this.Quantity = quantity;
             this.ExpiredDate = expiredDate;
 
+            ExpireDate expireDate = new ExpireDate();
+
             if (find(rollNo, PRINTSLEEVE_FIND_TYPE.RollNo).Count > 0)
             {
                 errorString = "This RollNo already, please use another RollNo.";
@@ -65,14 +67,14 @@ namespace PrintSleeveManagement.Models
             }
 
             //This SQL support RollNoSecondary if future remove RollNosecondary in PrintSleeveDatabase must modify this sql value------------/
-            string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {pONo}, '{itemNo}', '{lotNo}', {quantity}, '{expiredDate}', NULL, '{Authentication.Username}', getDate())";
+            string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {pONo}, '{itemNo}', '{lotNo}', {quantity}, '{Authentication.Username}', getDate())";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             dataAdapter.InsertCommand = command;
             bool result;
             if (dataAdapter.InsertCommand.ExecuteNonQuery() == 1)
             {
-                if (location.PutAway(this))
+                if (expireDate.SetFirstExpireDate(rollNo, expiredDate) && location.PutAway(this))
                 {
                     result = true;
                 }
@@ -157,7 +159,7 @@ namespace PrintSleeveManagement.Models
 
         public List<PrintSleeve> find(int keyword, PRINTSLEEVE_FIND_TYPE printSleeveFindType)
         {
-            string sql = @"PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity, MAX([ExpireDate].[ExpireDate]) AS 'ExpireDate' FROM PrintSleeve 
+            string sql = @"SELECT PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity, MAX([ExpireDate].[ExpireDate]) AS 'ExpireDate' FROM PrintSleeve 
                             LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo 
                             LEFT JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]";
             switch (printSleeveFindType)
