@@ -66,7 +66,6 @@ namespace PrintSleeveManagement.Models
                 return false;
             }
 
-            //This SQL support RollNoSecondary if future remove RollNosecondary in PrintSleeveDatabase must modify this sql value------------/
             string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {pONo}, '{itemNo}', '{lotNo}', {quantity}, '{Authentication.Username}', getDate())";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
