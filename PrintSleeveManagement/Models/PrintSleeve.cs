@@ -51,6 +51,8 @@ namespace PrintSleeveManagement.Models
             this.Quantity = quantity;
             this.ExpiredDate = expiredDate;
 
+            ExpireDate expireDate = new ExpireDate();
+
             if (find(rollNo, PRINTSLEEVE_FIND_TYPE.RollNo).Count > 0)
             {
                 errorString = "This RollNo already, please use another RollNo.";
@@ -64,15 +66,14 @@ namespace PrintSleeveManagement.Models
                 return false;
             }
 
-            //This SQL support RollNoSecondary if future remove RollNosecondary in PrintSleeveDatabase must modify this sql value------------/
-            string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {pONo}, '{itemNo}', '{lotNo}', {quantity}, '{expiredDate}', NULL, '{Authentication.Username}', getDate())";
+            string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {pONo}, '{itemNo}', '{lotNo}', {quantity}, '{Authentication.Username}', getDate())";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             dataAdapter.InsertCommand = command;
             bool result;
             if (dataAdapter.InsertCommand.ExecuteNonQuery() == 1)
             {
-                if (location.PutAway(this))
+                if (expireDate.SetFirstExpireDate(rollNo, expiredDate) && location.PutAway(this))
                 {
                     result = true;
                 }
@@ -147,7 +148,7 @@ namespace PrintSleeveManagement.Models
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                printSleeve.Add(new PrintSleeve(dataReader.GetInt32(0), dataReader.GetString(2), dataReader.GetString(7), dataReader.GetString(3), dataReader.GetInt32(4), dataReader.GetDateTime(5)));
+                printSleeve.Add(new PrintSleeve(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetInt32(4), dataReader.GetDateTime(5)));
             }
             dataReader.Close();
             command.Dispose();
@@ -157,7 +158,9 @@ namespace PrintSleeveManagement.Models
 
         public List<PrintSleeve> find(int keyword, PRINTSLEEVE_FIND_TYPE printSleeveFindType)
         {
-            string sql = "SELECT PrintSleeve.*, Item.PartNo FROM PrintSleeve LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo ";
+            string sql = @"SELECT PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity, MAX([ExpireDate].[ExpireDate]) AS 'ExpireDate' FROM PrintSleeve 
+                            LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo 
+                            LEFT JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]";
             switch (printSleeveFindType)
             {
                 case PRINTSLEEVE_FIND_TYPE.PONo:
@@ -170,14 +173,17 @@ namespace PrintSleeveManagement.Models
                     sql += "WHERE PrintSleeve.ItemNo = '" + keyword + "'";
                     break;
             }
+            sql += "\nGROUP BY PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity";
             return find(sql);
         }
 
         public List<PrintSleeve> findPONoAndItemNo(int pONo, string itemNo)
         {
-            string sql = "SELECT PrintSleeve.*, Item.PartNo FROM PrintSleeve LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo ";
+            string sql = @"SELECT PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity, MAX([ExpireDate].[ExpireDate]) AS 'ExpireDate' FROM PrintSleeve 
+                            LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo 
+                            LEFT JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]";
             sql += "WHERE PrintSleeve.PONo = '" + pONo + "' AND PrintSleeve.ItemNo = '" + itemNo + "'";
-                    
+            sql += "\nGROUP BY PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity";
             return find(sql);
         }
 

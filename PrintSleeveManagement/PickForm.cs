@@ -135,27 +135,7 @@ namespace PrintSleeveManagement
                 int rollNo;
                 if (Int32.TryParse(strRollNo, out rollNo))
                 {
-                    PrintSleeve printSleeve = new PrintSleeve();
-                    if (!printSleeve.hasRollNoSec(rollNo))
-                        InputRollNo(rollNo);
-                    else
-                    {
-                        string strRollNoSec = null;
-                        if (InputDialog.InputBox("RollNoSec", "Please enter RollNoSecondary.", ref strRollNoSec) == DialogResult.Cancel)
-                        {
-                            MessageBox.Show("Stage PrintSleeve is Fail!\nPlease try again!");
-                            return;
-                        }
-
-                        if (!string.IsNullOrEmpty(strRollNoSec) || !string.IsNullOrWhiteSpace(strRollNoSec))
-                        {
-                            int rollNoSec;
-                            if (Int32.TryParse(strRollNoSec, out rollNoSec))
-                            {
-                                InputRollNo(rollNo, rollNoSec);                                
-                            }
-                        }
-                    }
+                    InputRollNo(rollNo);
                 }
                 else
                 {

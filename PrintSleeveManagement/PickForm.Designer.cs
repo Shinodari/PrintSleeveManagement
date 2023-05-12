@@ -205,6 +205,7 @@
             this.Controls.Add(this.groupBoxOrder);
             this.Name = "PickForm";
             this.Text = "Pick";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.groupBoxOrder.ResumeLayout(false);
             this.groupBoxOrder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrder)).EndInit();
