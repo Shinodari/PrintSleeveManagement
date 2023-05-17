@@ -57,7 +57,7 @@ namespace PrintSleeveManagement
         private void newPO()
         {
 
-            receipt = new Receipt(Int32.Parse(textBoxPONo.Text));
+            receipt = new Receipt(Int32.Parse(textBoxPONo.Text), Int32.Parse(textBoxReceiptNo.Text), textBoxInvoiceNo.Text);
             bindignSource = new BindingSource();
             bindignSource.DataSource = receipt.ReceiptBasePrintSleeve;
             dataGridViewPrintSleeve.DataSource = bindignSource;

@@ -14,15 +14,23 @@ namespace PrintSleeveManagement.Models
         {
 
         }
+
         public Receipt(int poNo)
         {
             this.PONo = poNo;
             ReceiptBasePrintSleeve = new List<ReceiptBasePrintSleeve>();
         }
+        public Receipt(int poNo, int receiptNo, string invoiceNo) : this(poNo)
+        {
+            this.ReceiptNo = receiptNo;
+            this.InvoiceNo = invoiceNo;
+        }
 
-        public Receipt(int poNo, DateTime receiptTime, string receiver)
+        public Receipt(int poNo, int receiptNo, string invoiceNo, DateTime receiptTime, string receiver)
         {
             this.PONo = poNo;
+            this.ReceiptNo = receiptNo;
+            this.InvoiceNo = invoiceNo;
             this.ReceiptTime = receiptTime;
             this.Receiver = receiver;
         }
@@ -42,7 +50,7 @@ namespace PrintSleeveManagement.Models
             SqlDataReader dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                allPO.Add(new Receipt(dataReader.GetInt32(0), dataReader.GetDateTime(1), dataReader.GetString(2)));
+                allPO.Add(new Receipt(dataReader.GetInt32(0), dataReader.GetInt32(1), dataReader.GetString(2), dataReader.GetDateTime(3), dataReader.GetString(4)));
             }
             dataReader.Close();
             command.Dispose();
@@ -93,7 +101,7 @@ namespace PrintSleeveManagement.Models
                 return -1;
             }
             //Check dupicate PONo
-            string sqlPO = $"SELECT * FROM [Receipt] WHERE [PONo] = '{this.PONo}'";
+            string sqlPO = $"SELECT * FROM [Receipt] WHERE [PONo] = '{this.PONo}' AND [ReceiptNo] = '{this.ReceiptNo}'";
             SqlCommand commandPO = new SqlCommand(sqlPO, cnn);
             SqlDataReader dataReaderPO = commandPO.ExecuteReader();
             commandPO.Dispose();
@@ -107,7 +115,7 @@ namespace PrintSleeveManagement.Models
             dataReaderPO.Close();
             if (!hasRows)
             {
-                sql = "INSERT INTO Receipt(PONo, Receiver) VALUES(" + this.PONo + ", '" + Authentication.Username + "')";
+                sql = $"INSERT INTO Receipt(PONo, ReceiptNo, InvoiceNo, Receiver) VALUES('{this.PONo}', '{this.ReceiptNo}', '{this.InvoiceNo}', '{Authentication.Username}')";
                 command = new SqlCommand(sql, cnn);
                 adapter.InsertCommand = command;
                 adapter.InsertCommand.ExecuteNonQuery();
@@ -126,7 +134,7 @@ namespace PrintSleeveManagement.Models
                     {
                         sql += ",";
                     }
-                    sql += "(" + this.PONo + ",'" + printSleeve.ItemNo + "'," + printSleeve.Quantity + ")";
+                    sql += $"({this.PONo}, {this.ReceiptNo},'{printSleeve.ItemNo}',{printSleeve.Quantity})";
                 }
 
                 command = new SqlCommand(sql, cnn);
@@ -160,6 +168,10 @@ namespace PrintSleeveManagement.Models
         }
 
         public int PONo { get; set; }
+
+        public int ReceiptNo { get; set; }
+
+        public string InvoiceNo { get; set; }
 
         public List<ReceiptBasePrintSleeve> ReceiptBasePrintSleeve { get; }
 

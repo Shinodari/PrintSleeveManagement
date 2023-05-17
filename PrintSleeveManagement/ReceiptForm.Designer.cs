@@ -47,6 +47,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewPrintSleeve = new System.Windows.Forms.DataGridView();
             this.buttonReceiptAll = new System.Windows.Forms.Button();
+            this.textBoxReceiptNo = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxInvoiceNo = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrintSleeve)).BeginInit();
@@ -63,7 +67,7 @@
             // 
             // textBoxPONo
             // 
-            this.textBoxPONo.Location = new System.Drawing.Point(64, 19);
+            this.textBoxPONo.Location = new System.Drawing.Point(84, 19);
             this.textBoxPONo.Name = "textBoxPONo";
             this.textBoxPONo.Size = new System.Drawing.Size(100, 20);
             this.textBoxPONo.TabIndex = 1;
@@ -71,6 +75,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxInvoiceNo);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.textBoxReceiptNo);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.buttonImport);
             this.groupBox1.Controls.Add(this.buttonClear);
             this.groupBox1.Controls.Add(this.buttonNew);
@@ -78,14 +86,15 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(346, 82);
+            this.groupBox1.Size = new System.Drawing.Size(346, 115);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Receipt Header";
             // 
             // buttonImport
             // 
-            this.buttonImport.Location = new System.Drawing.Point(265, 17);
+            this.buttonImport.Enabled = false;
+            this.buttonImport.Location = new System.Drawing.Point(265, 48);
             this.buttonImport.Name = "buttonImport";
             this.buttonImport.Size = new System.Drawing.Size(75, 23);
             this.buttonImport.TabIndex = 3;
@@ -96,7 +105,7 @@
             // buttonClear
             // 
             this.buttonClear.Enabled = false;
-            this.buttonClear.Location = new System.Drawing.Point(184, 46);
+            this.buttonClear.Location = new System.Drawing.Point(265, 77);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 2;
@@ -106,7 +115,7 @@
             // 
             // buttonNew
             // 
-            this.buttonNew.Location = new System.Drawing.Point(184, 17);
+            this.buttonNew.Location = new System.Drawing.Point(265, 17);
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(75, 23);
             this.buttonNew.TabIndex = 2;
@@ -126,7 +135,7 @@
             this.groupBox2.Controls.Add(this.textBoxQuantity);
             this.groupBox2.Controls.Add(this.textBoxPartNo);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(13, 101);
+            this.groupBox2.Location = new System.Drawing.Point(13, 147);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(346, 289);
             this.groupBox2.TabIndex = 3;
@@ -249,12 +258,12 @@
             this.dataGridViewPrintSleeve.MultiSelect = false;
             this.dataGridViewPrintSleeve.Name = "dataGridViewPrintSleeve";
             this.dataGridViewPrintSleeve.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPrintSleeve.Size = new System.Drawing.Size(450, 468);
+            this.dataGridViewPrintSleeve.Size = new System.Drawing.Size(450, 501);
             this.dataGridViewPrintSleeve.TabIndex = 10;
             // 
             // buttonReceiptAll
             // 
-            this.buttonReceiptAll.Location = new System.Drawing.Point(243, 406);
+            this.buttonReceiptAll.Location = new System.Drawing.Point(243, 452);
             this.buttonReceiptAll.Name = "buttonReceiptAll";
             this.buttonReceiptAll.Size = new System.Drawing.Size(110, 62);
             this.buttonReceiptAll.TabIndex = 11;
@@ -262,11 +271,43 @@
             this.buttonReceiptAll.UseVisualStyleBackColor = true;
             this.buttonReceiptAll.Click += new System.EventHandler(this.buttonReceiptAll_Click);
             // 
+            // textBoxReceiptNo
+            // 
+            this.textBoxReceiptNo.Location = new System.Drawing.Point(84, 50);
+            this.textBoxReceiptNo.Name = "textBoxReceiptNo";
+            this.textBoxReceiptNo.Size = new System.Drawing.Size(100, 20);
+            this.textBoxReceiptNo.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(16, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "ReceiptNo :";
+            // 
+            // textBoxInvoiceNo
+            // 
+            this.textBoxInvoiceNo.Location = new System.Drawing.Point(84, 79);
+            this.textBoxInvoiceNo.Name = "textBoxInvoiceNo";
+            this.textBoxInvoiceNo.Size = new System.Drawing.Size(175, 20);
+            this.textBoxInvoiceNo.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 82);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "InvoiceNo :";
+            // 
             // ReceiptForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 493);
+            this.ClientSize = new System.Drawing.Size(824, 526);
             this.Controls.Add(this.buttonReceiptAll);
             this.Controls.Add(this.dataGridViewPrintSleeve);
             this.Controls.Add(this.groupBox2);
@@ -303,5 +344,9 @@
         private System.Windows.Forms.Button buttonDone;
         private System.Windows.Forms.Button buttonReceiptAll;
         private System.Windows.Forms.Button buttonImport;
+        private System.Windows.Forms.TextBox textBoxInvoiceNo;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxReceiptNo;
+        private System.Windows.Forms.Label label4;
     }
 }
