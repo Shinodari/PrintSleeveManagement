@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrintSleeveManagement.View;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,6 +11,13 @@ namespace PrintSleeveManagement.Models
     class Receipt : Database
     {
 
+        private List<ReceiptPrintSleeve> receiptPrintSleeveView;
+
+        public List<ReceiptPrintSleeve> ReceiptPrintSleeveView
+        {
+            get { return receiptPrintSleeveView; }
+        }
+
         public Receipt()
         {
 
@@ -18,12 +26,13 @@ namespace PrintSleeveManagement.Models
         public Receipt(int poNo)
         {
             this.PONo = poNo;
-            ReceiptBasePrintSleeve = new List<ReceiptBasePrintSleeve>();
+            ReceiptBasePrintSleeve = new List<ReceiptBasePrintSleeve>(); //This line will delete when PutAwayForm edit datasource
         }
         public Receipt(int poNo, int receiptNo, string invoiceNo) : this(poNo)
         {
             this.ReceiptNo = receiptNo;
             this.InvoiceNo = invoiceNo;
+            GetPrintSleeveByReceiptNo();
         }
 
         public Receipt(int poNo, int receiptNo, string invoiceNo, DateTime receiptTime, string receiver)
@@ -101,7 +110,7 @@ namespace PrintSleeveManagement.Models
                 return -1;
             }
             //Check dupicate PONo
-            string sqlPO = $"SELECT * FROM [Receipt] WHERE [PONo] = '{this.PONo}' AND [ReceiptNo] = '{this.ReceiptNo}'";
+            string sqlPO = $"SELECT * FROM [Receipt] WHERE [ReceiptNo] = '{this.ReceiptNo}'";
             SqlCommand commandPO = new SqlCommand(sqlPO, cnn);
             SqlDataReader dataReaderPO = commandPO.ExecuteReader();
             commandPO.Dispose();
@@ -134,7 +143,7 @@ namespace PrintSleeveManagement.Models
                     {
                         sql += ",";
                     }
-                    sql += $"({this.PONo}, {this.ReceiptNo},'{printSleeve.ItemNo}',{printSleeve.Quantity})";
+                    sql += $"({this.ReceiptNo},'{printSleeve.ItemNo}',{printSleeve.Quantity})";
                 }
 
                 command = new SqlCommand(sql, cnn);
@@ -180,5 +189,24 @@ namespace PrintSleeveManagement.Models
         public DateTime ReceiptTime { get; set; }
 
         public string Receiver { get; set; }
+
+        private void GetPrintSleeveByReceiptNo()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+
+            receiptPrintSleeveView = new List<ReceiptPrintSleeve>();
+            string sql = $@"SELECT [Receipt_Item].[ItemNo], [Item].[PartNo], [Receipt_Item].[Quantity] FROM [Receipt_Item] 
+                            LEFT JOIN [Item] ON [Item].[ItemNo] = [Receipt_Item].[ItemNo]
+                            WHERE [ReceiptNo] = '{this.ReceiptNo}'";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                receiptPrintSleeveView.Add(new ReceiptPrintSleeve(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetInt32(2)));
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+        }
     }
 }

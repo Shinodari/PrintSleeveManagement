@@ -1,4 +1,5 @@
 ﻿using PrintSleeveManagement.Models;
+using PrintSleeveManagement.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,11 +60,13 @@ namespace PrintSleeveManagement
 
             receipt = new Receipt(Int32.Parse(textBoxPONo.Text), Int32.Parse(textBoxReceiptNo.Text), textBoxInvoiceNo.Text);
             bindignSource = new BindingSource();
-            bindignSource.DataSource = receipt.ReceiptBasePrintSleeve;
+            bindignSource.DataSource = receipt.ReceiptPrintSleeveView;
             dataGridViewPrintSleeve.DataSource = bindignSource;
             dataGridViewPrintSleeve.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            /*
+            dataGridViewPrintSleeve.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewPrintSleeve.Columns["Quantity"].DisplayIndex = 3;
-            dataGridViewPrintSleeve.Columns["Moved"].Visible = false;
+            dataGridViewPrintSleeve.Columns["Moved"].Visible = false;*/
 
             setDisplay(false);
             textBoxPartNo.Focus();
@@ -72,7 +75,9 @@ namespace PrintSleeveManagement
         {
             if (lockStatus)
             {
+                textBoxReceiptNo.Enabled = true;
                 textBoxPONo.Enabled = true;
+                textBoxInvoiceNo.Enabled = true;
                 buttonNew.Enabled = true;
                 buttonImport.Enabled = true;
                 buttonClear.Enabled = false;
@@ -89,7 +94,9 @@ namespace PrintSleeveManagement
             }
             else
             {
+                textBoxReceiptNo.Enabled = false;
                 textBoxPONo.Enabled = false;
+                textBoxInvoiceNo.Enabled = false;
                 buttonNew.Enabled = false;
                 buttonImport.Enabled = false;
                 buttonClear.Enabled = true;
@@ -145,6 +152,7 @@ namespace PrintSleeveManagement
         private void addPrintSleeve()
         {
             ReceiptBasePrintSleeve basePrintSleeve = new ReceiptBasePrintSleeve();
+            //ReceiptPrintSleeve receiptPrintSleeveView = new 
             if (textBoxQuantity.Text == "")
             {
                 MessageBox.Show("Please enter the Quantity!");

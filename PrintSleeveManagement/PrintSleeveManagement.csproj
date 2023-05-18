@@ -192,6 +192,7 @@
     <Compile Include="View\OrderStage.cs" />
     <Compile Include="View\PickView.cs" />
     <Compile Include="View\PutAwayLocaionView.cs" />
+    <Compile Include="View\ReceiptPrintSleeve.cs" />
     <Compile Include="View\StageView.cs" />
     <Compile Include="WaitForm.cs">
       <SubType>Form</SubType>
