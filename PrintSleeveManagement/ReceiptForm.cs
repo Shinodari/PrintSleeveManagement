@@ -151,14 +151,17 @@ namespace PrintSleeveManagement
 
         private void addPrintSleeve()
         {
-            ReceiptBasePrintSleeve basePrintSleeve = new ReceiptBasePrintSleeve();
-            //ReceiptPrintSleeve receiptPrintSleeveView = new 
+            ReceiptBasePrintSleeve basePrintSleeve = new ReceiptBasePrintSleeve(); //This may must delete
             if (textBoxQuantity.Text == "")
             {
                 MessageBox.Show("Please enter the Quantity!");
                 return;
             }
 
+            ReceiptPrintSleeve receiptPrintSleeveView = new ReceiptPrintSleeve(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem), Int32.Parse(textBoxQuantity.Text));
+
+
+            /*
             if (basePrintSleeve.setItemNo(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem)))
             {
                 if (receipt.ReceiptBasePrintSleeve.Exists(x => x.ItemNo == basePrintSleeve.ItemNo))
@@ -174,11 +177,11 @@ namespace PrintSleeveManagement
                 textBoxPartNo.Text = "";
                 textBoxQuantity.Text = "200";
                 textBoxPartNo.Focus();
-            }
+            }/
             else
             {
                 MessageBox.Show(basePrintSleeve.getErrorString());
-            }
+            }**/
         }
 
         private void editPrintSleeve()
