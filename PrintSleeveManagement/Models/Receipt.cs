@@ -23,14 +23,14 @@ namespace PrintSleeveManagement.Models
 
         }
 
-        public Receipt(int poNo)
-        {
-            this.PONo = poNo;
-            ReceiptBasePrintSleeve = new List<ReceiptBasePrintSleeve>(); //This line will delete when PutAwayForm edit datasource
-        }
-        public Receipt(int poNo, int receiptNo, string invoiceNo) : this(poNo)
+        public Receipt(int receiptNo)
         {
             this.ReceiptNo = receiptNo;
+            ReceiptBasePrintSleeve = new List<ReceiptBasePrintSleeve>(); //This line will delete when PutAwayForm edit datasource
+        }
+        public Receipt(int poNo, int receiptNo, string invoiceNo) : this(receiptNo)
+        {
+            this.PONo = poNo;
             this.InvoiceNo = invoiceNo;
             GetPrintSleeveByReceiptNo();
         }
@@ -78,9 +78,9 @@ namespace PrintSleeveManagement.Models
             SqlCommand command;
             SqlDataReader dataReader;
             String sql = "SELECT Receipt_Item.*, Item.PartNo, SUM(PrintSleeve.Quantity) AS Available FROM Item, Receipt_Item LEFT JOIN PrintSleeve\n";
-            sql += "ON Receipt_Item.ItemNo = PrintSleeve.ItemNo AND PrintSleeve.PONo = Receipt_Item.PONo\n";
-            sql += "WHERE Receipt_Item.ItemNo = Item.ItemNo AND Receipt_Item.PONo = '" + this.PONo + "'\n";
-            sql += "GROUP BY Receipt_Item.ItemNo, Receipt_Item.PONo, Receipt_Item.Quantity, Item.PartNo\n";
+            sql += "ON Receipt_Item.ItemNo = PrintSleeve.ItemNo AND PrintSleeve.ReceiptNo = Receipt_Item.ReceiptNo\n";
+            sql += "WHERE Receipt_Item.ItemNo = Item.ItemNo AND Receipt_Item.ReceiptNo = '" + this.ReceiptNo + "'\n";
+            sql += "GROUP BY Receipt_Item.ItemNo, Receipt_Item.ReceiptNo, Receipt_Item.Quantity, Item.PartNo\n";
             sql += "ORDER BY PartNo";
             command = new SqlCommand(sql, cnn);
             dataReader = command.ExecuteReader();

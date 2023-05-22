@@ -13,7 +13,7 @@ namespace PrintSleeveManagement.Models
         public enum PRINTSLEEVE_FIND_TYPE
         {
             RollNo,
-            PONo,
+            ReceiptNo,
             ItemNo
         }
 
@@ -32,10 +32,10 @@ namespace PrintSleeveManagement.Models
             this.ExpiredDate = expiredDate;
         }
 
-        public PrintSleeve(int rollNo, int pONo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate)
+        public PrintSleeve(int rollNo, int receiptNo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate)
         {
             this.RollNo = rollNo;
-            this.PONo = pONo;
+            this.ReceiptNo = receiptNo;
             this.ItemNo = itemNo;
             this.PartNo = partNo;
             this.LotNo = lotNo;
@@ -43,7 +43,7 @@ namespace PrintSleeveManagement.Models
             this.ExpiredDate = expiredDate;
         }
 
-        public bool Create(int rollNo, int pONo, string itemNo, string lotNo, int quantity, DateTime expiredDate, Location location)
+        public bool Create(int rollNo, int receiptNo, string itemNo, string lotNo, int quantity, DateTime expiredDate, Location location)
         {
             this.RollNo = rollNo;
             this.ItemNo = itemNo;
@@ -66,7 +66,7 @@ namespace PrintSleeveManagement.Models
                 return false;
             }
 
-            string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {pONo}, '{itemNo}', '{lotNo}', {quantity}, '{Authentication.Username}', getDate())";
+            string sql = $"INSERT INTO PrintSleeve VALUES ({rollNo}, {receiptNo}, '{itemNo}', '{lotNo}', {quantity}, '{Authentication.Username}', getDate())";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             dataAdapter.InsertCommand = command;
@@ -163,8 +163,8 @@ namespace PrintSleeveManagement.Models
                             LEFT JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]";
             switch (printSleeveFindType)
             {
-                case PRINTSLEEVE_FIND_TYPE.PONo:
-                    sql += "WHERE PrintSleeve.PONo = '" + keyword + "'";
+                case PRINTSLEEVE_FIND_TYPE.ReceiptNo:
+                    sql += "WHERE PrintSleeve.ReceiptNo = '" + keyword + "'";
                     break;
                 case PRINTSLEEVE_FIND_TYPE.RollNo:
                     sql += "WHERE PrintSleeve.RollNo = '" + keyword + "'";
@@ -177,12 +177,12 @@ namespace PrintSleeveManagement.Models
             return find(sql);
         }
 
-        public List<PrintSleeve> findPONoAndItemNo(int pONo, string itemNo)
+        public List<PrintSleeve> findReceiptNoAndItemNo(int receiptNo, string itemNo)
         {
             string sql = @"SELECT PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity, MAX([ExpireDate].[ExpireDate]) AS 'ExpireDate' FROM PrintSleeve 
                             LEFT JOIN Item ON PrintSleeve.ItemNo = Item.ItemNo 
                             LEFT JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]";
-            sql += "WHERE PrintSleeve.PONo = '" + pONo + "' AND PrintSleeve.ItemNo = '" + itemNo + "'";
+            sql += "WHERE PrintSleeve.ReceiptNo = '" + receiptNo + "' AND PrintSleeve.ItemNo = '" + itemNo + "'";
             sql += "\nGROUP BY PrintSleeve.RollNo, PrintSleeve.ItemNo, Item.PartNo, PrintSleeve.LotNo, PrintSleeve.Quantity";
             return find(sql);
         }
@@ -214,7 +214,7 @@ namespace PrintSleeveManagement.Models
 
         public int RollNo { get; set; }
 
-        public int PONo { get; set; }
+        public int ReceiptNo { get; set; }
 
         public string LotNo { get; set; }
 

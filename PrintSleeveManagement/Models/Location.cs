@@ -95,7 +95,7 @@ namespace PrintSleeveManagement.Models
             {
                 return;
             }
-            string sql = $@"SELECT [PrintSleeve].[RollNo], [PrintSleeve].[PONo], [PrintSleeve].[ItemNo], 
+            string sql = $@"SELECT [PrintSleeve].[RollNo], [PrintSleeve].[ReceiptNo], [PrintSleeve].[ItemNo], 
                             [Item].[PartNo], [PrintSleeve].[LotNo], 
                             [PrintSleeve].[Quantity], [PrintSleeve].[ExpireDate],
                             MAX([Transaction].[TransactionTime]) AS [TransactionTime] FROM [PrintSleeve]
@@ -103,7 +103,7 @@ namespace PrintSleeveManagement.Models
                             INNER JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo]
                             LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
                             WHERE [Transaction].[LocationID] = '{locationID}' AND [Ship].[RollNo] IS NULL
-                            GROUP BY [PrintSleeve].[RollNo], [PrintSleeve].[RollNo], [PrintSleeve].[PONo], [PrintSleeve].[ItemNo], [PrintSleeve].[LotNo], [PrintSleeve].[Quantity], [PrintSleeve].[ExpireDate], 
+                            GROUP BY [PrintSleeve].[RollNo], [PrintSleeve].[RollNo], [PrintSleeve].[ReceiptNo], [PrintSleeve].[ItemNo], [PrintSleeve].[LotNo], [PrintSleeve].[Quantity], [PrintSleeve].[ExpireDate], 
                             [Item].[PartNo], [Ship].[RollNo]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();

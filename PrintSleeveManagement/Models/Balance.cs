@@ -33,7 +33,7 @@ namespace PrintSleeveManagement.Models
 
         public int Quantity { get; set; }
 
-        public int PONo { get; set; }
+        public int ReceiptNo { get; set; }
 
         public string Creator { get; set; }
 
@@ -58,7 +58,7 @@ namespace PrintSleeveManagement.Models
             int rollNo, 
             DateTime expiredDate, 
             int quantity, 
-            int pONo, 
+            int receiptNo, 
             string creator, 
             DateTime createTime, 
             string receiver, 
@@ -71,7 +71,7 @@ namespace PrintSleeveManagement.Models
             this.RollNo = rollNo;
             this.ExpireDate = expiredDate;
             this.Quantity = quantity;
-            this.PONo = pONo;
+            this.ReceiptNo = receiptNo;
             this.Creator = creator;
             this.CreateTime = createTime;
             this.Receiver = receiver;
@@ -93,13 +93,13 @@ namespace PrintSleeveManagement.Models
 	                            [PrintSleeve].[RollNo], 
 	                            e.[ExpireDate], 
 	                            [PrintSleeve].[Quantity], 
-	                            [Receipt].[PONo], 
+	                            [Receipt].[ReceiptNo], 
 	                            [PrintSleeve].[Creator], 
 	                            [PrintSleeve].[CreateTime], 
 	                            [Receipt].[Receiver], 
 	                            [Receipt].[ReceivedTime] FROM [PrintSleeve]
                             LEFT JOIN [ExpireDate] e ON [PrintSleeve].[RollNo] = e.[RollNo]
-                            LEFT JOIN [Receipt] ON [PrintSleeve].[PONo] = [Receipt].[PONo]
+                            LEFT JOIN [Receipt] ON [PrintSleeve].[ReceiptNo] = [Receipt].[ReceiptNo]
                             LEFT JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo]
                             LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo]
                             LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]

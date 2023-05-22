@@ -42,7 +42,7 @@ namespace PrintSleeveManagement
         {            
             setDiplayReceipt(false);
             dateTimePickerExpiredDate.Value = DateTime.Now;
-            textBoxPONo.Focus();
+            textBoxReceiptNo.Focus();
 
             if (Device.InputMode == Device.DEVICE_INPUT_MODE.SERIAL_PORT)
             {
@@ -83,7 +83,7 @@ namespace PrintSleeveManagement
                 groupBoxLocation.Enabled = true;
                 groupBoxStatus.Enabled = true;
 
-                textBoxPONo.Enabled = false;
+                textBoxReceiptNo.Enabled = false;
                 buttonPOBrowse.Enabled = false;
                 buttonCommit.Enabled = false;
                 buttonClear.Enabled = true;
@@ -96,7 +96,7 @@ namespace PrintSleeveManagement
                 groupBoxLocation.Enabled = false;
                 groupBoxStatus.Enabled = false;
 
-                textBoxPONo.Enabled = true;
+                textBoxReceiptNo.Enabled = true;
                 buttonPOBrowse.Enabled = true;
                 buttonCommit.Enabled = true;
                 buttonClear.Enabled = false;
@@ -125,12 +125,12 @@ namespace PrintSleeveManagement
         {
             setDiplayReceipt(true);
 
-            if (string.IsNullOrWhiteSpace(textBoxPONo.Text) || string.IsNullOrEmpty(textBoxPONo.Text))
+            if (string.IsNullOrWhiteSpace(textBoxReceiptNo.Text) || string.IsNullOrEmpty(textBoxReceiptNo.Text))
             {
                 return;
             }
 
-            int pONo = Int32.Parse(textBoxPONo.Text);
+            int pONo = Int32.Parse(textBoxReceiptNo.Text);
             receipt = new Receipt(pONo);
             receipt.getReceipt();
             bindingSourceReceipt = new BindingSource();
@@ -201,11 +201,11 @@ namespace PrintSleeveManagement
             List <PrintSleeve> listPrintSleeve = new List<PrintSleeve>();
             printSleeve = new PrintSleeve();
             printSleeve.ItemNo = dataGridViewReceipt.Rows[row].Cells[2].Value.ToString();
-            listPrintSleeve = printSleeve.findPONoAndItemNo(receipt.PONo, printSleeve.ItemNo);
+            listPrintSleeve = printSleeve.findReceiptNoAndItemNo(receipt.ReceiptNo, printSleeve.ItemNo);
             bindingSourceAvailable = new BindingSource();
             bindingSourceAvailable.DataSource = listPrintSleeve;
             dataGridViewAvailable.DataSource = bindingSourceAvailable;
-            dataGridViewAvailable.Columns["PONo"].Visible = false;
+            dataGridViewAvailable.Columns["ReceiptNo"].Visible = false;
             dataGridViewAvailable.Columns["RollNoSecondary"].Visible = false;
             dataGridViewAvailable.Columns["ItemNo"].Visible = false;
             dataGridViewAvailable.Columns["PartNo"].Visible = false;
@@ -216,7 +216,7 @@ namespace PrintSleeveManagement
             checkResult();
         }
 
-        private void textBoxPONo_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBoxReceiptNo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (Char)Keys.Enter)
             {
@@ -233,7 +233,7 @@ namespace PrintSleeveManagement
         {
             if (MessageBox.Show("Are you sure is Clear this PO, but you can put away this PO later.!", "Clear confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                textBoxPONo.Text = "";
+                textBoxReceiptNo.Text = "";
                 bindingSourceReceipt.Clear();
                 labelPartNo.Text = "";
                 labelReceived.Text = "0";
@@ -249,7 +249,7 @@ namespace PrintSleeveManagement
             PODialog pODialog = new PODialog();
             if (pODialog.Show() == DialogResult.OK)
             {
-                textBoxPONo.Text = pODialog.PONo.ToString();
+                textBoxReceiptNo.Text = pODialog.PONo.ToString();
                 commitPO();
             }
         }
@@ -317,7 +317,7 @@ namespace PrintSleeveManagement
                     return;
                 }
             }
-            if (!printSleeve.Create(Int32.Parse(rollNo), receipt.PONo,
+            if (!printSleeve.Create(Int32.Parse(rollNo), receipt.ReceiptNo,
                             this.printSleeve.ItemNo, textBoxLotNo.Text,
                             Int32.Parse(textBoxQuantity.Text),
                             dateTimePickerExpiredDate.Value,

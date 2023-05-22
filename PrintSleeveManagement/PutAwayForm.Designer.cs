@@ -34,7 +34,7 @@
             this.buttonCommit = new System.Windows.Forms.Button();
             this.dataGridViewReceipt = new System.Windows.Forms.DataGridView();
             this.buttonPOBrowse = new System.Windows.Forms.Button();
-            this.textBoxPONo = new System.Windows.Forms.TextBox();
+            this.textBoxReceiptNo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxPrintSleeve = new System.Windows.Forms.GroupBox();
             this.buttonAddPrintSleeve = new System.Windows.Forms.Button();
@@ -61,8 +61,6 @@
             this.groupBoxInputDevice = new System.Windows.Forms.GroupBox();
             this.textBoxInputData = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBoxReceipt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReceipt)).BeginInit();
             this.groupBoxPrintSleeve.SuspendLayout();
@@ -76,13 +74,11 @@
             // 
             // groupBoxReceipt
             // 
-            this.groupBoxReceipt.Controls.Add(this.textBox1);
-            this.groupBoxReceipt.Controls.Add(this.label8);
             this.groupBoxReceipt.Controls.Add(this.buttonClear);
             this.groupBoxReceipt.Controls.Add(this.buttonCommit);
             this.groupBoxReceipt.Controls.Add(this.dataGridViewReceipt);
             this.groupBoxReceipt.Controls.Add(this.buttonPOBrowse);
-            this.groupBoxReceipt.Controls.Add(this.textBoxPONo);
+            this.groupBoxReceipt.Controls.Add(this.textBoxReceiptNo);
             this.groupBoxReceipt.Controls.Add(this.label1);
             this.groupBoxReceipt.Location = new System.Drawing.Point(12, 12);
             this.groupBoxReceipt.Name = "groupBoxReceipt";
@@ -93,7 +89,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(322, 19);
+            this.buttonClear.Location = new System.Drawing.Point(383, 18);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 4;
@@ -103,7 +99,7 @@
             // 
             // buttonCommit
             // 
-            this.buttonCommit.Location = new System.Drawing.Point(241, 19);
+            this.buttonCommit.Location = new System.Drawing.Point(302, 18);
             this.buttonCommit.Name = "buttonCommit";
             this.buttonCommit.Size = new System.Drawing.Size(75, 23);
             this.buttonCommit.TabIndex = 3;
@@ -125,16 +121,16 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewReceipt.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewReceipt.Location = new System.Drawing.Point(6, 101);
+            this.dataGridViewReceipt.Location = new System.Drawing.Point(6, 47);
             this.dataGridViewReceipt.Name = "dataGridViewReceipt";
             this.dataGridViewReceipt.ReadOnly = true;
             this.dataGridViewReceipt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewReceipt.Size = new System.Drawing.Size(450, 359);
+            this.dataGridViewReceipt.Size = new System.Drawing.Size(450, 413);
             this.dataGridViewReceipt.TabIndex = 5;
             // 
             // buttonPOBrowse
             // 
-            this.buttonPOBrowse.Location = new System.Drawing.Point(160, 18);
+            this.buttonPOBrowse.Location = new System.Drawing.Point(221, 18);
             this.buttonPOBrowse.Name = "buttonPOBrowse";
             this.buttonPOBrowse.Size = new System.Drawing.Size(75, 23);
             this.buttonPOBrowse.TabIndex = 2;
@@ -142,22 +138,22 @@
             this.buttonPOBrowse.UseVisualStyleBackColor = true;
             this.buttonPOBrowse.Click += new System.EventHandler(this.buttonPOBrowse_Click);
             // 
-            // textBoxPONo
+            // textBoxReceiptNo
             // 
-            this.textBoxPONo.Location = new System.Drawing.Point(54, 19);
-            this.textBoxPONo.Name = "textBoxPONo";
-            this.textBoxPONo.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPONo.TabIndex = 1;
-            this.textBoxPONo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPONo_KeyPress);
+            this.textBoxReceiptNo.Location = new System.Drawing.Point(76, 19);
+            this.textBoxReceiptNo.Name = "textBoxReceiptNo";
+            this.textBoxReceiptNo.Size = new System.Drawing.Size(139, 20);
+            this.textBoxReceiptNo.TabIndex = 1;
+            this.textBoxReceiptNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxReceiptNo_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "PONo :";
+            this.label1.Text = "ReceiptNo :";
             // 
             // groupBoxPrintSleeve
             // 
@@ -417,22 +413,6 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Input Data :";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(54, 45);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 48);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(42, 13);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "PONo :";
-            // 
             // PutAwayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -467,7 +447,7 @@
 
         private System.Windows.Forms.GroupBox groupBoxReceipt;
         private System.Windows.Forms.Button buttonPOBrowse;
-        private System.Windows.Forms.TextBox textBoxPONo;
+        private System.Windows.Forms.TextBox textBoxReceiptNo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridViewReceipt;
         private System.Windows.Forms.GroupBox groupBoxPrintSleeve;
@@ -497,7 +477,5 @@
         private System.Windows.Forms.GroupBox groupBoxInputDevice;
         private System.Windows.Forms.TextBox textBoxInputData;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label8;
     }
 }
