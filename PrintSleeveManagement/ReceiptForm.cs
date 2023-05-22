@@ -32,6 +32,7 @@ namespace PrintSleeveManagement
             }
             listBoxPartNo.DataSource = partNoList;
             listBoxPartNo.DisplayMember = "PartNo";
+            listBoxPartNo.ValueMember = "ItemNo";
         }
 
         private void textBoxPartNo_TextChanged(object sender, EventArgs e)
@@ -158,8 +159,20 @@ namespace PrintSleeveManagement
                 return;
             }
 
-            ReceiptPrintSleeve receiptPrintSleeveView = new ReceiptPrintSleeve(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem), Int32.Parse(textBoxQuantity.Text));
+            ReceiptPrintSleeve receiptPrintSleeveView = new ReceiptPrintSleeve(listBoxPartNo.SelectedValue.ToString(), Int32.Parse(textBoxQuantity.Text));
 
+            if (receipt.ReceiptPrintSleeveView.Exists(x => x.ItemNo == receiptPrintSleeveView.ItemNo))
+            {
+                MessageBox.Show(receiptPrintSleeveView.PartNo + " is Already!\nPlease another part or use edit mode");
+            }
+            else
+            {
+                bindignSource.Add(receiptPrintSleeveView);
+                dataGridViewPrintSleeve.CurrentCell = dataGridViewPrintSleeve[2, dataGridViewPrintSleeve.RowCount - 1];
+            }
+            textBoxPartNo.Text = "";
+            textBoxQuantity.Text = "200";
+            textBoxPartNo.Focus();
 
             /*
             if (basePrintSleeve.setItemNo(listBoxPartNo.GetItemText(listBoxPartNo.SelectedItem)))
@@ -296,8 +309,11 @@ namespace PrintSleeveManagement
             {
                 bindignSource.Clear();
                 setDisplay(true);
+                textBoxReceiptNo.Text = "";
                 textBoxPONo.Text = "";
-                textBoxPONo.Focus();
+                textBoxInvoiceNo.Text = "";
+                textBoxPartNo.Text = "";
+                textBoxReceiptNo.Focus();
             }
         }
 
@@ -305,14 +321,16 @@ namespace PrintSleeveManagement
         {
             if (dataGridViewPrintSleeve.RowCount < 1)
             {
-                MessageBox.Show("Please add PrintSleeve into this PO!");
+                MessageBox.Show("Please add PrintSleeve into this Receipt!");
                 return;
             }
             int result =receipt.receiveAll();
             if (result >= 0)
             {
-                MessageBox.Show("Received " + result + " Rows of PO " + receipt.PONo + " is Successfully");
+                MessageBox.Show("Received " + result + " Rows of Receipt " + receipt.ReceiptNo + " is Successfully");
+                textBoxReceiptNo.Text = "";
                 textBoxPONo.Text = "";
+                textBoxInvoiceNo.Text = "";
                 textBoxPartNo.Text = "";
                 textBoxQuantity.Text = "200";
                 bindignSource.Clear();

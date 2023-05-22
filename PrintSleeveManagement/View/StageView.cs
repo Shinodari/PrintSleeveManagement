@@ -22,11 +22,11 @@ namespace PrintSleeveManagement.View
 
         public int Quantity { get; set; }
 
-        public int PONo { get; set; }
+        public int ReceiptNo { get; set; }
 
         public DateTime CreateTime { get; set; }
 
-        public StageView(string itemNo, string partNo, string lotNo, int rollNo, string locationID, DateTime exprieDate, int quantity, int pONo, DateTime createTime)
+        public StageView(string itemNo, string partNo, string lotNo, int rollNo, string locationID, DateTime exprieDate, int quantity, int receiptNo, DateTime createTime)
         {
             this.ItemNo = itemNo;
             this.PartNo = partNo;
@@ -35,7 +35,7 @@ namespace PrintSleeveManagement.View
             this.LocationID = locationID;
             this.ExprieDate = exprieDate;
             this.Quantity = quantity;
-            this.PONo = pONo;
+            this.ReceiptNo = receiptNo;
             this.CreateTime = createTime;
         }
     }

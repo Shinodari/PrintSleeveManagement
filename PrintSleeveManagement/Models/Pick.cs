@@ -94,7 +94,7 @@ namespace PrintSleeveManagement.Models
 	                            [Transaction].[LocationID],
 	                            e.[ExpireDate],
 	                            [PrintSleeve].[Quantity], 
-	                            [PrintSleeve].[PONo], 
+	                            [PrintSleeve].[ReceiptNo], 
 	                            [PrintSleeve].[CreateTime]
                             FROM [PrintSleeve]
                             LEFT JOIN [ExpireDate] e ON e.[RollNo] = [PrintSleeve].[RollNo]
@@ -286,7 +286,7 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = $@"SELECT [Pick].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Pick].[LocationID], e.[ExpireDate], [PrintSleeve].[Quantity], [PrintSleeve].[PONo], [PrintSleeve].[CreateTime] FROM [Pick] 
+            string sql = $@"SELECT [Pick].[ItemNo], [Item].[PartNo], [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [Pick].[LocationID], e.[ExpireDate], [PrintSleeve].[Quantity], [PrintSleeve].[ReceiptNo], [PrintSleeve].[CreateTime] FROM [Pick] 
                             LEFT JOIN [PrintSleeve] ON [Pick].[RollNo] = [PrintSleeve].[RollNo] 
                             LEFT JOIN [ExpireDate] e ON [Pick].[RollNo] = e.[RollNo]
                             LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo] 

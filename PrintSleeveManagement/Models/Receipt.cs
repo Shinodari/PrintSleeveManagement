@@ -130,10 +130,10 @@ namespace PrintSleeveManagement.Models
                 adapter.InsertCommand.ExecuteNonQuery();
             }            
 
-            if (ReceiptBasePrintSleeve.Count > 0)
+            if (this.receiptPrintSleeveView.Count > 0)
             {
                 sql = "INSERT INTO Receipt_Item VALUES";
-                foreach (BasePrintSleeve printSleeve in ReceiptBasePrintSleeve)
+                foreach (ReceiptPrintSleeve printSleeve in this.receiptPrintSleeveView)
                 {
                     if (flagFirstValue)
                     {
