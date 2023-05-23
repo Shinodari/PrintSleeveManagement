@@ -426,6 +426,7 @@
             this.Controls.Add(this.groupBoxReceipt);
             this.Name = "PutAwayForm";
             this.Text = "Put Away";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PutAwayForm_Load);
             this.groupBoxReceipt.ResumeLayout(false);
             this.groupBoxReceipt.PerformLayout();
