@@ -105,6 +105,10 @@ namespace PrintSleeveManagement.Models
 
         public bool Remove(int rollNo)
         {
+            ExpireDate expireDate = new ExpireDate();
+            if (!expireDate.RemoveExpireDate(rollNo))
+                return false;
+
             bool result;
             Database.CONNECT_RESULT connect_result = connect();
             if (connect_result == Database.CONNECT_RESULT.FAIL)

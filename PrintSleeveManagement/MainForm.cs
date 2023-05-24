@@ -35,7 +35,6 @@ namespace PrintSleeveManagement
             LoginForm loginForm = new LoginForm();
             this.Enabled = false;
             loginForm.Show();/**/
-
         }
 
         void CheckInput()
@@ -60,8 +59,10 @@ namespace PrintSleeveManagement
             LoginForm loginForm = new LoginForm();
             this.Enabled = false;
             loginForm.Show();*/
-
-
+            
+            OverviewForm overviewForm = new OverviewForm();
+            overviewForm.MdiParent = this;
+            overviewForm.Show();
         }
 
         private void MainForm_Activated(object sender, EventArgs e)

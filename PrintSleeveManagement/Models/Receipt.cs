@@ -165,11 +165,13 @@ namespace PrintSleeveManagement.Models
             {
                 if (!printSleeve.Remove(rollNo))
                 {
+                    this.errorString = printSleeve.getErrorString();
                     return false;
                 }
             }
             else
             {
+                this.errorString = transaction.getErrorString();
                 return false;
             }
 
