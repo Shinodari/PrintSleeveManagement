@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             this.groupBoxExpiredDate = new System.Windows.Forms.GroupBox();
+            this.groupBoxInProcess = new System.Windows.Forms.GroupBox();
+            this.dataGridViewInProcess = new System.Windows.Forms.DataGridView();
             this.groupBoxPriorExpiredNextMonth = new System.Windows.Forms.GroupBox();
             this.dataGridViewPriorExpiredNextMonth = new System.Windows.Forms.DataGridView();
             this.groupBoxPriorExpired = new System.Windows.Forms.GroupBox();
             this.dataGridViewPriorExpired = new System.Windows.Forms.DataGridView();
             this.groupBoxExpired = new System.Windows.Forms.GroupBox();
             this.dataGridViewExpired = new System.Windows.Forms.DataGridView();
-            this.groupBoxInProcess = new System.Windows.Forms.GroupBox();
-            this.dataGridViewInProcess = new System.Windows.Forms.DataGridView();
             this.groupBoxExpiredDate.SuspendLayout();
+            this.groupBoxInProcess.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInProcess)).BeginInit();
             this.groupBoxPriorExpiredNextMonth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPriorExpiredNextMonth)).BeginInit();
             this.groupBoxPriorExpired.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPriorExpired)).BeginInit();
             this.groupBoxExpired.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExpired)).BeginInit();
-            this.groupBoxInProcess.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInProcess)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxExpiredDate
@@ -60,6 +60,29 @@
             this.groupBoxExpiredDate.TabIndex = 0;
             this.groupBoxExpiredDate.TabStop = false;
             this.groupBoxExpiredDate.Text = "Expired Date Report";
+            // 
+            // groupBoxInProcess
+            // 
+            this.groupBoxInProcess.Controls.Add(this.dataGridViewInProcess);
+            this.groupBoxInProcess.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.groupBoxInProcess.Location = new System.Drawing.Point(6, 19);
+            this.groupBoxInProcess.Name = "groupBoxInProcess";
+            this.groupBoxInProcess.Size = new System.Drawing.Size(659, 400);
+            this.groupBoxInProcess.TabIndex = 1;
+            this.groupBoxInProcess.TabStop = false;
+            this.groupBoxInProcess.Text = "In Process for Extend Expired Date";
+            // 
+            // dataGridViewInProcess
+            // 
+            this.dataGridViewInProcess.AllowUserToAddRows = false;
+            this.dataGridViewInProcess.AllowUserToDeleteRows = false;
+            this.dataGridViewInProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewInProcess.Location = new System.Drawing.Point(7, 20);
+            this.dataGridViewInProcess.Name = "dataGridViewInProcess";
+            this.dataGridViewInProcess.ReadOnly = true;
+            this.dataGridViewInProcess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewInProcess.Size = new System.Drawing.Size(646, 297);
+            this.dataGridViewInProcess.TabIndex = 0;
             // 
             // groupBoxPriorExpiredNextMonth
             // 
@@ -130,29 +153,6 @@
             this.dataGridViewExpired.Size = new System.Drawing.Size(646, 297);
             this.dataGridViewExpired.TabIndex = 0;
             // 
-            // groupBoxInProcess
-            // 
-            this.groupBoxInProcess.Controls.Add(this.dataGridViewInProcess);
-            this.groupBoxInProcess.ForeColor = System.Drawing.Color.Red;
-            this.groupBoxInProcess.Location = new System.Drawing.Point(6, 19);
-            this.groupBoxInProcess.Name = "groupBoxInProcess";
-            this.groupBoxInProcess.Size = new System.Drawing.Size(659, 400);
-            this.groupBoxInProcess.TabIndex = 1;
-            this.groupBoxInProcess.TabStop = false;
-            this.groupBoxInProcess.Text = "In Process for Extend Expired Date";
-            // 
-            // dataGridViewInProcess
-            // 
-            this.dataGridViewInProcess.AllowUserToAddRows = false;
-            this.dataGridViewInProcess.AllowUserToDeleteRows = false;
-            this.dataGridViewInProcess.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewInProcess.Location = new System.Drawing.Point(7, 20);
-            this.dataGridViewInProcess.Name = "dataGridViewInProcess";
-            this.dataGridViewInProcess.ReadOnly = true;
-            this.dataGridViewInProcess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewInProcess.Size = new System.Drawing.Size(646, 297);
-            this.dataGridViewInProcess.TabIndex = 0;
-            // 
             // OverviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,14 +169,14 @@
             this.Activated += new System.EventHandler(this.OverviewForm_Activated);
             this.Load += new System.EventHandler(this.OverviewForm_Load);
             this.groupBoxExpiredDate.ResumeLayout(false);
+            this.groupBoxInProcess.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInProcess)).EndInit();
             this.groupBoxPriorExpiredNextMonth.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPriorExpiredNextMonth)).EndInit();
             this.groupBoxPriorExpired.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPriorExpired)).EndInit();
             this.groupBoxExpired.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExpired)).EndInit();
-            this.groupBoxInProcess.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInProcess)).EndInit();
             this.ResumeLayout(false);
 
         }
