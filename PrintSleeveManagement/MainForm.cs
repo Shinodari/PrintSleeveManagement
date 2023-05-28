@@ -15,12 +15,14 @@ namespace PrintSleeveManagement
     {
         private Authentication auth;
         Device device;
+        bool showOverview;
         public MainForm()
         {
             InitializeComponent();
 
             auth = new Authentication();
             device = new Device();
+            showOverview = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -59,10 +61,8 @@ namespace PrintSleeveManagement
             LoginForm loginForm = new LoginForm();
             this.Enabled = false;
             loginForm.Show();*/
-            
-            OverviewForm overviewForm = new OverviewForm();
-            overviewForm.MdiParent = this;
-            overviewForm.Show();
+
+            //CallOverview();
         }
 
         private void MainForm_Activated(object sender, EventArgs e)
@@ -72,12 +72,24 @@ namespace PrintSleeveManagement
                 LoginForm loginForm = new LoginForm(this);
                 this.Enabled = false;
                 loginForm.Show();
-            }else
+            }
+            else
             {
                 this.Enabled = true;
                 toolStripStatusUser.Text = "User by : " + Authentication.Username;
-                
+                if (!showOverview)
+                {
+                    showOverview = true;
+                    CallOverview();
+                }
             }
+        }
+
+        private void CallOverview()
+        {
+            OverviewForm overviewForm = new OverviewForm();
+            overviewForm.MdiParent = this;
+            overviewForm.Show();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)

@@ -136,6 +136,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Overview.cs" />
     <Compile Include="Models\PrintSleeve.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\ReceiptBasePrintSleeve.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="View\OrderAllocate.cs" />
     <Compile Include="Models\PreOrder.cs" />
     <Compile Include="View\OrderStage.cs" />
+    <Compile Include="View\OverviewExpiredView.cs" />
     <Compile Include="View\PickView.cs" />
     <Compile Include="View\PutAwayLocaionView.cs" />
     <Compile Include="View\ReceiptPrintSleeve.cs" />

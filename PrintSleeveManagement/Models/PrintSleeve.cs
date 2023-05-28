@@ -10,6 +10,7 @@ namespace PrintSleeveManagement.Models
 {
     class PrintSleeve : BasePrintSleeve
     {
+        List<ExpireDate> expiredDateList;
         public enum PRINTSLEEVE_FIND_TYPE
         {
             RollNo,
@@ -17,14 +18,32 @@ namespace PrintSleeveManagement.Models
             ItemNo
         }
 
-        public PrintSleeve()
-        {
+        public int RollNo { get; set; }
 
+        public int ReceiptNo { get; set; }
+
+        public string LotNo { get; set; }
+
+        public int RollNoSecondary { get; set; }
+
+        public DateTime ExpiredDate { get; set; }
+
+        public List<ExpireDate> ExpiredDateList
+        {
+            get { return this.expiredDateList; }
         }
 
-        public PrintSleeve(int rollNo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate)
+        public string Creator { get; set; }
+
+        public DateTime CreateTime { get; set; }
+
+        public PrintSleeve()
         {
-            this.RollNo = rollNo;
+            this.expiredDateList = new List<ExpireDate>();
+        }
+
+        public PrintSleeve(int rollNo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate) : this()
+        {
             this.ItemNo = itemNo;
             this.PartNo = partNo;
             this.LotNo = lotNo;
@@ -32,7 +51,7 @@ namespace PrintSleeveManagement.Models
             this.ExpiredDate = expiredDate;
         }
 
-        public PrintSleeve(int rollNo, int receiptNo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate)
+        public PrintSleeve(int rollNo, int receiptNo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate) : this()
         {
             this.RollNo = rollNo;
             this.ReceiptNo = receiptNo;
@@ -51,7 +70,7 @@ namespace PrintSleeveManagement.Models
             this.Quantity = quantity;
             this.ExpiredDate = expiredDate;
 
-            ExpireDate expireDate = new ExpireDate();
+            ExpireDate expireDate = new ExpireDate(rollNo);
 
             if (find(rollNo, PRINTSLEEVE_FIND_TYPE.RollNo).Count > 0)
             {
@@ -73,7 +92,7 @@ namespace PrintSleeveManagement.Models
             bool result;
             if (dataAdapter.InsertCommand.ExecuteNonQuery() == 1)
             {
-                if (expireDate.SetFirstExpireDate(rollNo, expiredDate) && location.PutAway(this))
+                if (expireDate.SetFirstExpireDate(expiredDate) && location.PutAway(this))
                 {
                     result = true;
                 }
@@ -105,8 +124,8 @@ namespace PrintSleeveManagement.Models
 
         public bool Remove(int rollNo)
         {
-            ExpireDate expireDate = new ExpireDate();
-            if (!expireDate.RemoveExpireDate(rollNo))
+            ExpireDate expireDate = new ExpireDate(rollNo);
+            if (!expireDate.RemoveExpireDate())
                 return false;
 
             bool result;
@@ -215,37 +234,5 @@ namespace PrintSleeveManagement.Models
             close();
             return result;
         }
-
-        public int RollNo { get; set; }
-
-        public int ReceiptNo { get; set; }
-
-        public string LotNo { get; set; }
-
-        public int RollNoSecondary { get; set; }
-
-        public DateTime ExpiredDate { get; set; }
-                
-        public string Creator { get; set; }
-
-        public DateTime CreateTime { get; set; }
-        /*
-        public override int GetHashCode()
-        {
-            return RollNo;
-        }
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            PrintSleeve objAsPrintSleeve = obj as PrintSleeve;
-            if (objAsPrintSleeve == null) return false;
-            else return Equals(objAsPrintSleeve);
-        }
-
-        public bool Equals(PrintSleeve other)
-        {
-            if (other == null) return true;
-            return (this.RollNo.Equals(other.RollNo));
-        }/***/        
     }
 }
