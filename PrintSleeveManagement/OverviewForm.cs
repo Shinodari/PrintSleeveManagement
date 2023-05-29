@@ -14,6 +14,7 @@ namespace PrintSleeveManagement
 {
     public partial class OverviewForm : Form
     {
+        BindingSource bindingSourceInProcess;
         BindingSource bindingSourceExpire;
         BindingSource bindingSourcePriorExpired;
         BindingSource bindingSourcePriorExpiredNextMonth;
@@ -40,6 +41,13 @@ namespace PrintSleeveManagement
         {
             Overview overview = new Overview();
 
+            //In Process for Extend
+            bindingSourceInProcess = new BindingSource();
+            bindingSourceInProcess.DataSource = overview.GetInProcess();
+            dataGridViewInProcess.DataSource = bindingSourceInProcess;
+            dataGridViewInProcess.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dataGridViewInProcess.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
             //Expired DataGrid Detail
             bindingSourceExpire = new BindingSource();
             bindingSourceExpire.DataSource = overview.GetExpired();
@@ -58,8 +66,8 @@ namespace PrintSleeveManagement
             bindingSourcePriorExpiredNextMonth = new BindingSource();
             bindingSourcePriorExpiredNextMonth.DataSource = overview.GetPriorExpiredNextMonth();
             dataGridViewPriorExpiredNextMonth.DataSource = bindingSourcePriorExpiredNextMonth;
-            dataGridViewPriorExpired.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewPriorExpired.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewPriorExpiredNextMonth.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dataGridViewPriorExpiredNextMonth.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
     }
 }

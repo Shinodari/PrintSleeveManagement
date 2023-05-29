@@ -198,6 +198,7 @@
     <Compile Include="Models\PreOrder.cs" />
     <Compile Include="View\OrderStage.cs" />
     <Compile Include="View\OverviewExpiredView.cs" />
+    <Compile Include="View\OverviewInProcessView.cs" />
     <Compile Include="View\PickView.cs" />
     <Compile Include="View\PutAwayLocaionView.cs" />
     <Compile Include="View\ReceiptPrintSleeve.cs" />
