@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrintSleeveManagement.View;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -81,6 +82,39 @@ namespace PrintSleeveManagement.Models
             command.Dispose();
             close();
             return result;
+        }
+                
+        public bool IssueIRS(string issueNo)
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return false;
+            }
+
+            string sql = $@"UPDATE [ExpireDate] e SET [IRSNo] = '{issueNo}', [IRSIssueDate] = '{DateTime.Now}' WHERE [RollNo] = {this.RollNo} 
+AND [Time] = (SELECT MAX[Time] FROM [ExpireDate] WHERE e.[RollNo] = [RollNo])";
+            int result;
+
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.UpdateCommand = command;
+            result = adapter.UpdateCommand.ExecuteNonQuery();
+            if (result == 1)
+            {
+                return true;
+            }
+            else if (result > 1)
+            {
+                errorString = "ERROR: SQL UPDATE MORE THANE 1 ROW, PLESS CONTRACT ADMIN!";
+                return false;
+            }
+            else
+            {
+                errorString = "ERROR: SQL NOT UPDATE, PLESS CONTRACT ADMIN!";
+                return false;
+            }
         }
     }
 }

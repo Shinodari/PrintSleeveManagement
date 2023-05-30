@@ -135,5 +135,42 @@ ORDER BY [ExpireDate].[ExpireDate]";
 
             return overviewExpireViewList;
         }
+        public List<IssueSheetView> GetLotList(string itemNo, string expiredDate)
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return null;
+            }
+
+            string sql = $@"SELECT [PrintSleeve].[LotNo], [PrintSleeve].[RollNo], [ExpireDate].[ExpireDate], [ExpireDate].[Time], 
+[ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[PriorExpiredSheetIssueDate] 
+FROM [PrintSleeve] 
+JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]
+WHERE [PrintSleeve].[ItemNo] = '{itemNo}' AND [ExpireDate].[ExpireDate] = '{expiredDate}'";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            List<IssueSheetView> result = new List<IssueSheetView>();
+            while (dataReader.Read())
+            {
+                string issueNo;
+                string issueDate;
+                if (!dataReader.IsDBNull(4))
+                    issueNo = dataReader.GetString(4);
+                else
+                    issueNo = null;
+                if (!dataReader.IsDBNull(5))
+                    issueDate = dataReader.GetDateTime(5).ToString();
+                else
+                    issueDate = null;
+                result.Add(new IssueSheetView(dataReader.GetString(0), dataReader.GetInt32(1), dataReader.GetDateTime(2), dataReader.GetInt32(3), issueNo, issueDate));
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+
+            return result;
+        }
     }
 }

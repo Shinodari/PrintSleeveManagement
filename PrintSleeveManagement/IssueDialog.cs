@@ -1,0 +1,57 @@
+﻿using PrintSleeveManagement.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace PrintSleeveManagement
+{
+    public partial class IssueDialog : Form
+    {
+        public List<int> RollNoList { get; }
+
+        string ItemNo;
+        string ExpriedDate;
+
+        Overview overview;
+        BindingSource bindingSource;
+        public IssueDialog(string itemNo, string expiredDate)
+        {
+            InitializeComponent();
+
+            this.ItemNo = itemNo;
+            this.ExpriedDate = expiredDate;
+
+            Item item = new Item(itemNo);
+            labelPartNo.Text = item.PartNo;
+
+            overview = new Overview();
+            bindingSource = new BindingSource();
+            bindingSource.DataSource = overview.GetLotList(itemNo, expiredDate);
+            dataGridView.DataSource = bindingSource;
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dataGridView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+        }
+
+        public new DialogResult Show()
+        {
+            Text = "Issue Prior Expired Sheet or IRS";
+            return (ShowDialog());
+        }
+
+        private void buttonIssue_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
+    }
+}

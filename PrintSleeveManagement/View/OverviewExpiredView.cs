@@ -16,15 +16,15 @@ namespace PrintSleeveManagement.View
 
         public DateTime ExpiredDate { get; }
 
-        public int TimeExtend { get; }
+        public int ExpiredTime { get; }
 
-        public OverviewExpiredView(string itemNo, string partNo, int quantity, DateTime expiredDate, int timeExtend)
+        public OverviewExpiredView(string itemNo, string partNo, int quantity, DateTime expiredDate, int expiredTime)
         {
             this.ItemNo = itemNo;
             this.PartNo = partNo;
             this.Quantity = quantity;
             this.ExpiredDate = expiredDate;
-            this.TimeExtend = timeExtend;
+            this.ExpiredTime = expiredTime;
         }
     }
 }

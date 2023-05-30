@@ -37,6 +37,7 @@
             this.dataGridViewPriorExpired = new System.Windows.Forms.DataGridView();
             this.groupBoxExpired = new System.Windows.Forms.GroupBox();
             this.dataGridViewExpired = new System.Windows.Forms.DataGridView();
+            this.buttonIssueIRS = new System.Windows.Forms.Button();
             this.groupBoxExpiredDate.SuspendLayout();
             this.groupBoxInProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInProcess)).BeginInit();
@@ -81,7 +82,7 @@
             this.dataGridViewInProcess.Name = "dataGridViewInProcess";
             this.dataGridViewInProcess.ReadOnly = true;
             this.dataGridViewInProcess.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewInProcess.Size = new System.Drawing.Size(646, 297);
+            this.dataGridViewInProcess.Size = new System.Drawing.Size(646, 318);
             this.dataGridViewInProcess.TabIndex = 0;
             // 
             // groupBoxPriorExpiredNextMonth
@@ -132,6 +133,7 @@
             // 
             // groupBoxExpired
             // 
+            this.groupBoxExpired.Controls.Add(this.buttonIssueIRS);
             this.groupBoxExpired.Controls.Add(this.dataGridViewExpired);
             this.groupBoxExpired.ForeColor = System.Drawing.Color.Red;
             this.groupBoxExpired.Location = new System.Drawing.Point(672, 19);
@@ -150,8 +152,19 @@
             this.dataGridViewExpired.Name = "dataGridViewExpired";
             this.dataGridViewExpired.ReadOnly = true;
             this.dataGridViewExpired.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewExpired.Size = new System.Drawing.Size(646, 297);
+            this.dataGridViewExpired.Size = new System.Drawing.Size(646, 318);
             this.dataGridViewExpired.TabIndex = 0;
+            // 
+            // buttonIssueIRS
+            // 
+            this.buttonIssueIRS.ForeColor = System.Drawing.Color.Blue;
+            this.buttonIssueIRS.Location = new System.Drawing.Point(553, 344);
+            this.buttonIssueIRS.Name = "buttonIssueIRS";
+            this.buttonIssueIRS.Size = new System.Drawing.Size(100, 50);
+            this.buttonIssueIRS.TabIndex = 1;
+            this.buttonIssueIRS.Text = "IssueIRS";
+            this.buttonIssueIRS.UseVisualStyleBackColor = true;
+            this.buttonIssueIRS.Click += new System.EventHandler(this.buttonIssueIRS_Click);
             // 
             // OverviewForm
             // 
@@ -192,5 +205,6 @@
         private System.Windows.Forms.DataGridView dataGridViewPriorExpiredNextMonth;
         private System.Windows.Forms.GroupBox groupBoxInProcess;
         private System.Windows.Forms.DataGridView dataGridViewInProcess;
+        private System.Windows.Forms.Button buttonIssueIRS;
     }
 }

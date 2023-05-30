@@ -103,6 +103,12 @@
       <DependentUpon>DeviceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InputDialog.cs" />
+    <Compile Include="IssueDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IssueDialog.Designer.cs">
+      <DependentUpon>IssueDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +199,7 @@
     <Compile Include="ShipForm.Designer.cs">
       <DependentUpon>ShipForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\IssueSheetView.cs" />
     <Compile Include="View\Order.cs" />
     <Compile Include="View\OrderAllocate.cs" />
     <Compile Include="Models\PreOrder.cs" />
@@ -214,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceForm.resx">
       <DependentUpon>DeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IssueDialog.resx">
+      <DependentUpon>IssueDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LocationDialog.resx">
       <DependentUpon>LocationDialog.cs</DependentUpon>

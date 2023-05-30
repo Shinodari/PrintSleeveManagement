@@ -14,6 +14,8 @@ namespace PrintSleeveManagement
 {
     public partial class OverviewForm : Form
     {
+        Overview overview;
+        
         BindingSource bindingSourceInProcess;
         BindingSource bindingSourceExpire;
         BindingSource bindingSourcePriorExpired;
@@ -22,6 +24,8 @@ namespace PrintSleeveManagement
         public OverviewForm()
         {
             InitializeComponent();
+
+            overview = new Overview();
         }
 
         private void OverviewForm_Load(object sender, EventArgs e)
@@ -39,8 +43,6 @@ namespace PrintSleeveManagement
 
         private void LoadDetail()
         {
-            Overview overview = new Overview();
-
             //In Process for Extend
             bindingSourceInProcess = new BindingSource();
             bindingSourceInProcess.DataSource = overview.GetInProcess();
@@ -68,6 +70,18 @@ namespace PrintSleeveManagement
             dataGridViewPriorExpiredNextMonth.DataSource = bindingSourcePriorExpiredNextMonth;
             dataGridViewPriorExpiredNextMonth.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridViewPriorExpiredNextMonth.Columns["PartNo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        }
+
+        private void buttonIssueIRS_Click(object sender, EventArgs e)
+        {
+            string itemNo = dataGridViewExpired.CurrentRow.Cells[0].Value.ToString();
+            string expriedDate = dataGridViewExpired.CurrentRow.Cells[3].Value.ToString();
+
+            IssueDialog issueDialog = new IssueDialog(itemNo, expriedDate);
+            if(issueDialog.Show() == DialogResult.OK)
+            {
+
+            }
         }
     }
 }
