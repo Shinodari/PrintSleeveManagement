@@ -9,17 +9,17 @@ namespace PrintSleeveManagement.View
     class OverviewInProcessView : OverviewExpiredView
     {
         string issueNo;
-        DateTime issueDate;
+        string issueDate;
         public string IssueNo { get { return issueNo; } }
-        public DateTime IssueDate { get { return issueDate; } }
+        public string IssueDate { get { return issueDate; } }
 
         string priorExpriedNo;
-        DateTime priorExpriedIssueDate;
+        string priorExpriedIssueDate;
         string iRSNo;
-        DateTime iRSIssueDate;
+        string iRSIssueDate;
 
         public OverviewInProcessView(string itemNo, string partNo, int quantity, DateTime expiredDate, int timeExtend, 
-            string priorExpriedNo, DateTime priorExpriedIssueDate, string iRSNo, DateTime iRSIssueDate) 
+            string priorExpriedNo, string priorExpriedIssueDate, string iRSNo, string iRSIssueDate) 
             : base(itemNo, partNo, quantity, expiredDate, timeExtend)
         {
             this.priorExpriedNo = priorExpriedNo;

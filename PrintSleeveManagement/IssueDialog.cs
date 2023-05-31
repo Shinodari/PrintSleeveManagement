@@ -26,8 +26,10 @@ namespace PrintSleeveManagement
 
             this.ItemNo = itemNo;
             this.ExpriedDate = expiredDate;
+            RollNoList = new List<int>();
 
             Item item = new Item(itemNo);
+            labelItemNo.Text = itemNo;
             labelPartNo.Text = item.PartNo;
 
             overview = new Overview();
@@ -46,6 +48,15 @@ namespace PrintSleeveManagement
 
         private void buttonIssue_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                bool isSelected = Convert.ToBoolean(row.Cells["Selecte"].Value);
+                if (isSelected)
+                {
+                    RollNoList.Add(Int32.Parse(row.Cells["RollNo"].Value.ToString()));
+                }
+            }
+
             this.DialogResult = DialogResult.OK;
         }
 

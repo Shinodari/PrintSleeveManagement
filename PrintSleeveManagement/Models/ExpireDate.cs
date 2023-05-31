@@ -93,8 +93,8 @@ namespace PrintSleeveManagement.Models
                 return false;
             }
 
-            string sql = $@"UPDATE [ExpireDate] e SET [IRSNo] = '{issueNo}', [IRSIssueDate] = '{DateTime.Now}' WHERE [RollNo] = {this.RollNo} 
-AND [Time] = (SELECT MAX[Time] FROM [ExpireDate] WHERE e.[RollNo] = [RollNo])";
+            string sql = $@"UPDATE [ExpireDate] SET [IRSNo] = '{issueNo}', [IRSIssueDate] = '{DateTime.Now}' WHERE [RollNo] = '{this.RollNo}' 
+AND [Time] = (SELECT MAX([Time]) FROM [ExpireDate] WHERE [RollNo] = '{this.RollNo}')";
             int result;
 
             SqlCommand command = new SqlCommand(sql, cnn);

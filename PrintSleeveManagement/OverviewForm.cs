@@ -80,7 +80,29 @@ namespace PrintSleeveManagement
             IssueDialog issueDialog = new IssueDialog(itemNo, expriedDate);
             if(issueDialog.Show() == DialogResult.OK)
             {
-
+                List<int> rollNoList = new List<int>();
+                rollNoList = issueDialog.RollNoList;
+                if(rollNoList.Count < 1)
+                {
+                    MessageBox.Show("You not selected Roll!");
+                    return;
+                }
+                string issueNo = null;
+                if (InputDialog.InputBox("IssueNo","Enter the IssueNo", ref issueNo) == DialogResult.Cancel)
+                {
+                    return;
+                }
+                foreach (int rollNo in rollNoList)
+                {
+                    ExpireDate exp = new ExpireDate(rollNo);
+                    if (!exp.IssueIRS(issueNo))
+                    {
+                        MessageBox.Show("PrintSleeve RollNo " + rollNo + " can't issue IRS! \nPlease try again.");
+                        return;
+                    }
+                }
+                MessageBox.Show("Issue IRS is successfuly.");
+                LoadDetail();
             }
         }
     }

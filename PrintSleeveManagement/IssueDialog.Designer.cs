@@ -43,7 +43,6 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(12, 42);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(711, 417);
             this.dataGridView.TabIndex = 0;
@@ -86,7 +85,7 @@
             this.labelPartNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.labelPartNo.Location = new System.Drawing.Point(151, 13);
             this.labelPartNo.Name = "labelPartNo";
-            this.labelPartNo.Size = new System.Drawing.Size(573, 26);
+            this.labelPartNo.Size = new System.Drawing.Size(573, 23);
             this.labelPartNo.TabIndex = 2;
             // 
             // IssueDialog

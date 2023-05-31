@@ -27,14 +27,40 @@ JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
 WHERE [Ship].[RollNo] IS NULL AND ([ExpireDate].[PriorExpiredSheetNo] IS NOT NULL OR [ExpireDate].[IRSNo] IS NOT NULL)
 GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], [ExpireDate].[ExpireDate], [ExpireDate].[Time], [ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[PriorExpiredSheetIssueDate], [ExpireDate].[IRSNo], [ExpireDate].[IRSIssueDate] 
-ORDER BY [ExpireDate].[ExpireDate]";
+ORDER BY [ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[IRSNo]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
 
             List<OverviewInProcessView> overviewInProcessView = new List<OverviewInProcessView>();
             while (dataReader.Read())
             {
-                overviewInProcessView.Add(new OverviewInProcessView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetInt32(2), dataReader.GetDateTime(3), dataReader.GetInt32(4), dataReader.GetString(5), dataReader.GetDateTime(6), dataReader.GetString(7), dataReader.GetDateTime(8)));
+                string priorExpiredNo, iRSNo;
+                string priorExpiredDate, iRSDate;
+                DateTime date1, date2;
+                if (dataReader.IsDBNull(5))
+                    priorExpiredNo = "";
+                else
+                    priorExpiredNo = dataReader.GetString(5);
+                if (dataReader.IsDBNull(6))
+                    priorExpiredDate = "";
+                else
+                {
+                    date1 = dataReader.GetDateTime(6);
+                    priorExpiredDate = date1.Date.ToString("d");
+                }
+                if (dataReader.IsDBNull(7))
+                    iRSNo = "";
+                else
+                    iRSNo = dataReader.GetString(7);
+                if (dataReader.IsDBNull(8))
+                    iRSDate = "";
+                else
+                {
+                    date2 = dataReader.GetDateTime(8);
+                    iRSDate = date2.Date.ToString("d");
+                }
+
+                overviewInProcessView.Add(new OverviewInProcessView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetInt32(2), dataReader.GetDateTime(3), dataReader.GetInt32(4), priorExpiredNo, priorExpiredDate, iRSNo, iRSDate));
             }
             dataReader.Close();
             command.Dispose();
@@ -56,7 +82,7 @@ ORDER BY [ExpireDate].[ExpireDate]";
 JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
 JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo] AND [ExpireDate].[ExpireDate] < GETDATE()
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-WHERE [Ship].[RollNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL
+WHERE [Ship].[RollNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL AND [ExpireDate].[PriorExpiredSheetNo] IS NULL
 GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], [ExpireDate].[ExpireDate], [ExpireDate].[Time]
 ORDER BY [ExpireDate].[ExpireDate]";
             SqlCommand command = new SqlCommand(sql, cnn);
@@ -164,7 +190,7 @@ WHERE [PrintSleeve].[ItemNo] = '{itemNo}' AND [ExpireDate].[ExpireDate] = '{expi
                     issueDate = dataReader.GetDateTime(5).ToString();
                 else
                     issueDate = null;
-                result.Add(new IssueSheetView(dataReader.GetString(0), dataReader.GetInt32(1), dataReader.GetDateTime(2), dataReader.GetInt32(3), issueNo, issueDate));
+                result.Add(new IssueSheetView(dataReader.GetString(0), dataReader.GetInt32(1), dataReader.GetDateTime(2), dataReader.GetInt32(3) +1, issueNo, issueDate));
             }
             dataReader.Close();
             command.Dispose();

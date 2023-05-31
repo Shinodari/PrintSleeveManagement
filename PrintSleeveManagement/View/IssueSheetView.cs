@@ -9,8 +9,8 @@ namespace PrintSleeveManagement.View
     class IssueSheetView
     {
         public bool Selecte { get; set; }
-        public string LotNo { get; }
         public int RollNo { get; }
+        public string LotNo { get; }
         public DateTime ExpiredDate { get; }
         public int Time { get; }
         public string PriorExpiredSheetNo { get; }
