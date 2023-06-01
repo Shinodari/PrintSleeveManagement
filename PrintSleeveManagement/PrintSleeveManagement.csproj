@@ -90,12 +90,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdjustDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdjustDialog.Designer.cs">
+      <DependentUpon>AdjustDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="BrowseDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BrowseDialog.Designer.cs">
       <DependentUpon>BrowseDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="DateInputDialog.cs" />
     <Compile Include="DeviceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +206,7 @@
     <Compile Include="ShipForm.Designer.cs">
       <DependentUpon>ShipForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\AdjustView.cs" />
     <Compile Include="View\IssueSheetView.cs" />
     <Compile Include="View\Order.cs" />
     <Compile Include="View\OrderAllocate.cs" />
@@ -216,6 +224,9 @@
     <Compile Include="WaitForm.Designer.cs">
       <DependentUpon>WaitForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AdjustDialog.resx">
+      <DependentUpon>AdjustDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BrowseDialog.resx">
       <DependentUpon>BrowseDialog.cs</DependentUpon>
     </EmbeddedResource>

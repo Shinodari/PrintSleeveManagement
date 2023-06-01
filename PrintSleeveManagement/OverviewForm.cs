@@ -97,12 +97,57 @@ namespace PrintSleeveManagement
                     ExpireDate exp = new ExpireDate(rollNo);
                     if (!exp.IssueIRS(issueNo))
                     {
-                        MessageBox.Show("PrintSleeve RollNo " + rollNo + " can't issue IRS! \nPlease try again.");
+                        MessageBox.Show("PrintSleeve RollNo " + rollNo + " can't issue IRS! \nPlease try again.\nDetail:\n"+ exp.getErrorString());
                         return;
                     }
                 }
                 MessageBox.Show("Issue IRS is successfuly.");
                 LoadDetail();
+            }
+        }
+
+        private void buttonIssuePriorExpredSheet_Click(object sender, EventArgs e)
+        {
+            string itemNo = dataGridViewPriorExpired.CurrentRow.Cells[0].Value.ToString();
+            string expriedDate = dataGridViewPriorExpired.CurrentRow.Cells[3].Value.ToString();
+
+            IssueDialog issueDialog = new IssueDialog(itemNo, expriedDate);
+            if (issueDialog.Show() == DialogResult.OK)
+            {
+                List<int> rollNoList = new List<int>();
+                rollNoList = issueDialog.RollNoList;
+                if (rollNoList.Count < 1)
+                {
+                    MessageBox.Show("You not selected Roll!");
+                    return;
+                }
+                string issueNo = null;
+                if (InputDialog.InputBox("IssueNo", "Enter the IssueNo", ref issueNo) == DialogResult.Cancel)
+                {
+                    return;
+                }
+                foreach (int rollNo in rollNoList)
+                {
+                    ExpireDate exp = new ExpireDate(rollNo);
+                    if (!exp.IssuePriorExpiredSheet(issueNo))
+                    {
+                        MessageBox.Show("PrintSleeve RollNo " + rollNo + " can't issue Prior Expired Sheet! \nPlease try again.\nDetail:\n" + exp.getErrorString());
+                        return;
+                    }
+                }
+                MessageBox.Show("Issue Prior Expired Sheet is successfuly.");
+                LoadDetail();
+            }
+        }
+
+        private void buttonAdjust_Click(object sender, EventArgs e)
+        {
+            string issueNo = dataGridViewInProcess.CurrentRow.Cells[0].Value.ToString();
+
+            AdjustDialog adjustDialog = new AdjustDialog(issueNo);
+            if (adjustDialog.Show() == DialogResult.OK)
+            {
+
             }
         }
     }

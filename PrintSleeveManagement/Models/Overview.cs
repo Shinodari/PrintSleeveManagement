@@ -38,22 +38,22 @@ ORDER BY [ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[IRSNo]";
                 string priorExpiredDate, iRSDate;
                 DateTime date1, date2;
                 if (dataReader.IsDBNull(5))
-                    priorExpiredNo = "";
+                    priorExpiredNo = null;
                 else
                     priorExpiredNo = dataReader.GetString(5);
                 if (dataReader.IsDBNull(6))
-                    priorExpiredDate = "";
+                    priorExpiredDate = null;
                 else
                 {
                     date1 = dataReader.GetDateTime(6);
                     priorExpiredDate = date1.Date.ToString("d");
                 }
                 if (dataReader.IsDBNull(7))
-                    iRSNo = "";
+                    iRSNo = null;
                 else
                     iRSNo = dataReader.GetString(7);
                 if (dataReader.IsDBNull(8))
-                    iRSDate = "";
+                    iRSDate = null;
                 else
                 {
                     date2 = dataReader.GetDateTime(8);
@@ -161,6 +161,7 @@ ORDER BY [ExpireDate].[ExpireDate]";
 
             return overviewExpireViewList;
         }
+
         public List<IssueSheetView> GetLotList(string itemNo, string expiredDate)
         {
             Database.CONNECT_RESULT connect_result = connect();
@@ -191,6 +192,34 @@ WHERE [PrintSleeve].[ItemNo] = '{itemNo}' AND [ExpireDate].[ExpireDate] = '{expi
                 else
                     issueDate = null;
                 result.Add(new IssueSheetView(dataReader.GetString(0), dataReader.GetInt32(1), dataReader.GetDateTime(2), dataReader.GetInt32(3) +1, issueNo, issueDate));
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+
+            return result;
+        }
+
+        public List<AdjustView> GetLotListByIssueNo(string issueNo)
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return null;
+            }
+
+            string sql = $@"SELECT [Item].[PartNo], [PrintSleeve].[LotNo], [ExpireDate].[RollNo], [ExpireDate].[Time] +1 AS 'ExpiredTime', [ExpireDate].[ExpireDate] FROM [ExpireDate] 
+JOIN [PrintSleeve] ON [PrintSleeve].[RollNo] = [ExpireDate].[RollNo]
+JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
+WHERE [ExpireDate].[PriorExpiredSheetNo] = '{issueNo}' OR [ExpireDate].[IRSNo] = '{issueNo}'";
+
+            List<AdjustView> result = new List<AdjustView>();
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            while (dataReader.Read())
+            {
+                result.Add(new AdjustView(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetInt32(2), dataReader.GetInt32(3), dataReader.GetDateTime(4)));
             }
             dataReader.Close();
             command.Dispose();

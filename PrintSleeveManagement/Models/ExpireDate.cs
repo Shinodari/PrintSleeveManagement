@@ -116,5 +116,38 @@ AND [Time] = (SELECT MAX([Time]) FROM [ExpireDate] WHERE [RollNo] = '{this.RollN
                 return false;
             }
         }
+
+        public bool IssuePriorExpiredSheet(string issueNo)
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return false;
+            }
+
+            string sql = $@"UPDATE [ExpireDate] SET [PriorExpiredSheetNo] = '{issueNo}', [PriorExpiredSheetIssueDate] = '{DateTime.Now}' WHERE [RollNo] = '{this.RollNo}' 
+AND [Time] = (SELECT MAX([Time]) FROM [ExpireDate] WHERE [RollNo] = '{this.RollNo}')";
+            int result;
+
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.UpdateCommand = command;
+            result = adapter.UpdateCommand.ExecuteNonQuery();
+            if (result == 1)
+            {
+                return true;
+            }
+            else if (result > 1)
+            {
+                errorString = "ERROR: SQL UPDATE MORE THANE 1 ROW, PLESS CONTRACT ADMIN!";
+                return false;
+            }
+            else
+            {
+                errorString = "ERROR: SQL NOT UPDATE, PLESS CONTRACT ADMIN!";
+                return false;
+            }
+        }
     }
 }

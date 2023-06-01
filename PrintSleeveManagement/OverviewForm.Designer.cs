@@ -36,8 +36,10 @@
             this.groupBoxPriorExpired = new System.Windows.Forms.GroupBox();
             this.dataGridViewPriorExpired = new System.Windows.Forms.DataGridView();
             this.groupBoxExpired = new System.Windows.Forms.GroupBox();
-            this.dataGridViewExpired = new System.Windows.Forms.DataGridView();
             this.buttonIssueIRS = new System.Windows.Forms.Button();
+            this.dataGridViewExpired = new System.Windows.Forms.DataGridView();
+            this.buttonIssuePriorExpredSheet = new System.Windows.Forms.Button();
+            this.buttonAdjust = new System.Windows.Forms.Button();
             this.groupBoxExpiredDate.SuspendLayout();
             this.groupBoxInProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInProcess)).BeginInit();
@@ -64,6 +66,7 @@
             // 
             // groupBoxInProcess
             // 
+            this.groupBoxInProcess.Controls.Add(this.buttonAdjust);
             this.groupBoxInProcess.Controls.Add(this.dataGridViewInProcess);
             this.groupBoxInProcess.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBoxInProcess.Location = new System.Drawing.Point(6, 19);
@@ -105,11 +108,12 @@
             this.dataGridViewPriorExpiredNextMonth.Name = "dataGridViewPriorExpiredNextMonth";
             this.dataGridViewPriorExpiredNextMonth.ReadOnly = true;
             this.dataGridViewPriorExpiredNextMonth.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPriorExpiredNextMonth.Size = new System.Drawing.Size(646, 297);
+            this.dataGridViewPriorExpiredNextMonth.Size = new System.Drawing.Size(646, 374);
             this.dataGridViewPriorExpiredNextMonth.TabIndex = 0;
             // 
             // groupBoxPriorExpired
             // 
+            this.groupBoxPriorExpired.Controls.Add(this.buttonIssuePriorExpredSheet);
             this.groupBoxPriorExpired.Controls.Add(this.dataGridViewPriorExpired);
             this.groupBoxPriorExpired.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBoxPriorExpired.Location = new System.Drawing.Point(6, 425);
@@ -128,7 +132,7 @@
             this.dataGridViewPriorExpired.Name = "dataGridViewPriorExpired";
             this.dataGridViewPriorExpired.ReadOnly = true;
             this.dataGridViewPriorExpired.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPriorExpired.Size = new System.Drawing.Size(646, 297);
+            this.dataGridViewPriorExpired.Size = new System.Drawing.Size(646, 318);
             this.dataGridViewPriorExpired.TabIndex = 0;
             // 
             // groupBoxExpired
@@ -143,6 +147,17 @@
             this.groupBoxExpired.TabStop = false;
             this.groupBoxExpired.Text = "Expired";
             // 
+            // buttonIssueIRS
+            // 
+            this.buttonIssueIRS.ForeColor = System.Drawing.Color.Blue;
+            this.buttonIssueIRS.Location = new System.Drawing.Point(553, 344);
+            this.buttonIssueIRS.Name = "buttonIssueIRS";
+            this.buttonIssueIRS.Size = new System.Drawing.Size(100, 50);
+            this.buttonIssueIRS.TabIndex = 1;
+            this.buttonIssueIRS.Text = "Issue IRS";
+            this.buttonIssueIRS.UseVisualStyleBackColor = true;
+            this.buttonIssueIRS.Click += new System.EventHandler(this.buttonIssueIRS_Click);
+            // 
             // dataGridViewExpired
             // 
             this.dataGridViewExpired.AllowUserToAddRows = false;
@@ -155,16 +170,27 @@
             this.dataGridViewExpired.Size = new System.Drawing.Size(646, 318);
             this.dataGridViewExpired.TabIndex = 0;
             // 
-            // buttonIssueIRS
+            // buttonIssuePriorExpredSheet
             // 
-            this.buttonIssueIRS.ForeColor = System.Drawing.Color.Blue;
-            this.buttonIssueIRS.Location = new System.Drawing.Point(553, 344);
-            this.buttonIssueIRS.Name = "buttonIssueIRS";
-            this.buttonIssueIRS.Size = new System.Drawing.Size(100, 50);
-            this.buttonIssueIRS.TabIndex = 1;
-            this.buttonIssueIRS.Text = "IssueIRS";
-            this.buttonIssueIRS.UseVisualStyleBackColor = true;
-            this.buttonIssueIRS.Click += new System.EventHandler(this.buttonIssueIRS_Click);
+            this.buttonIssuePriorExpredSheet.ForeColor = System.Drawing.Color.Blue;
+            this.buttonIssuePriorExpredSheet.Location = new System.Drawing.Point(512, 344);
+            this.buttonIssuePriorExpredSheet.Name = "buttonIssuePriorExpredSheet";
+            this.buttonIssuePriorExpredSheet.Size = new System.Drawing.Size(141, 50);
+            this.buttonIssuePriorExpredSheet.TabIndex = 1;
+            this.buttonIssuePriorExpredSheet.Text = "Issue Prior Expired Sheet";
+            this.buttonIssuePriorExpredSheet.UseVisualStyleBackColor = true;
+            this.buttonIssuePriorExpredSheet.Click += new System.EventHandler(this.buttonIssuePriorExpredSheet_Click);
+            // 
+            // buttonAdjust
+            // 
+            this.buttonAdjust.ForeColor = System.Drawing.Color.Blue;
+            this.buttonAdjust.Location = new System.Drawing.Point(553, 344);
+            this.buttonAdjust.Name = "buttonAdjust";
+            this.buttonAdjust.Size = new System.Drawing.Size(100, 50);
+            this.buttonAdjust.TabIndex = 1;
+            this.buttonAdjust.Text = "Adjust";
+            this.buttonAdjust.UseVisualStyleBackColor = true;
+            this.buttonAdjust.Click += new System.EventHandler(this.buttonAdjust_Click);
             // 
             // OverviewForm
             // 
@@ -206,5 +232,7 @@
         private System.Windows.Forms.GroupBox groupBoxInProcess;
         private System.Windows.Forms.DataGridView dataGridViewInProcess;
         private System.Windows.Forms.Button buttonIssueIRS;
+        private System.Windows.Forms.Button buttonAdjust;
+        private System.Windows.Forms.Button buttonIssuePriorExpredSheet;
     }
 }

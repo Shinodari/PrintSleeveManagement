@@ -42,7 +42,7 @@ namespace PrintSleeveManagement
 
         public new DialogResult Show()
         {
-            Text = "Issue Prior Expired Sheet or IRS";
+            Text = "Issue Prior Expired Sheet/IRS";
             return (ShowDialog());
         }
 
