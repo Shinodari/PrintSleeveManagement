@@ -134,6 +134,77 @@ AND [Time] = (SELECT MAX([Time]) FROM [ExpireDate] WHERE [RollNo] = '{this.RollN
             SqlDataAdapter adapter = new SqlDataAdapter();
             adapter.UpdateCommand = command;
             result = adapter.UpdateCommand.ExecuteNonQuery();
+            adapter.Dispose();
+            command.Dispose();
+            close();
+            if (result == 1)
+            {
+                return true;
+            }
+            else if (result > 1)
+            {
+                errorString = "ERROR: SQL UPDATE MORE THANE 1 ROW, PLESS CONTRACT ADMIN!";
+                return false;
+            }
+            else
+            {
+                errorString = "ERROR: SQL NOT UPDATE, PLESS CONTRACT ADMIN!";
+                return false;
+            }
+        }
+
+        public bool ExtendExpiredDate(DateTime expiredDate, DateTime extendDate)
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return false;
+            }
+
+            string sql = $@"INSERT INTO [ExpireDate]([RollNo],[Time],[ExpireDate],[ExtendDate])
+VALUES('{this.RollNo}', (SELECT MAX([Time]) + 1 FROM[ExpireDate] WHERE[RollNo] = '{this.RollNo}'),'{expiredDate}','{extendDate}')";
+
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.InsertCommand = command;
+            int result = adapter.InsertCommand.ExecuteNonQuery();
+            adapter.Dispose();
+            command.Dispose();
+            close();
+            if (result == 1)
+            {
+                return true;
+            }
+            else if (result > 1)
+            {
+                errorString = "ERROR: SQL UPDATE MORE THANE 1 ROW, PLESS CONTRACT ADMIN!";
+                return false;
+            }
+            else
+            {
+                errorString = "ERROR: SQL NOT UPDATE, PLESS CONTRACT ADMIN!";
+                return false;
+            }
+        }
+
+        public bool Scrap(DateTime scrapDate)
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return false;
+            }
+
+            string sql = $@"INSERT INTO [Scrap] VALUES('{this.RollNo}', '{scrapDate}')";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.InsertCommand = command;
+            int result = adapter.InsertCommand.ExecuteNonQuery();
+            adapter.Dispose();
+            command.Dispose();
+            close();
             if (result == 1)
             {
                 return true;

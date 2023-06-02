@@ -33,6 +33,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonExtend = new System.Windows.Forms.Button();
             this.buttonScrap = new System.Windows.Forms.Button();
+            this.buttonAdjust = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAjust)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,8 +43,9 @@
             this.dataGridViewAjust.Location = new System.Drawing.Point(13, 40);
             this.dataGridViewAjust.Name = "dataGridViewAjust";
             this.dataGridViewAjust.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAjust.Size = new System.Drawing.Size(710, 435);
+            this.dataGridViewAjust.Size = new System.Drawing.Size(697, 435);
             this.dataGridViewAjust.TabIndex = 0;
+            this.dataGridViewAjust.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAjust_CellContentClick);
             // 
             // labelIssueNo
             // 
@@ -58,7 +60,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(800, 425);
+            this.buttonCancel.Location = new System.Drawing.Point(787, 425);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 50);
             this.buttonCancel.TabIndex = 3;
@@ -69,7 +71,7 @@
             // buttonExtend
             // 
             this.buttonExtend.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.buttonExtend.Location = new System.Drawing.Point(729, 40);
+            this.buttonExtend.Location = new System.Drawing.Point(716, 40);
             this.buttonExtend.Name = "buttonExtend";
             this.buttonExtend.Size = new System.Drawing.Size(171, 50);
             this.buttonExtend.TabIndex = 4;
@@ -81,18 +83,31 @@
             // 
             this.buttonScrap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.buttonScrap.ForeColor = System.Drawing.Color.Red;
-            this.buttonScrap.Location = new System.Drawing.Point(729, 96);
+            this.buttonScrap.Location = new System.Drawing.Point(716, 96);
             this.buttonScrap.Name = "buttonScrap";
             this.buttonScrap.Size = new System.Drawing.Size(171, 50);
             this.buttonScrap.TabIndex = 7;
             this.buttonScrap.Text = "Scrap";
             this.buttonScrap.UseVisualStyleBackColor = true;
+            this.buttonScrap.Click += new System.EventHandler(this.buttonScrap_Click);
+            // 
+            // buttonAdjust
+            // 
+            this.buttonAdjust.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.buttonAdjust.Location = new System.Drawing.Point(787, 369);
+            this.buttonAdjust.Name = "buttonAdjust";
+            this.buttonAdjust.Size = new System.Drawing.Size(100, 50);
+            this.buttonAdjust.TabIndex = 8;
+            this.buttonAdjust.Text = "Adjust";
+            this.buttonAdjust.UseVisualStyleBackColor = true;
+            this.buttonAdjust.Click += new System.EventHandler(this.buttonAdjust_Click);
             // 
             // AdjustDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1041, 487);
+            this.ClientSize = new System.Drawing.Size(899, 487);
+            this.Controls.Add(this.buttonAdjust);
             this.Controls.Add(this.buttonScrap);
             this.Controls.Add(this.labelIssueNo);
             this.Controls.Add(this.buttonCancel);
@@ -113,5 +128,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonExtend;
         private System.Windows.Forms.Button buttonScrap;
+        private System.Windows.Forms.Button buttonAdjust;
     }
 }

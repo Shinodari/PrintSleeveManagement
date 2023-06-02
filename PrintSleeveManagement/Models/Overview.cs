@@ -19,15 +19,16 @@ namespace PrintSleeveManagement.Models
                 return null;
             }
 
-            string sql = @"SELECT [PrintSleeve].[ItemNo], [Item].[PartNo], SUM([PrintSleeve].[Quantity]) AS 'Quantity', [ExpireDate].[ExpireDate], [ExpireDate].[Time] +1 AS 'TimeExpire', 
-[ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[PriorExpiredSheetIssueDate], [ExpireDate].[IRSNo], [ExpireDate].[IRSIssueDate] 
+            string sql = @"SELECT [PrintSleeve].[ItemNo], [Item].[PartNo], SUM([PrintSleeve].[Quantity]) AS 'Quantity', e.[ExpireDate], e.[Time] +1 AS 'TimeExpire', 
+e.[PriorExpiredSheetNo], e.[PriorExpiredSheetIssueDate], e.[IRSNo], e.[IRSIssueDate] 
 FROM [PrintSleeve]
 JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
-JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]
+JOIN [ExpireDate] e ON e.[RollNo] = [PrintSleeve].[RollNo]
+	AND e.[Time] = (SELECT Max([ExpireDate].[Time]) FROM [ExpireDate] WHERE [ExpireDate].[RollNo] = e.[RollNo])
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-WHERE [Ship].[RollNo] IS NULL AND ([ExpireDate].[PriorExpiredSheetNo] IS NOT NULL OR [ExpireDate].[IRSNo] IS NOT NULL)
-GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], [ExpireDate].[ExpireDate], [ExpireDate].[Time], [ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[PriorExpiredSheetIssueDate], [ExpireDate].[IRSNo], [ExpireDate].[IRSIssueDate] 
-ORDER BY [ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[IRSNo]";
+WHERE [Ship].[RollNo] IS NULL AND (e.[PriorExpiredSheetNo] IS NOT NULL OR e.[IRSNo] IS NOT NULL)
+GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], e.[ExpireDate], e.[Time], e.[PriorExpiredSheetNo], e.[PriorExpiredSheetIssueDate], e.[IRSNo], e.[IRSIssueDate] 
+ORDER BY e.[PriorExpiredSheetNo], e.[IRSNo]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
 
@@ -78,13 +79,14 @@ ORDER BY [ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[IRSNo]";
                 return null;
             }
             
-            string sql = @"SELECT [PrintSleeve].[ItemNo], [Item].[PartNo], SUM([PrintSleeve].[Quantity]) AS 'Quantity', [ExpireDate].[ExpireDate], [ExpireDate].[Time] +1 AS 'TimeExpire' FROM [PrintSleeve]
+            string sql = @"SELECT [PrintSleeve].[ItemNo], [Item].[PartNo], SUM([PrintSleeve].[Quantity]) AS 'Quantity', e.[ExpireDate], e.[Time] +1 AS 'TimeExpire' FROM [PrintSleeve]
 JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
-JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo] AND [ExpireDate].[ExpireDate] < GETDATE()
+JOIN [ExpireDate] e ON e.[RollNo] = [PrintSleeve].[RollNo] AND e.[ExpireDate] < GETDATE() 
+	AND e.[Time] = (SELECT Max([ExpireDate].[Time]) FROM [ExpireDate] WHERE [ExpireDate].[RollNo] = e.[RollNo])
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-WHERE [Ship].[RollNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL
-GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], [ExpireDate].[ExpireDate], [ExpireDate].[Time]
-ORDER BY [ExpireDate].[ExpireDate]";
+WHERE [Ship].[RollNo] IS NULL AND e.[IRSNo] IS NULL AND e.[PriorExpiredSheetNo] IS NULL
+GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], e.[ExpireDate], e.[Time]
+ORDER BY e.[ExpireDate]";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
 

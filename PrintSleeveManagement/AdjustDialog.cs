@@ -17,6 +17,7 @@ namespace PrintSleeveManagement
         Overview overview;
         BindingSource bindingSoruce;
 
+        string issueNo;
         List<int> listRollNo;
         public AdjustDialog(string issueNo)
         {
@@ -24,6 +25,7 @@ namespace PrintSleeveManagement
 
             labelIssueNo.Text = issueNo;
 
+            this.issueNo = issueNo;
             listRollNo = new List<int>();
 
             overview = new Overview();
@@ -40,44 +42,81 @@ namespace PrintSleeveManagement
             return (ShowDialog());
         }
 
-        private List<int> GetSelectedRollNo()
-        {
-            List<int> listRollNo = new List<int>();
-
-            foreach(DataGridViewRow row in dataGridViewAjust.Rows)
-            {
-                bool isSelected = Convert.ToBoolean(row.Cells["Selecte"].Value);
-                if (isSelected)
-                {
-                    listRollNo.Add(Int32.Parse(row.Cells["RollNo"].Value.ToString()));
-                }
-            }
-            return listRollNo;
-        }
-
         private void buttonExtend_Click(object sender, EventArgs e)
         {
             string date = null;
             if (DateInputDialog.InputBox("Extend Expired Date", "Input Extended Date", ref date) == DialogResult.OK)
             {
-                //List<int> listRollNo = GetSelectedRollNo();
                 foreach(DataGridViewRow row in dataGridViewAjust.Rows)
                 {
                     bool isSelected = Convert.ToBoolean(row.Cells["Selecte"].Value);
                     if (isSelected)
                     {
-                        //row.Cells["ExtendDate"].Value = date;
                         AdjustView data = (AdjustView) row.DataBoundItem;
-                        data.ExtendDate = DateTime.Parse(date);
+                        data.SetExtendDate(DateTime.Parse(date));
+                        data.Selecte = false;
                     }
                 }
                 dataGridViewAjust.Refresh();
             }
         }
+        private void buttonScrap_Click(object sender, EventArgs e)
+        {
+            foreach(DataGridViewRow row in dataGridViewAjust.Rows)
+            {
+                bool isSelected = Convert.ToBoolean(row.Cells["Selecte"].Value);
+                if (isSelected)
+                {
+                    AdjustView data = (AdjustView)row.DataBoundItem;
+                    data.SetScrap();
+                    data.Selecte = false;
+                }
+            }
+            dataGridViewAjust.Refresh();
+        }
+        private void buttonAdjust_Click(object sender, EventArgs e)
+        {
+            /*----- For Extended Date or Scrap Date set to action date in current.  -----*/
+            /*----- For Future will change to sheet date as Inspection section assign-----*/
+            foreach (DataGridViewRow row in dataGridViewAjust.Rows)
+            {
+                int rollNo = (int) row.Cells["RollNo"].Value;
+                bool scrap = (bool) row.Cells["Scrap"].Value;
+                DateTime newExpiredDate = (DateTime)row.Cells["NewExpiredDate"].Value;
+
+                ExpireDate exprieDate = new ExpireDate(rollNo);
+                DateTime extendDate = DateTime.Now;
+                if (scrap == false && newExpiredDate == DateTime.MinValue)
+                {
+                    MessageBox.Show($"RollNo.{rollNo} not adjust new expired date or scrap!\nPlease check again.");
+                    return;
+                }
+                else if (scrap == true)
+                {
+                    exprieDate.Scrap(extendDate);
+                }
+                else if (newExpiredDate != DateTime.MinValue)
+                {
+                    exprieDate.ExtendExpiredDate(newExpiredDate, extendDate);
+                }
+                else
+                {
+                    MessageBox.Show($"RollNo.{rollNo} adjugst new expired date and scrap!\nPlease check agian.");
+                    return;
+                }
+            }
+            MessageBox.Show($"IssueNo.{this.issueNo} adjust is successfuly");
+            this.DialogResult = DialogResult.OK;
+        }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void dataGridViewAjust_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridViewAjust.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
     }
 }

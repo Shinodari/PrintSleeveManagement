@@ -147,7 +147,7 @@ namespace PrintSleeveManagement
             AdjustDialog adjustDialog = new AdjustDialog(issueNo);
             if (adjustDialog.Show() == DialogResult.OK)
             {
-
+                LoadDetail();
             }
         }
     }
