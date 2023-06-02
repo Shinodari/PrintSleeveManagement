@@ -14,7 +14,7 @@ namespace PrintSleeveManagement.View
         public string LotNo { get; }
         public int Time { get; }
         public DateTime ExpiredDate { get; }
-        public DateTime ExtendDate { get; }
+        public DateTime ExtendDate { get; set; }
         public bool Scrap { get; }
 
         public AdjustView(string partNo, string lotNo, int rollNo, int time, DateTime expiredDate)
@@ -24,6 +24,11 @@ namespace PrintSleeveManagement.View
             this.RollNo = rollNo;
             this.ExpiredDate = expiredDate;
             this.Time = time;
+        }
+
+        public void SetExtendDate(DateTime extendDate)
+        {
+            this.ExtendDate = extendDate;
         }
     }
 }

@@ -82,7 +82,7 @@ ORDER BY [ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[IRSNo]";
 JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
 JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo] AND [ExpireDate].[ExpireDate] < GETDATE()
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-WHERE [Ship].[RollNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL AND [ExpireDate].[PriorExpiredSheetNo] IS NULL
+WHERE [Ship].[RollNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL
 GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], [ExpireDate].[ExpireDate], [ExpireDate].[Time]
 ORDER BY [ExpireDate].[ExpireDate]";
             SqlCommand command = new SqlCommand(sql, cnn);

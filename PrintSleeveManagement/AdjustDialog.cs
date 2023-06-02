@@ -1,4 +1,5 @@
 ﻿using PrintSleeveManagement.Models;
+using PrintSleeveManagement.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,8 +60,18 @@ namespace PrintSleeveManagement
             string date = null;
             if (DateInputDialog.InputBox("Extend Expired Date", "Input Extended Date", ref date) == DialogResult.OK)
             {
-                List<int> listRollNo = GetSelectedRollNo();
-
+                //List<int> listRollNo = GetSelectedRollNo();
+                foreach(DataGridViewRow row in dataGridViewAjust.Rows)
+                {
+                    bool isSelected = Convert.ToBoolean(row.Cells["Selecte"].Value);
+                    if (isSelected)
+                    {
+                        //row.Cells["ExtendDate"].Value = date;
+                        AdjustView data = (AdjustView) row.DataBoundItem;
+                        data.ExtendDate = DateTime.Parse(date);
+                    }
+                }
+                dataGridViewAjust.Refresh();
             }
         }
 
