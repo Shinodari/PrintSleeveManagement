@@ -33,6 +33,31 @@ namespace PrintSleeveManagement.Models
             this.Status = location_status.ToString();
         }
 
+        public string GetLocation(int rollNo)
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return null;
+            }
+
+            string sql =  $@"SELECT [LocationID] FROM [Transaction] WHERE [RollNo] = '{rollNo}' 
+AND [TransactionID] = (SELECT MAX([TransactionID]) FROM [Transaction] e WHERE e.[TransactionID] = [Transaction].[TransactionID])";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            string result = null;
+            if (dataReader.Read())
+            {
+                result = dataReader.GetString(0);
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
+
+            return result;
+        }
+
         public List<Location> GetAllLocation()
         {
             Database.CONNECT_RESULT connect_result = connect();
@@ -120,6 +145,43 @@ namespace PrintSleeveManagement.Models
             dataReader.Close();
             command.Dispose();
             close();
+        }
+
+        /// <summary>
+        /// Move Location for PrintSleeve
+        /// </summary>
+        /// <param name="printsleeve"></param>
+        /// <returns>Old Location</returns>
+        public string Move(PrintSleeve printsleeve)
+        {
+            if (this.LocationID == null)
+            {
+                errorString = "Don't This Location!";
+                return null;
+            }
+
+            string oldLocation = GetLocation(printsleeve.RollNo);
+
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return null;
+            }
+
+            string sql = $"INSERT INTO [Transaction]([LocationID],[RollNo]) VALUES('{this.LocationID}','{printsleeve.RollNo}')";
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.InsertCommand = command;
+            if (adapter.InsertCommand.ExecuteNonQuery() == 1)
+            {
+                return oldLocation;
+            }
+            else
+            {
+                errorString = "Can't Move This PrintSleeve. Please contact Administrator";
+                return null;
+            }
         }
 
         public string LocationID { get; set; }

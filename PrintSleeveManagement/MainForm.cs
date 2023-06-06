@@ -153,5 +153,12 @@ namespace PrintSleeveManagement
             shipForm.MdiParent = this;
             shipForm.Show();
         }
+
+        private void toolStripButtonMove_Click(object sender, EventArgs e)
+        {
+            MoveForm moveForm = new MoveForm();
+            moveForm.MdiParent = this;
+            moveForm.Show();
+        }
     }
 }

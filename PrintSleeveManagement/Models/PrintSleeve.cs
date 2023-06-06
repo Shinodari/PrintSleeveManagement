@@ -19,27 +19,62 @@ namespace PrintSleeveManagement.Models
         }
 
         public int RollNo { get; set; }
-
         public int ReceiptNo { get; set; }
-
         public string LotNo { get; set; }
-
+        //-- This propertiy will after comfire to tested --/
         public int RollNoSecondary { get; set; }
-
         public DateTime ExpiredDate { get; set; }
-
+        //-- Don't Sure for this future --//
         public List<ExpireDate> ExpiredDateList
         {
             get { return this.expiredDateList; }
         }
-
         public string Creator { get; set; }
-
         public DateTime CreateTime { get; set; }
+
 
         public PrintSleeve()
         {
             this.expiredDateList = new List<ExpireDate>();
+        }
+
+        public PrintSleeve(int rollNo) : this()
+        {
+            Database.CONNECT_RESULT connect_result = connect();
+            if (connect_result == Database.CONNECT_RESULT.FAIL)
+            {
+                errorString = "Can't connect database. Please contact Administrator";
+                return;
+            }
+
+            string sql = $@"SELECT [PrintSleeve].[ReceiptNo], [PrintSleeve].[ItemNo], [Item].[PartNo], 
+	[PrintSleeve].[LotNo], e.[ExpireDate], [PrintSleeve].[Creator], [PrintSleeve].[CreateTime]
+FROM [PrintSleeve] 
+JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]	
+JOIN [ExpireDate] e ON e.[RollNo] = [PrintSleeve].[RollNo] 
+	AND e.[Time] = (SELECT MAX([ExpireDate].[Time]) FROM [ExpireDate] WHERE e.[RollNo] = [ExpireDate].[RollNo])
+WHERE [PrintSleeve].[RollNo] = '{rollNo}'";
+
+            SqlCommand command = new SqlCommand(sql, cnn);
+            SqlDataReader dataReader = command.ExecuteReader();
+            if (dataReader.Read())
+            {
+                this.RollNo = rollNo;
+                this.ReceiptNo = dataReader.GetInt32(0);
+                this.ItemNo = dataReader.GetString(1);
+                this.PartNo = dataReader.GetString(2);
+                this.LotNo = dataReader.GetString(3);
+                this.ExpiredDate = dataReader.GetDateTime(4);
+                this.Creator = dataReader.GetString(5);
+                this.CreateTime = dataReader.GetDateTime(6);
+            }
+            else
+            {
+                errorString = "Dont find a PrintSleeve RollNo. " + rollNo;
+            }
+            dataReader.Close();
+            command.Dispose();
+            close();
         }
 
         public PrintSleeve(int rollNo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate) : this()
@@ -210,6 +245,7 @@ namespace PrintSleeveManagement.Models
             return find(sql);
         }
 
+        /*--------- Test to Remove
         public bool hasRollNoSec(int rollNo)
         {
             Database.CONNECT_RESULT connect_result = connect();
@@ -233,6 +269,6 @@ namespace PrintSleeveManagement.Models
             command.Dispose();
             close();
             return result;
-        }
+        }*/
     }
 }
