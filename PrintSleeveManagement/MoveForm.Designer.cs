@@ -41,12 +41,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(246, 55);
+            this.label1.Size = new System.Drawing.Size(328, 37);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Move To..";
+            this.label1.Text = "Destination Location";
             // 
             // labelLocation
             // 
@@ -74,12 +74,12 @@
             this.labelResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.labelResult.Location = new System.Drawing.Point(12, 183);
             this.labelResult.Name = "labelResult";
-            this.labelResult.Size = new System.Drawing.Size(1160, 256);
+            this.labelResult.Size = new System.Drawing.Size(1160, 325);
             this.labelResult.TabIndex = 3;
             // 
             // buttonMovePrintSleeve
             // 
-            this.buttonMovePrintSleeve.Location = new System.Drawing.Point(1022, 442);
+            this.buttonMovePrintSleeve.Location = new System.Drawing.Point(1022, 511);
             this.buttonMovePrintSleeve.Name = "buttonMovePrintSleeve";
             this.buttonMovePrintSleeve.Size = new System.Drawing.Size(150, 50);
             this.buttonMovePrintSleeve.TabIndex = 4;
@@ -90,7 +90,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBoxInput);
-            this.groupBox1.Location = new System.Drawing.Point(12, 498);
+            this.groupBox1.Location = new System.Drawing.Point(12, 567);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1160, 52);
             this.groupBox1.TabIndex = 5;
@@ -103,12 +103,13 @@
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.Size = new System.Drawing.Size(1147, 20);
             this.textBoxInput.TabIndex = 0;
+            this.textBoxInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxInput_KeyPress);
             // 
             // MoveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 559);
+            this.ClientSize = new System.Drawing.Size(1184, 631);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonMovePrintSleeve);
             this.Controls.Add(this.labelResult);

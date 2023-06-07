@@ -23,17 +23,44 @@ namespace PrintSleeveManagement
         {
             location = new Location(strLocation);
             labelLocation.Text = strLocation;
+            labelResult.BackColor = Color.Empty;
+            labelResult.Text = "";
         }
 
-        private void MovePrintSleeve(int rollNo)
+        private void MovePrintSleeve(string rollNo)
         {
-            PrintSleeve printsleeve = new PrintSleeve(rollNo);
-            if(printsleeve.RollNo == 0)
+            int iRollNo;
+            if (!Int32.TryParse(rollNo, out iRollNo))
             {
-                MessageBox.Show(printsleeve.getErrorString());
+                labelResult.Text = "Please input is numeric!";
+                labelResult.BackColor = Color.Red;
                 return;
             }
 
+            PrintSleeve printsleeve = new PrintSleeve(iRollNo);
+            if(printsleeve.RollNo == 0)
+            {
+                labelResult.Text = printsleeve.getErrorString();
+                labelResult.BackColor = Color.Red;
+                return;
+            }
+            if(location == null)
+            {
+                labelResult.Text = "Please select destination location!";
+                labelResult.BackColor = Color.Red;
+                return;
+            }
+
+            string oldLocation = location.Move(printsleeve);
+            if (oldLocation == null)
+            {
+                labelResult.Text = printsleeve.getErrorString();
+                labelResult.BackColor = Color.Red;
+                return;
+            }
+
+            labelResult.Text = $"{printsleeve.ItemNo} {printsleeve.PartNo}\nRollNo.\t\t{rollNo} \nFrom {oldLocation} \nTo {location.LocationID}\nIs Successfuly";
+            labelResult.BackColor = Color.Lime;
         }
 
         private void buttonSelecteLocation_Click(object sender, EventArgs e)
@@ -47,7 +74,29 @@ namespace PrintSleeveManagement
 
         private void buttonSelectePrintSleeve_Click(object sender, EventArgs e)
         {
+            string strRollNo = null;
+            if (InputDialog.InputBox("RollNo", "Please enter RollNo.", ref strRollNo) == DialogResult.Cancel)
+            {
+                return;
+            }
+            MovePrintSleeve(strRollNo);            
+        }
 
+        private void textBoxInput_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                string txt = textBoxInput.Text;
+                if (location.IsLocation(txt.ToUpper()))
+                {
+                    SetLocation(txt.ToUpper());
+                }
+                else
+                {
+                    MovePrintSleeve(txt.ToUpper());
+                }
+                textBoxInput.Text = "";
+            }
         }
     }
 }

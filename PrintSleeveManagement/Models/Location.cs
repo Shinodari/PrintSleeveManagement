@@ -150,13 +150,13 @@ AND [TransactionID] = (SELECT MAX([TransactionID]) FROM [Transaction] e WHERE e.
         /// <summary>
         /// Move Location for PrintSleeve
         /// </summary>
-        /// <param name="printsleeve"></param>
+        /// <param name="printsleeve">PrintSleeve to be move to another location</param>
         /// <returns>Old Location</returns>
         public string Move(PrintSleeve printsleeve)
         {
             if (this.LocationID == null)
             {
-                errorString = "Don't This Location!";
+                errorString = "This Location is wrag!";
                 return null;
             }
 
