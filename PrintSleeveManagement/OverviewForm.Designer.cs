@@ -30,16 +30,16 @@
         {
             this.groupBoxExpiredDate = new System.Windows.Forms.GroupBox();
             this.groupBoxInProcess = new System.Windows.Forms.GroupBox();
+            this.buttonAdjust = new System.Windows.Forms.Button();
             this.dataGridViewInProcess = new System.Windows.Forms.DataGridView();
             this.groupBoxPriorExpiredNextMonth = new System.Windows.Forms.GroupBox();
             this.dataGridViewPriorExpiredNextMonth = new System.Windows.Forms.DataGridView();
             this.groupBoxPriorExpired = new System.Windows.Forms.GroupBox();
+            this.buttonIssuePriorExpredSheet = new System.Windows.Forms.Button();
             this.dataGridViewPriorExpired = new System.Windows.Forms.DataGridView();
             this.groupBoxExpired = new System.Windows.Forms.GroupBox();
             this.buttonIssueIRS = new System.Windows.Forms.Button();
             this.dataGridViewExpired = new System.Windows.Forms.DataGridView();
-            this.buttonIssuePriorExpredSheet = new System.Windows.Forms.Button();
-            this.buttonAdjust = new System.Windows.Forms.Button();
             this.groupBoxExpiredDate.SuspendLayout();
             this.groupBoxInProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInProcess)).BeginInit();
@@ -75,6 +75,17 @@
             this.groupBoxInProcess.TabIndex = 1;
             this.groupBoxInProcess.TabStop = false;
             this.groupBoxInProcess.Text = "In Process for Extend Expired Date";
+            // 
+            // buttonAdjust
+            // 
+            this.buttonAdjust.ForeColor = System.Drawing.Color.Blue;
+            this.buttonAdjust.Location = new System.Drawing.Point(553, 344);
+            this.buttonAdjust.Name = "buttonAdjust";
+            this.buttonAdjust.Size = new System.Drawing.Size(100, 50);
+            this.buttonAdjust.TabIndex = 1;
+            this.buttonAdjust.Text = "Adjust";
+            this.buttonAdjust.UseVisualStyleBackColor = true;
+            this.buttonAdjust.Click += new System.EventHandler(this.buttonAdjust_Click);
             // 
             // dataGridViewInProcess
             // 
@@ -123,6 +134,17 @@
             this.groupBoxPriorExpired.TabStop = false;
             this.groupBoxPriorExpired.Text = "Prior Expired (less 30 Days)";
             // 
+            // buttonIssuePriorExpredSheet
+            // 
+            this.buttonIssuePriorExpredSheet.ForeColor = System.Drawing.Color.Blue;
+            this.buttonIssuePriorExpredSheet.Location = new System.Drawing.Point(512, 344);
+            this.buttonIssuePriorExpredSheet.Name = "buttonIssuePriorExpredSheet";
+            this.buttonIssuePriorExpredSheet.Size = new System.Drawing.Size(141, 50);
+            this.buttonIssuePriorExpredSheet.TabIndex = 1;
+            this.buttonIssuePriorExpredSheet.Text = "Issue Prior Expired Sheet";
+            this.buttonIssuePriorExpredSheet.UseVisualStyleBackColor = true;
+            this.buttonIssuePriorExpredSheet.Click += new System.EventHandler(this.buttonIssuePriorExpredSheet_Click);
+            // 
             // dataGridViewPriorExpired
             // 
             this.dataGridViewPriorExpired.AllowUserToAddRows = false;
@@ -169,28 +191,6 @@
             this.dataGridViewExpired.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewExpired.Size = new System.Drawing.Size(646, 318);
             this.dataGridViewExpired.TabIndex = 0;
-            // 
-            // buttonIssuePriorExpredSheet
-            // 
-            this.buttonIssuePriorExpredSheet.ForeColor = System.Drawing.Color.Blue;
-            this.buttonIssuePriorExpredSheet.Location = new System.Drawing.Point(512, 344);
-            this.buttonIssuePriorExpredSheet.Name = "buttonIssuePriorExpredSheet";
-            this.buttonIssuePriorExpredSheet.Size = new System.Drawing.Size(141, 50);
-            this.buttonIssuePriorExpredSheet.TabIndex = 1;
-            this.buttonIssuePriorExpredSheet.Text = "Issue Prior Expired Sheet";
-            this.buttonIssuePriorExpredSheet.UseVisualStyleBackColor = true;
-            this.buttonIssuePriorExpredSheet.Click += new System.EventHandler(this.buttonIssuePriorExpredSheet_Click);
-            // 
-            // buttonAdjust
-            // 
-            this.buttonAdjust.ForeColor = System.Drawing.Color.Blue;
-            this.buttonAdjust.Location = new System.Drawing.Point(553, 344);
-            this.buttonAdjust.Name = "buttonAdjust";
-            this.buttonAdjust.Size = new System.Drawing.Size(100, 50);
-            this.buttonAdjust.TabIndex = 1;
-            this.buttonAdjust.Text = "Adjust";
-            this.buttonAdjust.UseVisualStyleBackColor = true;
-            this.buttonAdjust.Click += new System.EventHandler(this.buttonAdjust_Click);
             // 
             // OverviewForm
             // 

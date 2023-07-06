@@ -177,7 +177,8 @@ ORDER BY [ExpireDate].[ExpireDate]";
 [ExpireDate].[PriorExpiredSheetNo], [ExpireDate].[PriorExpiredSheetIssueDate] 
 FROM [PrintSleeve] 
 JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo]
-WHERE [PrintSleeve].[ItemNo] = '{itemNo}' AND [ExpireDate].[ExpireDate] = '{expiredDate}'";
+LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
+WHERE [Ship].[RollNo] IS NULL AND [PrintSleeve].[ItemNo] = '{itemNo}' AND [ExpireDate].[ExpireDate] = '{expiredDate}'";
             SqlCommand command = new SqlCommand(sql, cnn);
             SqlDataReader dataReader = command.ExecuteReader();
             List<IssueSheetView> result = new List<IssueSheetView>();

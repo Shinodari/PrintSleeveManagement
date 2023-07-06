@@ -44,7 +44,7 @@
             this.toolStrip = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripConnectDevice = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDevice = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusMain = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusDevice = new System.Windows.Forms.ToolStripStatusLabel();
@@ -70,7 +70,7 @@
             this.toolStrip,
             this.toolStripSeparator4,
             this.toolStripConnectDevice,
-            this.toolStripButton2});
+            this.toolStripDevice});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 5, 1, 5);
@@ -241,18 +241,19 @@
             this.toolStripConnectDevice.Text = "&Connect Device";
             this.toolStripConnectDevice.Click += new System.EventHandler(this.toolStripConnectDevice_Click);
             // 
-            // toolStripButton2
+            // toolStripDevice
             // 
-            this.toolStripButton2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Padding = new System.Windows.Forms.Padding(10);
-            this.toolStripButton2.Size = new System.Drawing.Size(133, 45);
-            this.toolStripButton2.Text = "&Device Setting";
+            this.toolStripDevice.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.toolStripDevice.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDevice.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.toolStripDevice.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDevice.Image")));
+            this.toolStripDevice.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDevice.Margin = new System.Windows.Forms.Padding(10, 1, 0, 2);
+            this.toolStripDevice.Name = "toolStripDevice";
+            this.toolStripDevice.Padding = new System.Windows.Forms.Padding(10);
+            this.toolStripDevice.Size = new System.Drawing.Size(133, 45);
+            this.toolStripDevice.Text = "&Device Setting";
+            this.toolStripDevice.Click += new System.EventHandler(this.toolStripDevice_Click);
             // 
             // statusStrip
             // 
@@ -333,7 +334,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripDevice;
     }
 }
 

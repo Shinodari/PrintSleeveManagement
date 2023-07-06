@@ -86,7 +86,7 @@ namespace PrintSleeveManagement.Models
                 errorString = "Can't connect database. Please contact Administrator";
                 return;
             }
-            string sql = @"SELECT [Transaction].[LocationID], 
+            string sql = @"SELECT t.[LocationID], 
 	                            [PrintSleeve].[ItemNo], 
 	                            [Item].[PartNo], 
 	                            [PrintSleeve].[LotNo], 
@@ -100,7 +100,7 @@ namespace PrintSleeveManagement.Models
 	                            [Receipt].[ReceivedTime] FROM [PrintSleeve]
                             LEFT JOIN [ExpireDate] e ON [PrintSleeve].[RollNo] = e.[RollNo]
                             LEFT JOIN [Receipt] ON [PrintSleeve].[ReceiptNo] = [Receipt].[ReceiptNo]
-                            LEFT JOIN [Transaction] ON [PrintSleeve].[RollNo] = [Transaction].[RollNo]
+                            LEFT JOIN [Transaction] t ON [PrintSleeve].[RollNo] = t.[RollNo] AND t.[TransactionTime] = (SELECT MAX([TransactionTime]) FROM [Transaction] WHERE [RollNo] = t.[RollNo])
                             LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo]
                             LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
                             WHERE [Ship].[RollNo] IS NULL AND e.[ExpireDate] = (SELECT MAX([ExpireDate]) FROM [ExpireDate] WHERE [RollNo] = e.[RollNo])";
