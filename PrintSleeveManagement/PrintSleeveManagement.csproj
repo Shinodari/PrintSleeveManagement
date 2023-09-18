@@ -110,6 +110,12 @@
       <DependentUpon>DeviceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InputDialog.cs" />
+    <Compile Include="ScrapDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScrapDialog.Designer.cs">
+      <DependentUpon>ScrapDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="IssueDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeviceForm.resx">
       <DependentUpon>DeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScrapDialog.resx">
+      <DependentUpon>ScrapDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IssueDialog.resx">
       <DependentUpon>IssueDialog.cs</DependentUpon>

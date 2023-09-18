@@ -26,7 +26,8 @@ JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
 JOIN [ExpireDate] e ON e.[RollNo] = [PrintSleeve].[RollNo]
 	AND e.[Time] = (SELECT Max([ExpireDate].[Time]) FROM [ExpireDate] WHERE [ExpireDate].[RollNo] = e.[RollNo])
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-WHERE [Ship].[RollNo] IS NULL AND (e.[PriorExpiredSheetNo] IS NOT NULL OR e.[IRSNo] IS NOT NULL)
+LEFT JOIN [Scrap] ON [PrintSleeve].[RollNo] = [Scrap].[RollNo]
+WHERE [Ship].[RollNo] IS NULL AND [Scrap].[RollNo] IS NULL AND (e.[PriorExpiredSheetNo] IS NOT NULL OR e.[IRSNo] IS NOT NULL)
 GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], e.[ExpireDate], e.[Time], e.[PriorExpiredSheetNo], e.[PriorExpiredSheetIssueDate], e.[IRSNo], e.[IRSIssueDate] 
 ORDER BY e.[PriorExpiredSheetNo], e.[IRSNo]";
             SqlCommand command = new SqlCommand(sql, cnn);
@@ -84,7 +85,8 @@ JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
 JOIN [ExpireDate] e ON e.[RollNo] = [PrintSleeve].[RollNo] AND e.[ExpireDate] < GETDATE() 
 	AND e.[Time] = (SELECT Max([ExpireDate].[Time]) FROM [ExpireDate] WHERE [ExpireDate].[RollNo] = e.[RollNo])
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-WHERE [Ship].[RollNo] IS NULL AND e.[IRSNo] IS NULL AND e.[PriorExpiredSheetNo] IS NULL
+LEFT JOIN [Scrap] ON [PrintSleeve].[RollNo] = [Scrap].[RollNo]
+WHERE [Ship].[RollNo] IS NULL AND [Scrap].[RollNo] IS NULL AND e.[IRSNo] IS NULL AND e.[PriorExpiredSheetNo] IS NULL
 GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], e.[ExpireDate], e.[Time]
 ORDER BY e.[ExpireDate]";
             SqlCommand command = new SqlCommand(sql, cnn);
@@ -115,7 +117,8 @@ ORDER BY e.[ExpireDate]";
 JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
 JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo] AND [ExpireDate].[ExpireDate] > GETDATE() AND [ExpireDate].[ExpireDate] < (DATEADD(MONTH, 1, GETDATE()))
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-WHERE [Ship].[RollNo] IS NULL AND [ExpireDate].[PriorExpiredSheetNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL
+LEFT JOIN [Scrap] ON [PrintSleeve].[RollNo] = [Scrap].[RollNo]
+WHERE [Ship].[RollNo] IS NULL AND [Scrap].[RollNo] IS NULL AND [ExpireDate].[PriorExpiredSheetNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL
 GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], [ExpireDate].[ExpireDate], [ExpireDate].[Time]
 ORDER BY [ExpireDate].[ExpireDate]";
             SqlCommand command = new SqlCommand(sql, cnn);
@@ -146,7 +149,8 @@ ORDER BY [ExpireDate].[ExpireDate]";
 JOIN [Item] ON [Item].[ItemNo] = [PrintSleeve].[ItemNo]
 JOIN [ExpireDate] ON [ExpireDate].[RollNo] = [PrintSleeve].[RollNo] AND [ExpireDate].[ExpireDate] > DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()) +1, '1') AND [ExpireDate].[ExpireDate] < DATEADD(DAY, -1,DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()) +2, '1'))
 LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-WHERE [Ship].[RollNo] IS NULL AND [ExpireDate].[PriorExpiredSheetNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL
+LEFT JOIN [Scrap] ON [PrintSleeve].[RollNo] = [Scrap].[RollNo]
+WHERE [Ship].[RollNo] IS NULL AND [Scrap].[RollNo] IS NULL AND [ExpireDate].[PriorExpiredSheetNo] IS NULL AND [ExpireDate].[IRSNo] IS NULL
 GROUP BY [PrintSleeve].[ItemNo], [Item].[PartNo], [ExpireDate].[ExpireDate], [ExpireDate].[Time]
 ORDER BY [ExpireDate].[ExpireDate]";
             SqlCommand command = new SqlCommand(sql, cnn);

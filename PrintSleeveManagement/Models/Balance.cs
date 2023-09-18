@@ -102,8 +102,8 @@ namespace PrintSleeveManagement.Models
                             LEFT JOIN [Receipt] ON [PrintSleeve].[ReceiptNo] = [Receipt].[ReceiptNo]
                             LEFT JOIN [Transaction] t ON [PrintSleeve].[RollNo] = t.[RollNo] AND t.[TransactionTime] = (SELECT MAX([TransactionTime]) FROM [Transaction] WHERE [RollNo] = t.[RollNo])
                             LEFT JOIN [Item] ON [PrintSleeve].[ItemNo] = [Item].[ItemNo]
-                            LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]
-                            WHERE [Ship].[RollNo] IS NULL AND e.[ExpireDate] = (SELECT MAX([ExpireDate]) FROM [ExpireDate] WHERE [RollNo] = e.[RollNo])";
+                            LEFT JOIN [Ship] ON [PrintSleeve].[RollNo] = [Ship].[RollNo]LEFT JOIN [Scrap] ON [PrintSleeve].[RollNo] = [Scrap].[RollNo]
+                            WHERE [Ship].[RollNo] IS NULL AND [Scrap].[RollNo] IS NULL AND e.[ExpireDate] = (SELECT MAX([ExpireDate]) FROM [ExpireDate] WHERE [RollNo] = e.[RollNo])";
             if (order == null)
             {
                 sql += "\nORDER BY [LocationID], [PartNo], [ExpireDate], [LotNo]";

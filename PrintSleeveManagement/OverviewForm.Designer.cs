@@ -40,6 +40,7 @@
             this.groupBoxExpired = new System.Windows.Forms.GroupBox();
             this.buttonIssueIRS = new System.Windows.Forms.Button();
             this.dataGridViewExpired = new System.Windows.Forms.DataGridView();
+            this.buttonScrap = new System.Windows.Forms.Button();
             this.groupBoxExpiredDate.SuspendLayout();
             this.groupBoxInProcess.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInProcess)).BeginInit();
@@ -159,6 +160,7 @@
             // 
             // groupBoxExpired
             // 
+            this.groupBoxExpired.Controls.Add(this.buttonScrap);
             this.groupBoxExpired.Controls.Add(this.buttonIssueIRS);
             this.groupBoxExpired.Controls.Add(this.dataGridViewExpired);
             this.groupBoxExpired.ForeColor = System.Drawing.Color.Red;
@@ -191,6 +193,16 @@
             this.dataGridViewExpired.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewExpired.Size = new System.Drawing.Size(646, 318);
             this.dataGridViewExpired.TabIndex = 0;
+            // 
+            // buttonScrap
+            // 
+            this.buttonScrap.Location = new System.Drawing.Point(7, 344);
+            this.buttonScrap.Name = "buttonScrap";
+            this.buttonScrap.Size = new System.Drawing.Size(75, 50);
+            this.buttonScrap.TabIndex = 2;
+            this.buttonScrap.Text = "Scrap";
+            this.buttonScrap.UseVisualStyleBackColor = true;
+            this.buttonScrap.Click += new System.EventHandler(this.buttonScrap_Click);
             // 
             // OverviewForm
             // 
@@ -234,5 +246,6 @@
         private System.Windows.Forms.Button buttonIssueIRS;
         private System.Windows.Forms.Button buttonAdjust;
         private System.Windows.Forms.Button buttonIssuePriorExpredSheet;
+        private System.Windows.Forms.Button buttonScrap;
     }
 }

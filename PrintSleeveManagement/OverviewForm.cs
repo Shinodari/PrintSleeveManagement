@@ -150,5 +150,41 @@ namespace PrintSleeveManagement
                 LoadDetail();
             }
         }
+
+        private void buttonScrap_Click(object sender, EventArgs e)
+        {
+            string itemNo = dataGridViewExpired.CurrentRow.Cells[0].Value.ToString();
+            string expriedDate = dataGridViewExpired.CurrentRow.Cells[3].Value.ToString();
+            
+            if (string.IsNullOrEmpty(itemNo))
+            {
+                MessageBox.Show("You not selected Item!");
+                return;
+            }
+
+            ScrapDialog scrapDialog = new ScrapDialog(itemNo, expriedDate);
+            if (scrapDialog.Show() == DialogResult.OK)
+            {
+                List<int> rollNoList = new List<int>();
+                rollNoList = scrapDialog.RollNoList;
+                if (rollNoList.Count < 1)
+                {
+                    MessageBox.Show("You not selected Roll!");
+                    return;
+                }
+          
+                foreach (int rollNo in rollNoList)
+                {
+                    ExpireDate exp = new ExpireDate(rollNo);
+                    if (!exp.Scrap(DateTime.Now))
+                    {
+                        MessageBox.Show("PrintSleeve RollNo '" + rollNo + "' can't Scrap! \nPlease try again.\nDetail:\n" + exp.getErrorString());
+                        return;
+                    }
+                }
+                MessageBox.Show("Scrap is successfuly.");
+                LoadDetail();
+            }
+        }
     }
 }
