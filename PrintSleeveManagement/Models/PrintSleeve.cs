@@ -79,6 +79,7 @@ WHERE [PrintSleeve].[RollNo] = '{rollNo}'";
 
         public PrintSleeve(int rollNo, string itemNo, string partNo, string lotNo, int quantity, DateTime expiredDate) : this()
         {
+            this.RollNo = rollNo;
             this.ItemNo = itemNo;
             this.PartNo = partNo;
             this.LotNo = lotNo;
